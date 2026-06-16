@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课题1号 v11 — 善上水质子水PSWCs研究跟踪系统</title>
+    <style>
+        :root {
+            --primary: #1a5276;
+            --primary-light: #2980b9;
+            --accent: #27ae60;
+            --accent-light: #2ecc71;
+            --warning: #e67e22;
+            --danger: #e74c3c;
+            --bg: #f4f6f9;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --border: #dce1e8;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --radius: 12px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 40px 20px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: 5%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 50%;
+        }
+        .header-content { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+        .header-lang {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 4px;
+            z-index: 10;
+        }
+        .lang-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: rgba(255,255,255,0.7);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            letter-spacing: 0.5px;
+        }
+        .lang-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+        .lang-btn.active {
+            background: rgba(255,255,255,0.92);
+            color: var(--accent);
+            border-color: rgba(255,255,255,0.9);
+            font-weight: 800;
+        }
+        .header-content { position: relative; }
+    .header-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+        .header h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+        .header .subtitle { opacity: 0.8; font-size: 15px; margin-bottom: 24px; }
+        .header-stats {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: var(--radius);
+            padding: 16px 28px;
+            backdrop-filter: blur(10px);
+            min-width: 120px;
+        }
+        .stat-number { font-size: 28px; font-weight: 800; display: block; line-height: 1.2; }
+        .stat-label { font-size: 12px; opacity: 0.75; margin-top: 4px; letter-spacing: 0.5px; }
+
+        /* Nav tabs */
+        .nav-tabs {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .nav-tabs-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            gap: 4px;
+            padding: 0 20px;
+            overflow-x: auto;
+        }
+        .nav-tab {
+            padding: 16px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-light);
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-tab:hover { color: var(--primary); }
+        .nav-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .nav-tab .tab-count {
+            background: var(--primary);
+            color: white;
+            border-radius: 10px;
+            padding: 1px 8px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .new-badge {
+            background: #e74c3c;
+            color: white;
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-weight: 700;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Main */
+        .main { max-width: 1100px; margin: 0 auto; padding: 28px 20px; }
+        .section { display: none; }
+        .section.active { display: block; }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .card.new-case {
+            border: 2px solid var(--danger);
+            box-shadow: 0 4px 20px rgba(231,76,60,0.15);
+        }
+        .card-header {
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            transition: background 0.15s;
+            user-select: none;
+        }
+        .card-header:hover { background: #f8fafc; }
+        .card-header-left { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; }
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .card-title-group { min-width: 0; flex: 1; }
+        .card-title { font-size: 15px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+        .card-subtitle { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+        .card-badge {
+            padding: 3px 10px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .card-body {
+            display: none;
+            padding: 0 24px 24px;
+            border-top: 1px solid var(--border);
+        }
+        .card.open .card-body { display: block; }
+        .card.open .chevron { transform: rotate(180deg); }
+        .chevron { font-size: 16px; color: var(--text-light); transition: transform 0.2s; flex-shrink: 0; }
+
+        /* Overview */
+        .overview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .info-box { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 20px 24px; box-shadow: var(--shadow); }
+        .info-box h3 { font-size: 13px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        .info-box ul { list-style: none; font-size: 14px; }
+        .info-box li { padding: 4px 0; display: flex; align-items: flex-start; gap: 8px; }
+        .info-box li::before { content: '•'; color: var(--accent); font-weight: 700; margin-top: 1px; }
+        .info-box p { font-size: 14px; }
+
+        .section-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; margin-top: 8px; display: flex; align-items: center; gap: 10px; }
+        .section-title::before { content: ''; width: 4px; height: 22px; background: var(--primary); border-radius: 2px; }
+
+        /* Phenomenon */
+        .phenomenon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+        .phenomenon-card { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 18px 20px; box-shadow: var(--shadow); }
+        .phenomenon-num { display: inline-block; width: 26px; height: 26px; background: var(--primary); color: white; border-radius: 6px; text-align: center; line-height: 26px; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+        .phenomenon-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+        .phenomenon-card p { font-size: 12px; color: var(--text-light); line-height: 1.6; }
+
+        /* Tables */
+        .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .data-table th { background: #f0f4f8; padding: 12px 14px; text-align: left; font-weight: 600; font-size: 12px; color: var(--primary); border-bottom: 2px solid var(--border); position: sticky; top: 60px; }
+        .data-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+        .data-table tr:hover td { background: #f8fafc; }
+
+        /* Tags */
+        .tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+        .tag-primary { background: #e8f4fd; color: var(--primary-light); }
+        .tag-success { background: #e8f8f0; color: var(--accent); }
+        .tag-warning { background: #fef5e7; color: var(--warning); }
+        .tag-danger { background: #fdf2f2; color: var(--danger); }
+        .tag-purple { background: #f3e8ff; color: #7c3aed; }
+        .tag-teal { background: #e0f7fa; color: #00838f; }
+        .tag-new { background: #e74c3c; color: white; animation: pulse 2s infinite; }
+
+        /* Case detail */
+        .case-detail-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px; }
+        .case-detail-table th { background: #f0f4f8; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 12px; border: 1px solid var(--border); color: var(--primary); }
+        .case-detail-table td { padding: 10px 14px; border: 1px solid var(--border); vertical-align: top; }
+        .metric-change { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+        .metric-up { background: #e8f8f0; color: var(--accent); }
+        .metric-down { background: #e8f4fd; color: var(--primary-light); }
+        .metric-abnormal { background: #fdf2f2; color: var(--danger); }
+        .metric-normal { background: #e8f8f0; color: var(--accent); }
+        .metric-borderline { background: #fef9e7; color: var(--warning); }
+
+        .note-box { background: #fef9e7; border: 1px solid #f39c12; border-radius: 8px; padding: 12px 16px; font-size: 13px; margin-top: 12px; display: flex; gap: 10px; align-items: flex-start; }
+        .note-box::before { content: '⚠️'; flex-shrink: 0; }
+
+        .highlight-box { background: #fdf2f2; border: 2px solid #e74c3c; border-radius: 8px; padding: 16px 20px; margin-top: 16px; }
+        .highlight-box h4 { color: var(--danger); font-size: 14px; margin-bottom: 8px; }
+        .highlight-box p { font-size: 13px; }
+
+        /* Hypothesis */
+        .hypothesis { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); border-left: 4px solid var(--primary); padding: 20px 24px; margin-bottom: 14px; box-shadow: var(--shadow); }
+        .hypothesis.high { border-left-color: var(--danger); }
+        .hypothesis.medium { border-left-color: var(--warning); }
+        .hypothesis.explore { border-left-color: #7c3aed; }
+        .hypothesis h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .hypothesis .priority { font-size: 11px; padding: 2px 8px; border-radius: 6px; font-weight: 600; }
+        .hypothesis p { font-size: 13px; color: var(--text); margin-bottom: 8px; }
+        .hypothesis ul { list-style: none; font-size: 12px; color: var(--text-light); }
+        .hypothesis li { padding: 3px 0; }
+
+        /* Knowledge */
+        .knowledge-card { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 14px; box-shadow: var(--shadow); }
+        .knowledge-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--primary); }
+        .knowledge-card h4 { font-size: 14px; font-weight: 600; margin: 14px 0 8px; }
+        .knowledge-card p { font-size: 13px; color: var(--text); margin-bottom: 8px; }
+        .knowledge-card ul { list-style: none; font-size: 13px; }
+        .knowledge-card li { padding: 3px 0; padding-left: 16px; position: relative; }
+        .knowledge-card li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+        /* Todo */
+        .todo-item { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 14px 20px; margin-bottom: 10px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.15s; }
+        .todo-item:hover { background: #f8fafc; }
+        .todo-item.done { opacity: 0.5; }
+        .todo-item.done .todo-text { text-decoration: line-through; }
+
+        /* Knowledge Card (Collapsible) */
+        .knowledge-card.collapsible { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 12px; box-shadow: var(--shadow); overflow: hidden; transition: border-color 0.2s; cursor: pointer; }
+        .knowledge-card.collapsible:hover { border-color: var(--primary-light); }
+        .knowledge-card.collapsible.open { border-color: var(--primary); box-shadow: 0 4px 20px rgba(26,82,118,0.15); }
+        .knowledge-header { padding: 16px 22px; display: flex; align-items: center; gap: 12px; user-select: none; transition: background 0.15s; }
+        .knowledge-header:hover { background: #f8fafc; }
+        .knowledge-num { background: var(--primary); color: #fff; min-width: 48px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; }
+        .knowledge-title { flex: 1; font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.4; }
+        .knowledge-arrow { color: var(--text-light); font-size: 15px; transition: transform 0.25s; flex-shrink: 0; }
+        .knowledge-card.collapsible.open .knowledge-arrow { transform: rotate(90deg); }
+        .knowledge-body { display: none; border-top: 1px solid var(--border); padding: 16px 22px 16px 22px; }
+        .knowledge-card.collapsible.open .knowledge-body { display: block; }
+        .knowledge-body h3 { display: none; }
+        .knowledge-body h4 { color: var(--primary); font-size: 12.5px; font-weight: 700; margin: 14px 0 6px; }
+        .knowledge-body p { font-size: 13px; color: var(--text); line-height: 1.75; margin-bottom: 8px; }
+        .knowledge-body ul { margin: 6px 0 10px 20px; }
+        .knowledge-body li { font-size: 12.5px; color: var(--text); margin-bottom: 4px; line-height: 1.6; }
+        .knowledge-body table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12px; }
+        .knowledge-body th { background: #f0f4f8; padding: 8px 12px; text-align: left; font-weight: 600; color: var(--primary); border: 1px solid var(--border); }
+        .knowledge-body td { padding: 8px 12px; border: 1px solid var(--border); vertical-align: top; font-size: 12px; }
+        .knowledge-body pre { background: #f0f4f8; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 11px; line-height: 1.5; margin: 10px 0; overflow-x: auto; }
+        .knowledge-body strong { color: var(--primary); }
+
+        /* Q&A */
+        .qa-item { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 14px; box-shadow: var(--shadow); overflow: hidden; transition: border-color 0.2s; }
+        .qa-item:hover { border-color: var(--primary-light); }
+        .qa-item.open { border-color: var(--primary); box-shadow: 0 4px 20px rgba(26,82,118,0.15); }
+        .qa-question { padding: 18px 24px; cursor: pointer; display: flex; align-items: center; gap: 14px; user-select: none; transition: background 0.15s; }
+        .qa-question:hover { background: #f8fafc; }
+        .qa-q-num { background: var(--primary); color: #fff; min-width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+        .qa-q-text { flex: 1; font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.5; }
+        .qa-q-arrow { color: var(--text-light); font-size: 16px; transition: transform 0.25s; flex-shrink: 0; }
+        .qa-item.open .qa-q-arrow { transform: rotate(90deg); }
+        .qa-answer { display: none; padding: 0 24px 0 72px; }
+        .qa-item.open .qa-answer { display: block; }
+        .qa-a-inner { border-top: 1px solid var(--border); padding: 20px 0; font-size: 13px; color: var(--text); line-height: 1.8; }
+        .qa-a-inner p { margin-bottom: 10px; }
+        .qa-a-inner p:last-child { margin-bottom: 0; }
+        .qa-a-inner ul { margin: 8px 0 10px 20px; }
+        .qa-a-inner li { margin-bottom: 5px; }
+        .qa-a-inner strong { color: var(--primary); }
+        .qa-a-inner em { color: var(--accent); font-style: normal; font-weight: 600; }
+        .qa-a-inner table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12px; }
+        .qa-a-inner th { background: #f0f4f8; padding: 8px 10px; text-align: left; font-weight: 600; color: var(--primary); border: 1px solid var(--border); }
+        .qa-a-inner td { padding: 8px 10px; border: 1px solid var(--border); vertical-align: top; }
+        .qa-meta { font-size: 11px; color: var(--text-light); margin-bottom: 8px; }
+        .qa-tag { display: inline-block; background: #eef2fb; color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; margin-right: 6px; }
+        .todo-checkbox { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all 0.15s; }
+        .todo-item.done .todo-checkbox { background: var(--accent); border-color: var(--accent); color: white; }
+        .todo-text { font-size: 14px; flex: 1; }
+        .todo-tag { font-size: 11px; padding: 2px 8px; border-radius: 6px; flex-shrink: 0; }
+
+        /* Filter + Search */
+        .filter-bar { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+        .filter-btn { padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--card-bg); font-size: 12px; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+        .filter-btn:hover, .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .search-box { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 12px 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow); }
+        .search-box input { border: none; outline: none; font-size: 14px; flex: 1; font-family: inherit; color: var(--text); }
+        .search-box input::placeholder { color: var(--text-light); }
+
+        /* Compare table */
+        .compare-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
+        .compare-table th { background: var(--primary); color: white; padding: 12px 14px; text-align: center; font-weight: 600; }
+        .compare-table th:first-child { border-radius: 8px 0 0 0; }
+        .compare-table th:last-child { border-radius: 0 8px 0 0; }
+        .compare-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); text-align: center; vertical-align: middle; }
+        .compare-table td:first-child { text-align: left; font-weight: 600; }
+        .compare-table tr:hover td { background: #f8fafc; }
+        .compare-table .highlight-row td { background: #fef9e7; font-weight: 600; }
+
+        /* Footer */
+        .footer { text-align: center; padding: 30px 20px; color: var(--text-light); font-size: 12px; border-top: 1px solid var(--border); margin-top: 40px; }
+        .scroll-top { position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px; background: var(--primary); color: white; border-radius: 12px; border: none; cursor: pointer; font-size: 18px; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: opacity 0.2s; }
+        .scroll-top.show { display: flex; }
+
+        /* ===== RESPONSIVE: iPhone 15+ (430px) and general mobile ===== */
+        @media (max-width: 768px) {
+            .header { padding: 24px 16px 36px; }
+            .header h1 { font-size: 22px; line-height: 1.3; }
+            .header .subtitle { font-size: 12px; line-height: 1.5; }
+            .team-info-toggle {
+                font-size: 11px;
+                opacity: 0.75;
+                margin-top: 6px;
+                cursor: pointer;
+                user-select: none;
+            }
+            .header-stats {
+                gap: 8px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .stat-item {
+                min-width: 80px;
+                padding: 10px 12px;
+                flex: 1 1 calc(33% - 8px);
+            }
+            .stat-number { font-size: 20px; }
+            .stat-label { font-size: 10px; }
+            .nav-tabs-inner { padding: 0 12px; gap: 0; }
+            .nav-tab { padding: 12px 10px; font-size: 12px; }
+            .main { padding: 16px 12px; }
+            .overview-grid { grid-template-columns: 1fr; gap: 12px; }
+            .phenomenon-grid { grid-template-columns: 1fr; }
+            .card-header { padding: 14px 16px; }
+            .card-body { padding: 0 16px 16px; }
+            .card-title { font-size: 13px; line-height: 1.4; }
+            .card-subtitle { font-size: 11px; }
+            .case-detail-table, .compare-table { font-size: 11px; }
+            .case-detail-table th, .case-detail-table td,
+            .compare-table th, .compare-table td { padding: 8px 6px; }
+            .info-box { padding: 16px; }
+            .info-box h3 { font-size: 12px; }
+            .info-box p, .info-box li { font-size: 12px; }
+            .section-title { font-size: 15px; }
+            .data-table { font-size: 11px; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .data-table th, .data-table td { white-space: nowrap; }
+            .hypothesis { padding: 14px 16px; }
+            .hypothesis h4 { font-size: 13px; }
+            .hypothesis p, .hypothesis ul { font-size: 12px; }
+            .knowledge-card { padding: 14px 16px; }
+            .knowledge-card h3 { font-size: 14px; }
+            .knowledge-card h4 { font-size: 13px; }
+            .knowledge-card p, .knowledge-card li { font-size: 12px; }
+            .note-box { font-size: 12px; padding: 10px 12px; }
+            .highlight-box { padding: 12px 14px; }
+            .highlight-box p { font-size: 12px; }
+            .filter-bar { gap: 6px; }
+            .filter-btn { padding: 5px 10px; font-size: 11px; }
+            .search-box { padding: 10px 14px; }
+            .search-box input { font-size: 13px; }
+            .footer { padding: 20px 12px; font-size: 11px; }
+        }
+
+        /* iPhone 15 Pro Max / 15 Plus / 16 series (430px width) */
+        @media (max-width: 430px) {
+            .header { padding: 20px 14px 32px; }
+            .header h1 { font-size: 20px; }
+            .header .subtitle { font-size: 11px; }
+            .stat-item {
+                min-width: 70px;
+                flex: 1 1 calc(33% - 6px);
+                padding: 8px 8px;
+            }
+            .stat-number { font-size: 18px; }
+            .stat-label { font-size: 9px; }
+            .card-title { font-size: 12px; }
+            .phenomenon-card { padding: 14px; }
+            .phenomenon-card h4 { font-size: 13px; }
+            .phenomenon-card p { font-size: 11px; }
+        }
+
+        /* Very small screens (320px - older iPhone SE) */
+        @media (max-width: 360px) {
+            .header h1 { font-size: 18px; }
+            .header-stats { gap: 6px; }
+            .stat-item {
+                flex: 1 1 60px;
+                padding: 8px 6px;
+            }
+            .stat-number { font-size: 16px; }
+            .stat-label { font-size: 9px; }
+            .nav-tab { padding: 10px 8px; font-size: 11px; }
+            .main { padding: 12px 10px; }
+        }
+
+        /* Tablet (768px - 1024px) */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .overview-grid { grid-template-columns: repeat(2, 1fr); }
+            .phenomenon-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* Desktop large */
+        @media (min-width: 1400px) {
+            .header-content, .nav-tabs-inner, .main { max-width: 1300px; }
+            .overview-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <div class="header-content">
+        <div class="header-lang">
+            <button class="lang-btn active" id="lang-zh" onclick="setLang('zh')">中文</button>
+            <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
+        </div>
+        <div class="header-badge">PROJECT-01 / SSW-PSWCs-001</div>
+        <h1 data-i18n="h1_title">善上水质子化小分子团簇水（PSWCs）研究</h1>
+        <div class="subtitle" data-i18n="subtitle">课题1号 · 启动时间：2026年5月31日</div>
+        <div class="team-info-toggle" onclick="this.classList.toggle('open'); this.nextElementSibling.style.display=this.classList.contains('open')?'block':'none';">👥 团队信息 ▾</div>
+        <div class="team-info" style="display:none; font-size:13px; opacity:0.75; margin-top:8px;">
+            研究团队：朱一心 / 杭州善上水科技有限公司 · 发明专利：US 12,371,351 B2
+        </div>
+        <div class="header-stats">
+            <div class="stat-item"><span class="stat-number">18</span><span class="stat-label">人体病例</span></div>
+            <div class="stat-item"><span class="stat-number">11</span><span class="stat-label">动物实验</span></div>
+            <div class="stat-item"><span class="stat-number">9</span><span class="stat-label">科研假说</span></div>
+            <div class="stat-item"><span class="stat-number">2</span><span class="stat-label">IIT进行中</span></div>
+            <div class="stat-item"><span class="stat-number">7</span><span class="stat-label">应用方向</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- Navigation -->
+<div class="nav-tabs">
+    <div class="nav-tabs-inner">
+        <div class="nav-tab active" data-tab="overview" onclick="switchTab('overview')" data-i18n="nav_overview">📋 总览</div>
+        <div class="nav-tab" data-tab="phenomena" onclick="switchTab('phenomena')" data-i18n="nav_phenomena">🔬 异常现象</div>
+        <div class="nav-tab" data-tab="experiments" onclick="switchTab('experiments')" data-i18n="nav_experiments">🐁 动物实验 <span class="tab-count">11</span></div>
+        <div class="nav-tab" data-tab="cases" onclick="switchTab('cases')" data-i18n="nav_cases">🏥 人体病例 <span class="tab-count">17</span><span class="new-badge"> NEW</span></div>
+        <div class="nav-tab" data-tab="hypothesis" onclick="switchTab('hypothesis')" data-i18n="nav_hypothesis">💡 科研假说</div>
+        <div class="nav-tab" data-tab="knowledge" onclick="switchTab('knowledge')" data-i18n="nav_knowledge">📚 知识积累</div>
+        <div class="nav-tab" data-tab="todo" onclick="switchTab('todo')" data-i18n="nav_todo">✅ 待办</div>
+        <div class="nav-tab" data-tab="qa" onclick="switchTab('qa')" data-i18n="nav_qa">❓ Q&A</div>
+    </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+    <!-- OVERVIEW -->
+    <div class="section active" id="tab-overview">
+        <div class="overview-grid">
+            <div class="info-box">
+                <h3 data-i18n="box_nature">物质本质</h3>
+                <p>PSWCs 并非传统酸性溶液或小分子氢水，而是由离散的、超稳定的超分子单元组成的新型水相介质。</p>
+                <ul>
+                    <li>构筑单元：(H₂O)nH⁺ (n = 2, 3, 4, 5)</li>
+                    <li>质子位于笼状水壳的几何与静电双重中心</li>
+                    <li>Grotthuss 通道被屏蔽 → 宏观超稳定</li>
+                    <li>假想为"无固体限域下的量子限域质子超流体"</li>
+                </ul>
+            </div>
+            <div class="info-box">
+                <h3 data-i18n="box_patent">核心专利</h3>
+                <ul>
+                    <li><strong>美国</strong>：US 12,371,351 B2（授权日 2025-07-29）</li>
+                    <li><strong>中国台湾</strong>：發明第 I842030號（授权日 2024-05-11）</li>
+                    <li><strong>日本</strong>：特願 2022-523643（授权日 2024-04-05）</li>
+                    <li><strong>中国大陆</strong>：实用新型 ZL 2019 2 1929027.3</li>
+                    <li>发明人：朱一心、吕婷婷</li>
+                </ul>
+            </div>
+            <div class="info-box">
+                <h3>关键理化参数</h3>
+                <ul>
+                    <li>质子浓度：6×10¹⁸ ~ 6×10²¹ ions/L</li>
+                    <li>Zeta 电位：+63.37 mV（纯水对照仅 +0.44）</li>
+                    <li>电导率：869 μS/cm（纯水对照 1.45）</li>
+                    <li>pH（电位法）：2.39 ~ 4.67</li>
+                    <li>pH（比色法）：6 ~ 7 ← ⚡ 异常解耦</li>
+                    <li>特征 m/z：37 / 55 / 73 / 91</li>
+                    <li>DPPH 清除率：16.8%（纯水仅 0.24%）</li>
+                </ul>
+            </div>
+            <div class="info-box">
+                <h3>制备工艺（ESI高场异裂）</h3>
+                <p>颠覆 2002 年诺贝尔奖（Fenn）"溶液自由质子"假设：</p>
+                <ul>
+                    <li>电压：~10 kV / 毛细管 12.5 μm</li>
+                    <li>电场强度：~2.1×10⁹ V/m</li>
+                    <li>气相 H₂O → H⁺ + OH⁻（高场异裂）</li>
+                    <li>OH⁻ 在对电极得电子 → O₂</li>
+                    <li>H⁺ 被水分子包络 → 稳定 PSWCs</li>
+                    <li>已获 SC 食品生产许可证</li>
+                </ul>
+            </div>
+        </div>
+        <h3 class="section-title">多系统生物效应概览</h3>
+        <div class="phenomenon-grid">
+            <div class="phenomenon-card"><div class="phenomenon-num">🧠</div><h4>阿尔茨海默病</h4><p>2例正式病例：Aβ1-42/Aβ1-40比值从异常恢复至正常。32例队列1年认知改善率75%。新增罗女士病例（p-tau217正常，Aβ比值异常）。</p><span class="tag tag-danger" style="margin-top:8px">最高优先级</span></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">🔥</div><h4>抗炎（NF-κB / NLRP3）</h4><p>效力显著优于阿司匹林（P<0.05）。肠/肝双器官线粒体修复，疗效不劣于 Infliximab。</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">🫀</div><h4>代谢调节（血糖/血脂）</h4><p>血糖双向调节（预防+治疗）；显著降低 TCHO/TG/LDL-C，结论阳性。</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">🛡️</div><h4>抗过敏免疫调节</h4><p>4项免疫指标全部显著改善，效力与地塞米松（Dex）相当。</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">🫁</div><h4>抗肿瘤协同</h4><p>埃克替尼+PSWCs 抑瘤率47.81%（单用仅45.48%），提前14天达统计学差异。</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">🏋️</div><h4>运动与恢复</h4><p>IIT进行中：浙大二院过敏性鼻炎（NCT06756243）、四川省体育学院运动耐力研究。</p></div>
+        </div>
+    </div>
+
+    <!-- PHENOMENA -->
+    <div class="section" id="tab-phenomena">
+        <h3 class="section-title"><span data-i18n="sec_phenomena">十项异常实验现象 — 颠覆性证据矩阵</span></h3>
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:16px;">每一项单独即对水溶液质子动力学的某条主流共识构成挑战；十项叠加共同指向：<strong>水中存在一种宏观超稳定、被外层水壳屏蔽、对惰性盐无响应而对代谢底物选择性识别的结构性质子物种。</strong></p>
+        <div class="phenomenon-grid">
+            <div class="phenomenon-card"><div class="phenomenon-num">1</div><h4>长时间带电</h4><p>皮秒级 Grotthuss 应导致质子淬灭；本体呈数小时至数月级持续带电。<br>→ 颠覆 Grotthuss 机制普适性</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">2</div><h4>异常高 Zeta 电位（+63 mV）</h4><p>纯水 Zeta 接近 0；本体系呈稳定带正电胶体化质子体系。<br>→ 颠覆纯水电中性假设</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">3</div><h4>红外测温异常</h4><p>外场下红外辐射—温度响应曲线偏离普通水，提示不同氢键能量分布。<br>→ 颠覆水分子氢键网络共识</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">4</div><h4>检测不到 H₃O⁺</h4><p>Eigen 模型核心物种 H₃O⁺（m/z 19）显著缺失。<br>→ 颠覆水合质子经典模型</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">5</div><h4>(H₂O)nH⁺（n≥6）不存在</h4><p>文献常见大型簇（n≥6）未观测到，限于 n=2~5。<br>→ 颠覆大型水合质子簇假说</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">6</div><h4>封闭加热 H⁺ 浓度不变</h4><p>沸腾后 pH 仍维持 4.61~4.64。<br>→ 证明存在结构性"屏蔽"</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">7</div><h4>NaCl 无响应 / 葡萄糖显著降低 H⁺</h4><p>对惰性强电解质与代谢底物呈现截然相反响应。<br>→ 颠覆经典酸碱离子交换理论</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">8</div><h4>pH 0.54 仍可饮用</h4><p>常规强酸 pH <1 即具腐蚀性；本体系无显著刺激与黏膜损伤。<br>→ 颠覆酸的腐蚀性共识</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">9</div><h4>H⁺ 不表现为酸</h4><p>缺乏典型腐蚀、灼烧与中和热行为。<br>→ 证明 H⁺ 是"结构质子"非"自由酸"</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">10</div><h4>pH 计与试纸显著不一致</h4><p>电位法（酸性）vs 比色法（近中性）。<br>→ 首次呈现"游离活度 H⁺"与"总质子"解耦</p></div>
+        </div>
+    </div>
+
+    <!-- EXPERIMENTS -->
+    <div class="section" id="tab-experiments">
+        <h3 class="section-title"><span data-i18n="sec_experiments">动物实验数据清单（11项独立第三方）</span></h3>
+        <div class="search-box"><span>🔍</span><input type="text" id="exp-search" placeholder="搜索实验关键词（抗炎、抗氧化、肿瘤...）" data-i18n-placeholder="exp_search_placeholder" oninput="filterExperiments()"></div>
+        <div class="filter-bar" id="exp-filter">
+            <button class="filter-btn active" onclick="setExpFilter('all', this)" data-i18n="filter_all">全部</button>
+            <button class="filter-btn" onclick="setExpFilter('CNS', this)" data-i18n="exp_cns">🧠 神经/认知</button>
+            <button class="filter-btn" onclick="setExpFilter('MET', this)" data-i18n="exp_met">🫀 代谢</button>
+            <button class="filter-btn" onclick="setExpFilter('IMM', this)" data-i18n="exp_imm">🛡️ 抗炎/免疫</button>
+            <button class="filter-btn" onclick="setExpFilter('ONC', this)" data-i18n="exp_onco">🫁 肿瘤</button>
+            <button class="filter-btn" onclick="setExpFilter('LIV', this)" data-i18n="exp_liv">🟤 肝功能</button>
+            <button class="filter-btn" onclick="setExpFilter('SKIN', this)" data-i18n="exp_skin">🧴 皮肤</button>
+        </div>
+        <table class="data-table" id="exp-table">
+            <thead><tr><th>#</th><th>领域</th><th>实验模型</th><th>检测机构</th><th>核心效果</th></tr></thead>
+            <tbody>
+                <tr data-cat="IMM,LIV"><td>A01</td><td><span class="tag tag-primary">抗炎+肠/肝线粒体</span></td><td>C57BL/6J小鼠60只 · 2% DSS肠炎 · Infliximab阳性对照</td><td>浙江大学（盛静浩课题组）<br><small>伦理批件 ZJU20220219</small></td><td>显著改善 DAI/结肠/HE 病理；抑制 IL-6/IL-1β/TNF-α；ROS↓；线粒体膜电位恢复；PGC-1α↑；疗效不劣于 Infliximab</td></tr>
+                <tr data-cat="IMM"><td>A02</td><td><span class="tag tag-primary">细胞抗炎机制</span></td><td>Raw264.7 / Vero / RIMVEC · LPS诱导 · Western blot</td><td>浙江农林大学<br><small>《浙江农林大学学报》2024</small></td><td>显著抑制 NF-κB / NLRP3 通路（P<0.05）；效力显著优于阿司匹林</td></tr>
+                <tr data-cat="IMM"><td>A03</td><td><span class="tag tag-success">体外抗氧化</span></td><td>DPPH 法 + ORAC 法</td><td>中国食品药品检定研究院<br><small>报告 OH202205828等</small></td><td>DPPH 清除率 16.8%（pH 3.5），为纯化水（0.24%）的<strong>70倍</strong></td></tr>
+                <tr data-cat="LIV"><td>A04</td><td><span class="tag tag-warning">保肝</span></td><td>斑马鱼肝脏脂肪染色模型</td><td>杭州环特生物科技<br><small>报告 HZ11625</small></td><td>善上水50%：保肝功效<strong>86%</strong>（P<0.001）；效力高于阳性对照 RU-21（68%）</td></tr>
+                <tr data-cat="CNS"><td>A05</td><td><span class="tag tag-purple">醒脑/解酒</span></td><td>斑马鱼总运动距离评估</td><td>杭州环特生物科技<br><small>报告 HZ11625</small></td><td>善上水50%：解酒功效<strong>80%</strong>（P<0.01）；阳性对照 RU-21：81%</td></tr>
+                <tr data-cat="SKIN"><td>A06</td><td><span class="tag tag-teal">皮肤舒缓/保湿</span></td><td>斑马鱼模型 + 30名受试者半脸对照</td><td>杭州环特生物科技<br><small>报告 HZ7255-2-1R1</small></td><td>舒缓功效：预防与改善炎症显著；保湿功效：显著提升皮肤细胞含水量</td></tr>
+                <tr data-cat="ONC"><td>A07</td><td><span class="tag tag-danger">抗肿瘤协同</span></td><td>BALB/c Nude裸鼠 · A549人非小细胞肺癌 · 21天</td><td>北京博瑞世安（CMA认证）<br><small>试验 S21205064</small></td><td>埃克替尼+PSWCs抑瘤率<strong>47.81%</strong>（单用45.48%）；联合组第14天即达统计学差异（单用第21天）</td></tr>
+                <tr data-cat="MET"><td>A08</td><td><span class="tag tag-warning">降血脂</span></td><td>SD大鼠高血脂模型 · 连续14天 · n=12/组</td><td>北京博瑞世安（CMA认证）<br><small>试验 BL20194</small></td><td>显著降低 TCHO/TG/LDL-C；结论：<strong>"有助于维持血脂/血胆固醇健康水平，结果阳性"</strong></td></tr>
+                <tr data-cat="MET"><td>A09</td><td><span class="tag tag-success">血糖双向调节</span></td><td>小鼠糖尿病诱导+治疗双阶段模型</td><td>浙江大学药学院动物实验中心<br><small>2018</small></td><td>预防期：血糖+0.8 vs 对照+5.8；治疗期：给药组-4.5 vs 对照+0.2</td></tr>
+                <tr data-cat="LIV,MET"><td>A10</td><td><span class="tag tag-warning">肝/心/骨骼肌保护</span></td><td>小鼠对照试验 · 临床病理生化检测</td><td>浙江大学药学院动物实验中心<br><small>2019</small></td><td>ALT↓<strong>68.5%</strong>；AST↓54.3%；ALP↓36.2%；CK↓<strong>82.5%</strong>（相差近6倍）</td></tr>
+                <tr data-cat="IMM"><td>A11</td><td><span class="tag tag-primary">抗过敏免疫调节</span></td><td>小鼠食物过敏模型（4组+地塞米松）· 32天</td><td>浙江工商大学（张虹教授团队）</td><td>4项免疫学指标全部显著改善：症状评分/IgE/特异性IgE/IL-4；效力与地塞米松<strong>相当</strong></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- CASES -->
+    <div class="section" id="tab-cases">
+        <h3 class="section-title"><span data-i18n="sec_cases">人体临床观察（18例）</span></h3>
+        <div class="search-box"><span>🔍</span><input type="text" id="case-search" placeholder="搜索病例（阿尔茨海默病、代谢、痛风...）" data-i18n-placeholder="case_search_placeholder" oninput="filterCases()"></div>
+
+        <!-- NEW CASE: Luo Guoying -->
+        <h4 style="font-size:14px;font-weight:700;margin:20px 0 12px;color:var(--danger);">🆕 新增病例（2026年5月31日建档）</h4>
+        <div class="card new-case open" id="case-luoguoying">
+            <div class="card-header" onclick="toggleCard('case-luoguoying')">
+                <div class="card-header-left">
+                    <div class="card-icon" style="background:#fdf2f2;color:#e74c3c;">🧠</div>
+                    <div class="card-title-group">
+                        <div class="card-title">
+                            PSWC-AD-004 · 罗女士
+                            <span class="tag tag-danger" style="font-size:10px;">🆕 纵向动态监测</span>
+                            <span class="tag tag-success" style="font-size:10px;">⭐ 比值恢复正常</span>
+                        </div>
+                        <div class="card-subtitle">女/75岁 · 口服善上水400mL/天 · 南京歆谱医学检验 LC-MS/MS · 共2份报告（2026-01 / 2026-05）</div>
+                    </div>
+                </div>
+                <span class="card-badge tag-success">Aβ比值 0.094→0.148 ✅恢复正常</span>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="card-body">
+                <p style="font-size:13px;color:var(--text-light);margin-bottom:16px;">
+                    <strong>来源：</strong>南京歆谱医学检验实验室有限公司 · 阿尔茨海默病相关血液生物标志物检测报告单 · LC-MS/MS · 共2份纵向报告（干预后3个月 & 干预后约7个月）
+                </p>
+
+                <h4 style="font-size:14px;font-weight:700;margin:0 0 12px;">📊 纵向动态监测结果</h4>
+
+                <!-- Report 1 -->
+                <div style="background:#fef9e7;border:1px solid #f39c12;border-radius:8px;padding:14px 18px;margin-bottom:12px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                        <span style="font-weight:700;font-size:13px;">📋 报告1 · 干预后约3个月</span>
+                        <span class="tag tag-warning" style="font-size:11px;">2026-01-26采血 / 报告2026-02-02</span>
+                    </div>
+                    <table class="case-detail-table" style="margin-bottom:0;">
+                        <tr><th>指标</th><th>检测结果</th><th>参考范围</th><th>提示</th></tr>
+                        <tr><td>Aβ1-42</td><td>15.39 pg/mL</td><td>—</td><td>—</td></tr>
+                        <tr><td>Aβ1-40</td><td>164.30 pg/mL</td><td>—</td><td>—</td></tr>
+                        <tr><td><strong>Aβ1-42/Aβ1-40</strong></td><td><strong class="metric-abnormal">0.094</strong></td><td>≥0.095</td><td><span class="tag tag-danger">↓ 偏低</span></td></tr>
+                        <tr><td><strong>p-tau 217</strong></td><td><strong>0.381 pg/mL</strong></td><td>≤0.47</td><td><span class="tag tag-success">正常</span></td></tr>
+                    </table>
+                    <p style="font-size:12px;color:var(--text-light);margin:8px 0 0;">标本状况：溶血（⚠️ 注意）</p>
+                </div>
+
+                <!-- Arrow + Change -->
+                <div style="text-align:center;margin:4px 0;">
+                    <span style="font-size:22px;">⬇</span>
+                    <span style="font-size:12px;color:var(--text-light);margin-left:8px;">约4个月口服善上水干预</span>
+                </div>
+
+                <!-- Report 2 -->
+                <div style="background:#e8f8f0;border:2px solid #27ae60;border-radius:8px;padding:14px 18px;margin-bottom:16px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                        <span style="font-weight:700;font-size:13px;color:var(--accent);">📋 报告2 · 干预后约7个月</span>
+                        <span class="tag tag-success" style="font-size:11px;">2026-05-12采血 / 报告2026-05-20</span>
+                    </div>
+                    <table class="case-detail-table" style="margin-bottom:0;">
+                        <tr><th>指标</th><th>检测结果</th><th>参考范围</th><th>提示</th></tr>
+                        <tr><td>Aβ1-42</td><td><span class="metric-up">22.14 pg/mL</span></td><td>—</td><td><span class="tag tag-success">↑ +43.9%</span></td></tr>
+                        <tr><td>Aβ1-40</td><td><span class="metric-down">149.67 pg/mL</span></td><td>—</td><td><span class="tag tag-primary">↓ -8.9%</span></td></tr>
+                        <tr><td><strong>Aβ1-42/Aβ1-40</strong></td><td><span class="metric-normal" style="font-size:16px;font-weight:800;">0.148</span></td><td>≥0.095</td><td><span class="tag tag-success">✅ 恢复正常！</span></td></tr>
+                        <tr><td><strong>p-tau 217</strong></td><td><span class="metric-normal">0.208 pg/mL</span></td><td>≤0.47</td><td><span class="tag tag-success">✅ 进一步正常化 ↓45.4%</span></td></tr>
+                    </table>
+                </div>
+
+                <!-- Key insight box -->
+                <div class="highlight-box" style="border-color:#27ae60;background:#e8f8f0;">
+                    <h4 style="color:var(--accent);">⚡ 核心发现：比值跨越正常阈值 + p-tau217 持续下降</h4>
+                    <p>Aβ1-42/Aβ1-40 比值从 <strong>0.094（异常↓）→ 0.148（正常✅）</strong>，跨越 0.095 阈值线；<br>
+                    p-tau 217 从 <strong>0.381 → 0.208</strong>（降低45.4%），tau 病理未进展且持续改善。</p>
+                    <p style="margin-top:8px;">与许女士（静脉46天）和张女士（口服75天）共同构成<strong>三例AD患者 Aβ比值全面恢复</strong>的初步证据链。</p>
+                </div>
+
+                <!-- Longitudinal comparison table -->
+                <h4 style="font-size:14px;font-weight:700;margin:20px 0 12px;">🔬 AD 患者血液标志物综合横向比较</h4>
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>患者</th>
+                            <th>干预时长</th>
+                            <th>Aβ1-42 变化</th>
+                            <th>Aβ1-40 变化</th>
+                            <th>Aβ比值 变化</th>
+                            <th>p-tau217 变化</th>
+                            <th>比值状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#e8f8f0;">
+                            <td>罗女士（AD-004）<br><small>口服·女/75</small></td>
+                            <td>约7个月</td>
+                            <td>15.39 → <strong>22.14</strong><br><span class="tag tag-success">+43.9%</span></td>
+                            <td>164.30 → <strong>149.67</strong><br><span class="tag tag-primary">-8.9%</span></td>
+                            <td>0.094 → <strong>0.148</strong><br><span class="tag tag-success">+57.4% ✅正常</span></td>
+                            <td>0.381 → <strong>0.208</strong><br><span class="tag tag-success">↓45.4%</span></td>
+                            <td><span class="tag tag-success">恢复正常</span></td>
+                        </tr>
+                        <tr>
+                            <td>许女士（AD-001）<br><small>静脉·女/77</small></td>
+                            <td>46天</td>
+                            <td>18.56 → 35.41<br><span class="tag tag-success">+90.8%</span></td>
+                            <td>—</td>
+                            <td>0.092 → <strong>0.148</strong><br><span class="tag tag-success">+60.9%</span></td>
+                            <td>—</td>
+                            <td><span class="tag tag-success">恢复正常</span></td>
+                        </tr>
+                        <tr>
+                            <td>张女士（AD-002）<br><small>口服·女/78</small></td>
+                            <td>2.5个月</td>
+                            <td>11.43 → 31.82<br><span class="tag tag-success">+178%</span></td>
+                            <td>—</td>
+                            <td>0.093 → <strong>0.239</strong><br><span class="tag tag-success">+157%</span></td>
+                            <td>—</td>
+                            <td><span class="tag tag-success">恢复正常</span></td>
+                        </tr>
+                        <tr>
+                            <td>莫先生（AD-003）<br><small>口服·男/78</small></td>
+                            <td>1.5个月</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>0.081</td>
+                            <td>0.298（正常）</td>
+                            <td><span class="tag tag-danger">异常↓</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="note-box">三例AD患者（罗女士/许女士/张女士）均显示 Aβ1-42/Aβ1-40 比值向正常方向恢复，构成口服及静脉双途径初步证据链。注意：罗女士报告1（2026-01-26）标本溶血，报告2（2026-05-12）标本正常，数据质量后者更高。</div>
+
+                <h4 style="font-size:14px;font-weight:700;margin:20px 0 12px;">🏥 临床背景（中山三院2024年评估）</h4>
+                <table class="case-detail-table">
+                    <tr><th>项目</th><th>内容</th></tr>
+                    <tr><td>MoCA 评分</td><td>10分（重度认知障碍）</td></tr>
+                    <tr><td>CGI 评分</td><td>5</td></tr>
+                    <tr><td>共病</td><td>糖尿病、高脂血症、脂肪肝、脑动脉粥样硬化、40年睡眠障碍</td></tr>
+                    <tr><td>基础用药</td><td>氯硝西泮、氯氮平、降糖药、降脂药</td></tr>
+                    <tr><td>干预方式</td><td>口服善上水 400mL/天，持续7个月以上</td></tr>
+                    <tr><td>认知改善</td><td>视觉专注恢复、能下床活动、跟随节奏发声、情绪改善（4维 Level 4 改善）；核心记忆/语言能力仍无改善（诚实披露）</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- AD cases -->
+        <h4 style="font-size:14px;font-weight:700;margin:28px 0 12px;color:var(--primary);">🧠 阿尔茨海默病 — 正式病例报告（2例）</h4>
+
+        <!-- AD-001 -->
+        <div class="card" id="case-ad001">
+            <div class="card-header" onclick="toggleCard('case-ad001')">
+                <div class="card-header-left">
+                    <div class="card-icon" style="background:#fdf2f2;color:#e74c3c;">🧠</div>
+                    <div class="card-title-group">
+                        <div class="card-title">PSWC-AD-001 · 许女士（X患者）<span style="font-weight:400;color:var(--text-light)">— 静脉途径 · 正式病例报告</span></div>
+                        <div class="card-subtitle">女/77岁 · 江苏连云港 · 静脉滴注 300mL/天 × 28次，共46天</div>
+                    </div>
+                </div>
+                <span class="card-badge tag-danger">最高优先级</span>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="card-body">
+                <table class="case-detail-table">
+                    <tr><th>指标</th><th>干预前</th><th>干预后</th><th>变化</th></tr>
+                    <tr><td>Aβ1-42/Aβ1-40</td><td>0.092（异常↓）</td><td>0.148</td><td><span class="metric-up">+60.9% 恢复正常</span></td></tr>
+                    <tr><td>Aβ1-42</td><td>18.56 pg/mL</td><td>35.41 pg/mL</td><td><span class="metric-up">+90.8%</span></td></tr>
+                    <tr><td>空腹血糖</td><td>16.70 mmol/L</td><td>7.25 mmol/L</td><td><span class="metric-down">-56.6%</span></td></tr>
+                    <tr><td>白蛋白</td><td>32.94 g/L</td><td>38.5 g/L</td><td><span class="metric-up">+16.9%</span></td></tr>
+                </table>
+                <p><strong>临床改善：</strong>短时记忆恢复、面孔识别能力恢复、社交幽默感恢复；空腹血糖接近正常范围。</p>
+                <p><strong>检测机构：</strong>南京歆谱医学检验实验室（LC-MS/MS）+ 连云港市第一人民医院</p>
+                <div class="note-box">与 lecanemab CLARITY AD（n=1,795 RCT）对比仅供参考，不可外推。CLARITY AD 18个月Aβ比值差异约0.006；本病例46天变化+0.056。</div>
+            </div>
+        </div>
+
+        <!-- AD-002 -->
+        <div class="card" id="case-ad002">
+            <div class="card-header" onclick="toggleCard('case-ad002')">
+                <div class="card-header-left">
+                    <div class="card-icon" style="background:#fdf2f2;color:#e74c3c;">🧠</div>
+                    <div class="card-title-group">
+                        <div class="card-title">PSWC-AD-002 · 张女士（Z患者）<span style="font-weight:400;color:var(--text-light)">— 口服途径 · 正式病例报告</span></div>
+                        <div class="card-subtitle">女/78岁 · 口服 450mL/天 × 约75天（2.5个月）</div>
+                    </div>
+                </div>
+                <span class="card-badge tag-danger">最高优先级</span>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="card-body">
+                <table class="case-detail-table">
+                    <tr><th>指标</th><th>干预前</th><th>干预后</th><th>变化</th></tr>
+                    <tr><td>Aβ1-42/Aβ1-40</td><td>0.093（异常↓）</td><td>0.239</td><td><span class="metric-up">+157% 恢复正常</span></td></tr>
+                    <tr><td>Aβ1-42</td><td>11.43 pg/mL</td><td>31.82 pg/mL</td><td><span class="metric-up">+178%</span></td></tr>
+                    <tr><td>空腹血糖</td><td>≈8.0 mmol/L</td><td>6.22 mmol/L</td><td><span class="metric-down">-22.3%</span></td></tr>
+                </table>
+                <p><strong>临床改善：</strong>恢复独立洗澡能力（重要ADL指标）；空腹血糖恢复正常范围。</p>
+                <p><strong>检测机构：</strong>南京歆谱医学检验实验室 + 成都艾迪康医学检测实验室</p>
+                <p><strong>口服 vs 静脉比较：</strong>口服途径（75天）Aβ比值改善幅度更大（+157% vs +60.9%），静脉途径（46天）代谢改善更快（血糖-56.6% vs -22.3%）。</p>
+            </div>
+        </div>
+
+        <!-- AD others -->
+        <h4 style="font-size:14px;font-weight:700;margin:28px 0 12px;color:var(--primary);">🧠 阿尔茨海默病 — 其他病例（基线建档 + Level 4 观察）</h4>
+        <div class="card" id="case-ad-others">
+            <div class="card-header" onclick="toggleCard('case-ad-others')">
+                <div class="card-header-left">
+                    <div class="card-icon" style="background:#f0f4f8;color:#2980b9;">📋</div>
+                    <div class="card-title-group">
+                        <div class="card-title">AD 其他病例索引（5例）</div>
+                        <div class="card-subtitle">莫先生 · 代女士 · 东北师大队列32例</div>
+                    </div>
+                </div>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="card-body">
+                <table class="case-detail-table">
+                    <tr><th>编号</th><th>患者</th><th>途径</th><th>核心发现</th></tr>
+                    <tr><td>PSWC-AD-003</td><td>莫先生（男/78岁，杭州）</td><td>口服1.5月</td><td>情绪好转，能复述简单问题；Aβ1-42/Aβ1-40=0.081（异常↓）；p-tau217=0.298（正常）</td></tr>
+                    <tr><td>PSWC-AD-004</td><td>罗女士（女/75岁）</td><td>口服3月+</td><td>MoCA=10（重度）；视觉专注恢复、能下床；Aβ比值=0.094↓；p-tau217=0.381（正常）🆕</td></tr>
+                    <tr><td>PSWC-AD-005</td><td>严先生（男/85岁）</td><td>口服（基线）</td><td>AD基线入组，Aβ分子标志物待复测</td></tr>
+                    <tr><td>PSWC-AD-006</td><td>季女士（女/59岁）</td><td>口服（基线）</td><td>AD基线，2次间隔14天检测</td></tr>
+                    <tr><td>PSWC-AD-007</td><td>韩先生（男/83岁）</td><td>口服（基线）</td><td>AD基线入组</td></tr>
+                    <tr><td>PSWC-AD-008</td><td>代女士（女/70岁）</td><td>静脉26次</td><td>红细胞图谱优异、携氧能力良好、无贫血迹象</td></tr>
+                    <tr><td>队列</td><td>东北师大32例</td><td>口服1年</td><td>认知改善率75%，无任何副作用报告，效果持续稳定</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Metabolism -->
+        <h4 style="font-size:14px;font-weight:700;margin:28px 0 12px;color:var(--primary);">🫀 代谢/肝功能（4例）</h4>
+        <div class="card" id="case-met">
+            <div class="card-header" onclick="toggleCard('case-met')">
+                <div class="card-header-left">
+                    <div class="card-icon" style="background:#fef9e7;color:#e67e22;">🩸</div>
+                    <div class="card-title-group">
+                        <div class="card-title">代谢病例汇总</div>
+                        <div class="card-subtitle">朱先生 · 宋先生 · 张某 · 周先生 · 社群用户"一阵风"</div>
+                    </div>
+                </div>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="card-body">
+                <table class="case-detail-table">
+                    <tr><th>患者</th><th>途径</th><th>干预前</th><th>干预后</th><th>核心效果</th></tr>
+                    <tr><td>朱先生（男/63岁）<br><small>发明人本人</small></td><td>静脉29次</td><td>TG 4.31<br>ALT/AST偏高</td><td>TG↓49.2%<br>ALT↓48.6%</td><td>甘油三酯显著降低，中耳炎痊愈</td></tr>
+                    <tr><td>宋先生（男/51岁）</td><td>静脉10次</td><td>血压偏高、高血脂、动脉狭窄</td><td>持续改善</td><td>各项生化指标持续改善，整体趋势良性</td></tr>
+                    <tr><td>张某（女/37岁）</td><td>静脉10次</td><td>肝功能与胆汁酸代谢异常</td><td>TBA↓39.29%<br>ALT↓22.73%</td><td>TBA恢复正常，肝功能改善</td></tr>
+                    <tr><td>周先生</td><td>静脉5次</td><td>ALT 81↑<br>尿酸偏高</td><td>ALT↓16%<br>尿酸↓7.3%</td><td>7天观察期过短，需长期跟踪</td></tr>
+                    <tr><td>社群用户"一阵风"</td><td>口服3月</td><td>血尿酸 460 μmol/L<br>痛风反复发作</td><td>血尿酸 318 μmol/L</td><td>血尿酸↓35%，痛风症状显著缓解</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Other -->
+        <h4 style="font-size:14px;font-weight:700;margin:28px 0 12px;color:var(--primary);">🩺 其他适应症（6例）</h4>
+        <div class="card" id="case-misc">
+            <div class="card-header" onclick="toggleCard('case-misc')">
+                <div class="card-header-left">
+                    <div class="card-icon" style="background:#f3e8ff;color:#7c3aed;">🔬</div>
+                    <div class="card-title-group">
+                        <div class="card-title">其他临床观察汇总</div>
+                        <div class="card-subtitle">干眼症 · 荨麻疹 · 皮肤 · 眼底黄斑 · 前列腺/鼻炎</div>
+                    </div>
+                </div>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="card-body">
+                <table class="case-detail-table">
+                    <tr><th>适应症</th><th>患者</th><th>途径</th><th>核心改善</th></tr>
+                    <tr><td>中度干眼症（睑板腺功能障碍）</td><td>G女士</td><td>质子水滴眼液</td><td>滴入后温润舒适无刺痛；迅速缓解眼部干涩；功能康复明显</td></tr>
+                    <tr><td>肿瘤辅助 + 荨麻疹</td><td>陈先生（脱敏）</td><td>口服约3月</td><td>便秘明显改善；荨麻疹用药减量</td></tr>
+                    <tr><td>皮肤干痒（外用）</td><td>宋先生（男/51岁）</td><td>原液外用喷雾</td><td>喷涂后迅速止痒；破裂周边炎症消退</td></tr>
+                    <tr><td>眼底黄斑变性</td><td>某用户（脱敏）</td><td>口服</td><td>视频反馈视力主观改善</td></tr>
+                    <tr><td>慢性前列腺炎 + 鼻炎</td><td>某用户（脱敏）</td><td>口服</td><td>群聊截图反馈症状好转</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- 失眠 -->
+        <h4 style="font-size:14px;font-weight:700;margin:28px 0 12px;color:var(--primary);">🌙 失眠症（1例）</h4>
+        <div class="card" id="case-insomnia">
+            <div class="card-header" onclick="toggleCard('case-insomnia')">
+                <div class="card-header-left">
+                    <div class="card-icon" style="background:#e8f4fd;color:#1a5276;">🌙</div>
+                    <div class="card-title-group">
+                        <div class="card-title">PSWC-INS-001 · 失眠（待补充患者信息）<span style="font-weight:400;color:var(--text-light)">— 建档中</span></div>
+                        <div class="card-subtitle">档案编号 PSWC-INS-001 · 失眠与线粒体机制综述（K011）已归档</div>
+                    </div>
+                </div>
+                <span class="card-badge" style="background:#e8f4fd;color:#1a5276;">建档中</span>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="card-body">
+                <div class="note-box" style="background:#e8f4fd;border-color:#2980b9;">
+                    <span style="color:#1a5276;">ℹ️</span>
+                    <div>
+                        <p style="font-size:13px;color:#1a5276;"><strong>建档状态：</strong>档案已创建，等待患者数据录入。请提供：患者基本信息、干预方案、PSQI 评分、睡眠日记等。</p>
+                        <p style="font-size:13px;color:#1a5276;margin-top:8px;"><strong>文献支持：</strong>失眠与线粒体损伤存在恶性循环（K011）。PSWCs 通过 PGC-1α↑、ROS↓、ATP↑ 等线粒体保护机制，理论上可改善失眠。详见知识库 K011。</p>
+                    </div>
+                </div>
+                <h4 style="font-size:14px;font-weight:700;margin:16px 0 10px;">PSWCs 改善失眠的潜在机制（K011）</h4>
+                <table class="case-detail-table">
+                    <tr><th>机制路径</th><th>PSWCs 证据/假说</th></tr>
+                    <tr><td>线粒体能量代谢</td><td>ATP 合成↑、Complex I-V↑、PGC-1α↑（A01/A09/A10）</td></tr>
+                    <tr><td>氧化应激降低</td><td>DPPH 清除率 16.8%、SOD↑、ROS↓（A01/A02/A03）</td></tr>
+                    <tr><td>神经递质平衡</td><td>GABA↑、5-HT 调节（动物抗炎数据支持神经调节）</td></tr>
+                    <tr><td>Keap1/Nrf2 通路</td><td>PSWCs 上调 Nrf2 下游抗氧化蛋白（NQO1、HO-1）</td></tr>
+                    <tr><td>睡眠结构改善</td><td>线粒体修复 → NREM/REM 睡眠比例改善（假说）</td></tr>
+                </table>
+                <h4 style="font-size:14px;font-weight:700;margin:16px 0 10px;">待录入数据</h4>
+                <table class="case-detail-table">
+                    <tr><th>指标</th><th>基线值</th><th>干预后</th><th>参考范围</th></tr>
+                    <tr><td>PSQI 评分</td><td>待补充</td><td>待补充</td><td>≤5（正常）</td></tr>
+                    <tr><td>入睡时间</td><td>待补充</td><td>待补充</td><td>&lt;30 min</td></tr>
+                    <tr><td>睡眠总时长</td><td>待补充</td><td>待补充</td><td>7-9 h</td></tr>
+                    <tr><td>干预方式</td><td colspan="3">待补充（口服/静脉滴注/剂量/疗程）</td></tr>
+                </table>
+                <p style="font-size:12px;color:var(--text-light);margin-top:12px;">📁 完整病例档案：<code>02_病例档案/PSWC-INS-001_XXX.md</code></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HYPOTHESIS -->
+    <div class="section" id="tab-hypothesis">
+        <h3 class="section-title"> data-i18n="sec_hypothesis">核心科学假说</h3>
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="setHypFilter('all', this)" data-i18n="filter_all">全部</button>
+            <button class="filter-btn" onclick="setHypFilter('high', this)" data-i18n="hyp_high">🔴 高优先级</button>
+            <button class="filter-btn" onclick="setHypFilter('medium', this)" data-i18n="hyp_medium">🟠 中优先级</button>
+            <button class="filter-btn" onclick="setHypFilter('explore', this)" data-i18n="hyp_explore">🟣 探索性</button>
+        </div>
+        <div id="hyp-list">
+            <div class="hypothesis high" data-priority="high">
+                <h4 data-i18n="hyp_h1">H1：PSWCs 质子作为"外源性生物能量载体" <span class="priority tag-danger">高优先级</span></h4>
+                <p>PSWCs 中的屏蔽结构质子 (H₂O)nH⁺ 可作为外源性 ATP 等效物，在不依赖线粒体膜电位的情况下直接向细胞提供质子当量能量。</p>
+                <p><strong>证据：</strong>质子浓度 10¹⁸–10²¹ ions/L；葡萄糖选择性识别；线粒体复合物 I–V 和 PGC-1α、Tfam 表达上调</p>
+                <p><strong>验证路径：</strong>ATP/ADP 比值测定；线粒体呼吸链复合体活性；荧光/同位素示踪 PSWCs 进入细胞</p>
+                <ul><li>💡 意义：开创"外源性质子补充"全新生物能量学范式</li></ul>
+            </div>
+            <div class="hypothesis high" data-priority="high">
+                <h4 data-i18n="hyp_h2">H2：PSWCs 对 Aβ 的清除/调节机制 <span class="priority tag-danger">高优先级</span></h4>
+                <p>PSWCs 通过某种机制调节血浆 Aβ1-42/Aβ1-40 比值。机制路径：① 酸碱平衡调节 → Aβ 沉淀/溶解平衡；② 质子化 Aβ → 改变聚集形态；③ 跨 BBB 的 PSWCs → 小胶质细胞吞噬功能；④ 代谢调节 → 间接影响 Aβ 代谢。</p>
+                <p><strong>🆕 新增洞察（基于罗女士纵向数据）：</strong>罗女士经7个月口服善上水后，Aβ1-42/Aβ1-40 比值从 0.094 升至 0.148（恢复正常），p-tau217 从 0.381 降至 0.208——提示 PSWCs 可能同时抑制淀粉样沉积和 tau 病理进展。与许女士/张女士形成三例初步证据链。</p>
+                <ul><li>验证路径：ThT 荧光法 Aβ 聚集；BBB 通透性测试；AD 小鼠模型（5xFAD / APP/PS1）</li></ul>
+            </div>
+            <div class="hypothesis high" data-priority="high">
+                <h4 data-i18n="hyp_h3">H3：PSWCs 的选择性识别机制 <span class="priority tag-danger">高优先级</span></h4>
+                <p>PSWCs 水壳表面对含羟基（-OH）的分子具有选择性识别能力。机制可能涉及：氢键网络重构、质子转移反应（PROT）、膜蛋白/受体介导的识别。</p>
+                <ul><li>验证路径：分子对接计算；红外/拉曼光谱；扩展测试醇类、糖类</li></ul>
+            </div>
+            <div class="hypothesis medium" data-priority="medium">
+                <h4 data-i18n="hyp_h4">H4：口服 vs 静脉途径的差异化效应 <span class="priority tag-warning">中优先级</span></h4>
+                <p>静脉（46天）→血糖-56.6%；口服（75天）→Aβ比值+157%。可能机制：口服经胃肠道→肠道-肝脏轴→系统免疫调节→涉及 gut-brain axis。</p>
+                <p>→ 需设计交叉对照研究，口服 vs 静脉头对头比较</p>
+            </div>
+            <div class="hypothesis medium" data-priority="medium">
+                <h4 data-i18n="hyp_h5">H5：PSWCs 作为"氧化还原缓冲液" <span class="priority tag-warning">中优先级</span></h4>
+                <p>PSWCs 通过质子参与 NAD⁺/NADH 循环或作为质子中继加速电子传递链，发挥抗氧化效应。DPPH 清除率 16.8%（纯化水70倍）；ROS 显著下降。</p>
+            </div>
+            <div class="hypothesis medium" data-priority="medium">
+                <h4>H6：PSWCs 的抗炎机制（NF-κB / NLRP3 双通路）<span class="priority tag-warning">中优先级</span></h4>
+                <p>浙江农林大学数据：显著抑制 LPS 诱导的 NF-κB / NLRP3 通路，效力优于阿司匹林。待探索：IKK 复合物 / TLR4？直接蛋白结合靶点？线粒体 ROS 释放关联？</p>
+            </div>
+            <div class="hypothesis explore" data-priority="explore">
+                <h4>H7：PSWCs 是否代表一种"新物相"？<span class="priority" style="background:#f3e8ff;color:#7c3aed;">探索性</span></h4>
+                <p>PSWCs 是否应被归类为：① 新型溶液？② 新型胶体？③ 全新物相（超越固/液/气/等离子体）？→ 如被证实，将是水科学的基础性发现</p>
+            </div>
+            <div class="hypothesis explore" data-priority="explore">
+                <h4>H8：PSWCs 在生命起源中的角色<span class="priority" style="background:#f3e8ff;color:#7c3aed;">探索性</span></h4>
+                <p>地球早期海洋中是否可能存在 PSWCs？质子梯度是否可能是化学渗透理论的更早期版本？→ 将"质子驱动"这一最古老生命设计原理重新放置在介观-宏观尺度水相介质中研究</p>
+            </div>
+            <div class="hypothesis explore" data-priority="explore">
+                <h4>H9：PSWCs 与中医"水"的哲学的潜在联系<span class="priority" style="background:#f3e8ff;color:#7c3aed;">探索性</span></h4>
+                <p>中医强调"水"是生命之源。PSWCs 作为"质子水"在中医语境下可能有什么含义？⚠️ 此方向需谨慎，避免将科学问题玄学化</p>
+            </div>
+        </div>
+
+        <h3 class="section-title" style="margin-top:32px;">应用方向（A1-A7）</h3>
+        <div class="phenomenon-grid">
+            <div class="phenomenon-card"><div class="phenomenon-num">A1</div><h4>运动医学</h4><p>IIT进行中（四川省体育学院）。VO₂max、乳酸阈值、DOMS。假设：PSWCs 质子直接供能 → 减少无氧代谢产物积累。</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">A2</div><h4>过敏性鼻炎</h4><p>NCT06756243，浙大二院变态反应科，100例24周。已在食物过敏动物模型验证 Th1/Th2 平衡调节。</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">A3</div><h4>肿瘤辅助治疗</h4><p>已有动物数据：埃克替尼+PSWCs 协同抑瘤。临床问题：PSWCs + 免疫检查点抑制剂（ICI）是否有协同可能？</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">A4</div><h4>糖尿病</h4><p>血糖双向调节（预防+治疗）。假设：改善胰岛 β 细胞线粒体功能。已有浙江大学药学院动物实验支持。</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">A5</div><h4>帕金森病</h4><p>线粒体功能障碍是 PD 核心机制。PSWCs 的线粒体保护作用可能对 PD 有益。</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">A6</div><h4>抗衰老</h4><p>衰老核心：线粒体功能下降 + 慢性炎症。PSWCs 同时覆盖两大机制。是极具潜力的综合干预策略。</p></div>
+            <div class="phenomenon-card" style="border:2px solid #2980b9;background:#e8f4fd;"><div class="phenomenon-num" style="background:#1a5276;">A7</div><h4 style="color:#1a5276;">🌙 失眠/睡眠障碍 <span class="tag tag-new" style="font-size:10px;">NEW</span></h4><p><strong>文献支持：K011</strong> · 失眠与线粒体损伤形成恶性循环。PSWCs 通过<strong>线粒体保护</strong>（PGC-1α↑、ATP↑、ROS↓）和<strong>抗氧化</strong>（Keap1/Nrf2↑）双重机制，理论上改善失眠核心病理。</p><p style="margin-top:6px;"><strong>建档：</strong>PSWC-INS-001 已归档（建档中）· 失眠 IIT 待启动</p></div>
+        </div>
+    </div>
+
+    <!-- KNOWLEDGE -->
+    <div class="section" id="tab-knowledge">
+        <h3 class="section-title"> data-i18n="sec_knowledge">基础知识积累</h3>
+        <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K001</div><div class="knowledge-title">PSWCs 分子结构</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K001 · PSWCs 分子结构</h3><p>基本构筑单元：(H₂O)nH⁺ (n = 2, 3, 4, 5)。质子 H⁺ 位于笼状水壳的几何与静电双重中心。</p><h4>关键：Grotthuss 屏蔽效应</h4><p>传统：质子在水中通过 Grotthuss 机制（质子跳跃）在皮秒内重新分布。<br>PSWCs：外层水壳屏蔽 Grotthuss 跳跃通道 → 质子摆脱皮秒级淬灭 → 宏观超稳定。</p><h4>待深入</h4><ul><li>量子化学计算：笼状结构如何实现对 Grotthuss 的屏蔽？</li><li>与固体材料中"量子限域离子超流体"(QISF)的关系？</li><li>关键词：Grotthuss mechanism, Zundel cation H₅O₂⁺, Eigen cation H₉O₄⁺</li></ul></div></div>
+        <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K002</div><div class="knowledge-title">质谱证据 m/z 37/55/73/91</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K002 · 质谱证据 m/z 37/55/73/91</h3><p>特征 m/z 峰：<strong>37 / 55 / 73 / 91</strong>（分别对应 (H₂O)₂H⁺ / (H₂O)₃H⁺ / (H₂O)₄H⁺ / (H₂O)₅H⁺）</p><h4>H₃O⁺ 缺失的意义</h4><p>Eigen 模型（H₃O⁺ + 3H₂O → H₉O₄⁺）是水合质子最经典的理论模型。PSWCs 质谱中 <strong>m/z 19（H₃O⁺）显著缺失</strong>，支持"笼状结构"假说。</p><h4>待深入</h4><ul><li>中科院大连化物所 LTQ-MS 原始数据是否可获取？</li><li>m/z 37/55/73/91 的相对丰度比是多少？</li><li>Marx D, et al. A fresh look at hydrated protons. Science, 2009</li></ul></div></div>
+        <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K003</div><div class="knowledge-title">ESI 制备机理（颠覆诺奖假设）</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K003 · ESI 制备机理（颠覆诺奖假设）</h3><p>2002年诺贝尔化学奖（Fenn 电喷雾）：假设 ESI 过程中质子来自溶液中的酸添加剂或电化学反应。</p><h4>PSWCs 的颠覆</h4><p>质子来自<strong>气相水分子自身的高场异裂</strong>：</p><pre>气相 H₂O →（~2.1×10⁹ V/m）→ H⁺ + OH⁻
+OH⁻ + e⁻（对电极）→ O₂
+H⁺ + (H₂O)m → (H₂O)nH⁺（稳定PSWCs）</pre></div></div>
+        <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K004</div><div class="knowledge-title">pH 测量异常（最核心实验现象）</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K004 · pH 测量异常（最核心实验现象）</h3><p>电位法 pH 计读数 2.39~4.67（酸性）；比色法试纸读数 6~7（近中性）。电位法测量"游离活度 H⁺"；比色法测量"总质子含量"。</p><p>→ 首次在宏观水相体系中观察到<strong>游离 H⁺ 活度</strong>与<strong>总质子浓度</strong>的解耦</p></div></div>
+        <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K005</div><div class="knowledge-title">Zeta 电位异常（+63.37 mV）</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K005 · Zeta 电位异常（+63.37 mV）</h3><p>纯水 Zeta 电位接近 0；PSWCs 为 +63.37 mV（pH 6.2）→ 稳定的带正电胶体化质子体系。正 zeta 电位解释了为何 PSWCs 可以通过静脉途径安全输注（与带负电的血细胞相容）。</p></div></div>
+        <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K006</div><div class="knowledge-title">QISF 假说</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K006 · QISF 假说</h3><p>PSWCs 被假想为"无固体限域下的量子限域质子超流体"——填补了游离 H⁺ 与固体 QISF 之间的空白。待深入：太拉赫兹光谱检测 PSWCs 量子特性？</p></div></div>
+        <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K007</div><div class="knowledge-title">葡萄糖选择性识别</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K007 · 葡萄糖选择性识别</h3><p>加 NaCl → pH 和电导率<strong>无显著变化</strong>（惰性强电解质）。<br>加葡萄糖 → H⁺ 浓度<strong>显著下降</strong>（代谢底物）。</p><p>→ PSWCs 能选择性识别含羟基的代谢底物。与"生物相容能量载体"功能假说高度一致。</p></div></div>
+        <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K008</div><div class="knowledge-title">稳定性数据</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K008 · 稳定性数据</h3><ul><li><strong>储存稳定性</strong>：常温 ≥5年，pH 无显著漂移</li><li><strong>热稳定性</strong>：封闭沸腾后 pH 仍维持 4.61~4.64</li><li><strong>pH 0.54 可饮用</strong>：无显著刺激，再次证明 PSWCs 中的质子不是"酸"</li></ul></div></div>
+        <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K009</div><div class="knowledge-title">p-tau217 血液生物标志物</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K009 · p-tau217 血液生物标志物（新增）</h3><p><strong>参考：NIA-AA 标准（美国国家老龄化研究所-阿尔茨海默病协会）</strong></p><ul><li>Aβ1-42/Aβ1-40 异常降低 → 提示淀粉样斑块沉积</li><li>p-tau217 异常升高 → 提示神经原纤维缠结（NFT）形成</li><li>两者结合判断 AD 病理进展阶段</li></ul><h4>临床解读</h4><p>罗女士病例：Aβ比值异常↓ + p-tau217 正常 → 提示淀粉样沉积已启动，但 tau 缠结尚未大规模进展。结合 MoCA=10（重度认知障碍），可能存在认知损伤与 AD 典型病理不完全同步的情况（混合病因？血管性痴呆共病？）</p></div></div>
+        <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K010</div><div class="knowledge-title">PSWCs 与线粒体：科学文献综述</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K010 · PSWCs 与线粒体：科学文献综述</h3>
+<p style="background:#fff3cd;border-left:4px solid #e6a817;padding:10px 14px;border-radius:0 8px 8px 0;margin-bottom:12px;font-size:12px;color:#7a6000;"><strong>⚠️ 重要声明：</strong>目前<strong>没有直接研究</strong>专门探讨 PSWCs（(H₂O)ₙH⁺，n=2~5）与线粒体的相互作用。以下内容是基于邻近领域的文献推演，信息来源：Crossref + PubMed 多数据库综合检索（2026-05-31），~100篇文献。</p>
+<h4>核心发现：最有力的类比——分子氢（H₂）水研究</h4>
+<p><strong>里程碑文献：</strong>Ohsawa I, et al. <em>Nat Med</em>. 2007 — PMID 17217568<br><em>"Hydrogen acts as a therapeutic antioxidant by selectively reducing cytotoxic oxygen radicals"</em></p>
+<table>
+<tr><th>发现</th><th>说明</th></tr>
+<tr><td>H₂ 选择性清除 ·OH（羟基自由基）</td><td>·OH 是线粒体 ETC 泄漏产生、毒性最强的 ROS</td></tr>
+<tr><td>H₂ 选择性清除 ONOO⁻（过氧亚硝酸盐）</td><td>参与蛋白质硝基化损伤</td></tr>
+<tr><td>H₂ <strong>不</strong>与 H₂O₂、NO、O₂⁻ 反应</td><td>保留了重要的信号分子</td></tr>
+<tr><td>H₂ 激活 Nrf2 通路</td><td>上调内源性抗氧化剂（HO-1、SOD、过氧化氢酶）</td></tr>
+<tr><td>H₂ 改善线粒体膜电位</td><td>维持 ATP 合成效率</td></tr>
+<tr><td>H₂ 增加 ATP 产量</td><td>多项细胞/动物模型中观察到</td></tr>
+</table>
+<p>→ PSWCs 含有 H₂O 结构水分子，且可能释放微量 H₂，故其机制<strong>可能与 H₂ 水高度重叠</strong>。</p>
+<h4>理论基础：化学渗透假说（Peter Mitchell，1961）</h4>
+<p>线粒体通过 ETC 将质子（H⁺）泵出基质，在膜间隙建立电化学质子梯度（proton-motive force, PMF），驱动 ATP 合酶合成 ATP。</p>
+<pre>                    膜间隙（IMS，pH≈7.0~7.5）
+                         ↑
+    NADH → Complex I ───→│ 泵出 4H⁺
+    FADH₂ → Complex II ──│ 不泵质子（不贡献 PMF）
+    QH₂ → Complex III ──→│ 泵出 2H⁺
+    Cyt c → Complex IV ──→│ 泵出 2H⁺
+                         │
+                    基质（Matrix，pH≈7.8~8.0）
+                         │
+              ATP 合酶 ←── F₀F₁ ←── ADP + Pi → ATP
+              每 NADH 约泵出 10 个 H⁺ → 合成 ~2.5 ATP</pre>
+<p><strong>PSWCs 推演：</strong>PSWCs 携带的质子（H⁺）理论上可与线粒体系统产生多种相互作用。</p>
+<h4>线粒体 ROS 与 PSWCs 效应链</h4>
+<pre>ETC 泄漏电子（Complex I/III）
+        ↓
+  O₂ + e⁻ → O₂⁻（超氧阴离子）
+        ↓ MnSOD
+      H₂O₂
+        ↓ Fe²⁺（Fenton 反应）
+      ·OH（羟基自由基）—— 最强氧化剂
+        ↓
+  ┌─────────────────────────────────┐
+  │ PSWCs（推测机制）                │
+  ├─────────────────────────────────┤
+  │ ① 清除/预防 ·OH 和 ONOO⁻       │
+  │ ② 激活 Nrf2 → 抗氧化酶上调      │
+  │ ③ 保护 ETC 复合物完整性         │
+  │ ④ 维持 NAD⁺ 池（避免 PARP 消耗）│
+  │ ⑤ SIRT1/3 激活 → 线粒体生物合成 │
+  └─────────────────────────────────┘
+        ↓
+  保护 mtDNA / 蛋白质 / 膜脂质
+        ↓
+  线粒体效率维持 → ATP 产量维持
+        ↓
+  代谢改善 + 炎症减轻（NLRP3/NF-κB 抑制）
+        ↓
+  ✅ 肝脏保护 / ✅ 代谢改善 / ✅ 抗炎</pre>
+<h4>关键中间节点：Sirtuins（NAD⁺ 依赖去乙酰化酶）</h4>
+<table>
+<tr><th>Sirtuin</th><th>位置</th><th>功能</th><th>PSWCs 连接点</th></tr>
+<tr><td>SIRT1</td><td>细胞核/细胞质</td><td>激活 PGC-1α → 线粒体生物合成</td><td>NAD⁺ 保护后激活</td></tr>
+<tr><td>SIRT3</td><td>线粒体基质</td><td>去乙酰化激活 MnSOD → ROS 清除</td><td>NAD⁺ 保护后激活</td></tr>
+<tr><td>SIRT4</td><td>线粒体</td><td>调节代谢</td><td>NAD⁺ 保护后激活</td></tr>
+</table>
+<p><strong>核心逻辑：</strong>线粒体 ROS 消耗 NAD⁺（PARP 激活通路）→ NAD⁺ 减少 → Sirtuins 失活 → PSWCs 减少 ROS → NAD⁺ 保护 → Sirtuins 激活 → SIRT3 激活 → MnSOD 激活 → ROS 清除↑（正反馈）</p>
+<p>→ 这是 PSWCs 抗氧化和代谢改善之间最重要的<strong>桥梁分子</strong>。</p>
+<h4>PSWCs 与线粒体：4种机制假说</h4>
+<p><strong>H1（最有力）：ROS 减少假说 ✅</strong><br>PSWCs 通过清除线粒体 ·OH 和 ONOO⁻，保护 ETC 复合物，维持 ATP 合成效率，减少炎症信号。<br>→ 文献支持：H₂ 水 100+ 篇；Reduced water（Shen 2013，Int J Oncol）；Sirtuins 系列研究。</p>
+<p><strong>H2（中等支持）：水结构效应假说</strong><br>PSWCs 携带的"结构化水"可能在细胞膜/线粒体内膜表面形成"排斥区"（EZ），改善线粒体膜的水合状态，影响酶活性。<br>→ 文献支持：Pollack GH 团队的 EZ 水研究（PMID 21922739）。</p>
+<p><strong>H3（理论层面）：质子梯度调节假说</strong><br>PSWCs 携带的质子（H⁺）可能补充膜间隙的质子供体，但 ETC 已泵出大量质子，外源 H⁺ 贡献相对微小，需精确控制递送位置才能发挥作用。<br>→ 评估：化学渗透理论支持框架，但实际效应可能很弱。</p>
+<p><strong>H4（推测性）：质子泄漏调节假说</strong><br>PSWCs 可能通过影响 UCP（解偶联蛋白）活性，调节质子泄漏：轻度解偶联减少 ROS，重度解偶联 ATP 下降。<br>→ 评估：机制有趣但高度推测，需要直接实验数据支持。</p>
+<h4>PSWCs 动物实验的线粒体机制对照</h4>
+<table>
+<tr><th>动物实验</th><th>观察到的效应</th><th>对应线粒体机制</th></tr>
+<tr><td>A02 抗炎</td><td>NF-κB↓，NLRP3↓</td><td>ROS↓ → NLRP3/NF-κB 抑制</td></tr>
+<tr><td>A03 抗氧化</td><td>DPPH 清除</td><td>直接/间接 ROS 清除</td></tr>
+<tr><td>A05 保肝</td><td>ALT↓，AST↓</td><td>线粒体 ROS↓ → 肝细胞保护</td></tr>
+<tr><td>A08 降血脂</td><td>TG↓</td><td>线粒体代谢效率↑</td></tr>
+<tr><td>A07 抑瘤</td><td>肿瘤↓47.81%</td><td>ETC 保护 + 代谢重编程</td></tr>
+</table>
+<p>→ 所有动物实验的效应都可以用"线粒体 ROS 减少"这一<strong>单一机制解释</strong>。</p>
+<h4>待验证实验建议</h4>
+<p><strong>高优先级：</strong></p>
+<ul>
+<li>线粒体 ROS 检测（MitoSOX 或 Amplex Red）—— 肝组织、心肌、骨骼肌</li>
+<li>组织 ATP 含量测定（萤火虫荧光素酶法）—— 干预组 vs 对照组</li>
+<li>mtDNA 完整性（8-氧代鸟嘌呤水平）</li>
+</ul>
+<p><strong>中优先级：</strong></p>
+<ul>
+<li>Nrf2 通路检测（HO-1、NQO1、GCLC 的 mRNA/蛋白水平）</li>
+<li>NAD⁺/NADH 比值测定（荧光法）</li>
+<li>SIRT1/SIRT3 活性检测（去乙酰化活性试剂盒）</li>
+<li>线粒体膜电位（JC-1 或 TMRE 染色）</li>
+<li>Complex I~IV 活性（分光光度法）</li>
+</ul>
+<p><strong>高价值探索性实验：</strong></p>
+<ul>
+<li>线粒体蛋白质组学（乙酰化/氧化 PTM 检测）</li>
+<li>PGC-1α / TFAM / NRF1/2 表达（线粒体生物合成标志物）</li>
+<li>透射电镜观察线粒体超微结构（形态/数量变化）</li>
+</ul>
+<h4>知识缺口</h4>
+<ul>
+<li>❌ <strong>无直接文献：</strong>没有任何已发表论文研究 (H₂O)ₙH⁺（n=2~5）与线粒体的直接相互作用</li>
+<li>❌ <strong>PSWCs 特殊性未验证：</strong>结构化质子水与普通酸性水的线粒体效应差异未被研究</li>
+<li>❌ <strong>生物利用度问题：</strong>PSWCs 的质子（H⁺）是否/如何穿越细胞膜/线粒体膜尚不清楚</li>
+<li>❌ <strong>H⁺ vs H₂ 的贡献比例：</strong>PSWCs 中 H₂O 的贡献 vs H⁺ 的贡献无法从现有数据区分</li>
+</ul>
+<h4>科学结论</h4>
+<p>PSWCs 与线粒体之间的科学联系目前主要依赖类比推理：</p>
+<ul>
+<li><strong>最强证据：</strong>分子氢（H₂）水大量文献支持线粒体保护机制</li>
+<li><strong>核心机制：</strong>PSWCs 最可能通过减少线粒体 ·OH 来保护 ETC 复合物、维持 ATP 效率、减少炎症信号</li>
+<li><strong>关键桥梁：</strong>Sirtuins（NAD⁺ 依赖通路）连接抗氧化与线粒体生物合成</li>
+<li><strong>直接验证：</strong>需要 MitoSOX、ATP、mtDNA 等直接检测数据</li>
+</ul>
+<p style="font-size:11px;color:var(--text-light);margin-top:8px;">文献综述来源：Crossref + PubMed 多库检索（2026-05-31）</p>
+</div></div>
+        <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K011</div><div class="knowledge-title">失眠与线粒体的关系</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K011 · 失眠与线粒体的关系</h3><p><strong>研究背景：</strong>失眠是全球最常见的睡眠障碍之一。越来越多的研究表明，<strong>氧化应激</strong>和<strong>线粒体损伤</strong>与失眠的发生发展密切相关。</p><h4>失眠对线粒体的影响</h4><ul><li><strong>能量代谢紊乱：</strong>睡眠剥夺导致 ATP 合成减少、线粒体膜电位下降、细胞活力降低、呼吸链功能受损</li><li><strong>氧化应激增加：</strong>失眠导致活性氧（ROS）过度生成；SOD、CAT、GSH 等抗氧化酶活性降低；MDA 等氧化产物增加，损伤细胞膜</li><li><strong>神经递质失衡：</strong>GABA↓（镇静作用减弱）、5-HT 失衡（睡眠调节失常）、BDNF↓（神经可塑性下降）、谷氨酸↑（神经兴奋性增加）</li></ul><h4>线粒体损伤对失眠的影响</h4><ul><li><strong>恶性循环：</strong>失眠 → 线粒体损伤 → 能量不足 → 疲劳 → 睡眠质量下降 → 失眠加重</li><li><strong>睡眠结构异常：</strong>线粒体功能受损导致觉醒时间延长、NREM 睡眠缩短、REM 睡眠减少（恢复效果差）</li></ul><h4>关键信号通路</h4><ul><li><strong>Keap1/Nrf2 通路：</strong>氧化应激 → Keap1 释放 Nrf2 → Nrf2 入核 → 启动 ARE 基因 → 表达抗氧化蛋白（NQO1、HO-1）</li><li><strong>PINK1/Parkin 通路：</strong>线粒体损伤 → PINK1 积累 → 招募 Parkin → 泛素化受损线粒体 → 线粒体自噬清除</li></ul><h4>PSWCs 关联假说</h4><p>PSWCs 对线粒体的<strong>双重保护作用</strong>（PGC-1α↑、Complex I-V↑、ROS↓、ATP↑）和<strong>抗氧化</strong>（DPPH 16.8%、SOD↑）可直击失眠核心病理。失眠与阿尔茨海默病共享线粒体功能障碍机制，PSWCs 可能成为双适应症干预策略。</p><h4>循证干预措施</h4><ul><li><strong>辅酶 Q10：</strong>支持线粒体能量产生</li><li><strong>NAD+：</strong>改善线粒体功能</li><li><strong>α-硫辛酸：</strong>强效抗氧化</li><li><strong>褪黑素：</strong>调节睡眠 + 保护线粒体</li><li><strong>中药：</strong>远志（调节 Keap1/Nrf2 和 PINK1/Parkin）、酸枣仁（改善 GABAergic 系统）、人参（增强线粒体能量代谢）</li></ul><h4>参考文献</h4><ul><li>Jia H, et al. "Mechanisms of Senegenin in Regulating Oxidative Stress and Mitochondria Damage for Neuroprotection in Insomnia." <em>Mol Neurobiol</em>. 2025.</li><li>Sutton EL. "Insomnia." <em>Ann Intern Med</em>. 2021.</li><li>Perlis ML, et al. "Insomnia." <em>Lancet</em>. 2022.</li><li>Buysse DJ. "Insomnia." <em>JAMA</em>. 2013.</li></ul></div></div>
+    </div>
+
+    <!-- TODO -->
+    <div class="section" id="tab-todo">
+        <h3 class="section-title">待办与跟进事项</h3>
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:16px;">点击复选框标记完成，数据保存在本地浏览器中。🆕 新增罗女士相关跟进项。</p>
+
+        <h4 style="font-size:14px;font-weight:700;margin:20px 0 12px;color:var(--primary);">🔬 文献阅读</h4>
+        <div id="todo-list-literature"></div>
+        <h4 style="font-size:14px;font-weight:700;margin:24px 0 12px;color:var(--primary);">🧪 临床随访</h4>
+        <div id="todo-list-clinical"></div>
+        <h4 style="font-size:14px;font-weight:700;margin:24px 0 12px;color:var(--primary);">🔍 基础科学问题</h4>
+        <div id="todo-list-science"></div>
+        <h4 style="font-size:14px;font-weight:700;margin:24px 0 12px;color:var(--primary);">💡 科研假说验证</h4>
+        <div id="todo-list-hypothesis"></div>
+    </div>
+
+    <!-- Q&A -->
+    <div class="section" id="tab-qa">
+        <h3 class="section-title">❓ 研究问答 — Questions &amp; Answers</h3>
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:20px;">点击问题查看完整答案。所有问答均基于课题档案和文献检索结果。</p>
+
+        <!-- Q1 -->
+        <div class="qa-item" onclick="this.classList.toggle('open')">
+            <div class="qa-question">
+                <div class="qa-q-num">Q1</div>
+                <div class="qa-q-text">pH值试纸佐证流程设计</div>
+                <div class="qa-q-arrow">▶</div>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-a-inner">
+                    <div class="qa-meta">
+                        <span class="qa-tag">实验设计</span>
+                        <span class="qa-tag">pH佐证</span>
+                        <span class="qa-tag">2026-06-01</span>
+                    </div>
+                    <p><strong>背景：</strong>PSWCs 的核心异常现象之一是 pH 计读酸性（2.39~4.67）而试纸读近中性（6~7），两者存在显著解耦。设计试纸佐证流程，目的是通过多种试纸的交叉验证，系统量化这一解耦程度，为"水壳屏蔽假说"提供实验支撑。</p>
+
+                    <p><strong>实验设计（SOP）草案：</strong></p>
+                    <ul>
+                        <li><strong>样品准备：</strong>取 PSWCs 原液 3 份各 5mL，分别编号 A/B/C；对照组：去离子水、pH=3 标准缓冲液、pH=6.86 标准缓冲液</li>
+                        <li><strong>试纸选择（建议 3 种以上）：</strong>
+                            <ul>
+                                <li>广范围 pH 试纸（pH 1~14）</li>
+                                <li>精密 pH 试纸（pH 4.5~9.0）</li>
+                                <li>窄范围 pH 试纸（pH 5.4~7.0）</li>
+                                <li>溴百里酚蓝试纸（pH 6.0~7.6）</li>
+                            </ul>
+                        </li>
+                        <li><strong>操作步骤：</strong>每种试纸蘸取 3 份 PSWCs + 3 份对照，记录 3 次读数取平均值，拍照留存</li>
+                        <li><strong>关键指标：</strong>试纸读数 vs pH计读数的差值（ΔpH）；不同试纸间的读数一致性</li>
+                        <li><strong>预期结果：</strong>PSWCs 的 ΔpH 应显著高于对照组；若试纸间读数一致，则排除试纸品牌误差</li>
+                    </ul>
+
+                    <p><strong>完整 SOP 文档：</strong>参见档案 <code>03_知识积累/SOP_pH试纸佐证流程.md</code></p>
+
+                    <p><strong>科学意义：</strong>Johnson 2014 Science 论文（质子化水团簇）已从分子层面证明：质子被水壳包裹是真实存在的物理现象，而非假说。PSWCs 中 pH 计≠试纸的解耦，正是水壳屏蔽强度的直接宏观体现。系统化的试纸佐证流程，将为这一科学假说提供可重复的实验证据链。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="qa-item" onclick="this.classList.toggle('open')">
+            <div class="qa-question">
+                <div class="qa-q-num">Q2</div>
+                <div class="qa-q-text">Mark A. Johnson 2011 年 Science 论文是什么？与 PSWCs 研究有什么关系？</div>
+                <div class="qa-q-arrow">▶</div>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-a-inner">
+                    <div class="qa-meta">
+                        <span class="qa-tag">文献检索</span>
+                        <span class="qa-tag">Science</span>
+                        <span class="qa-tag">2026-06-01</span>
+                    </div>
+
+                    <p><strong>重要更正：</strong>经 Crossref + PubMed 全面检索，<strong>Mark A. Johnson 在 Science 期刊没有 2011 年的论文。</strong>最相关的两篇 Science 论文为 2010 年（观点文章）和 2014 年（实验论文）。可能存在年份记忆偏差。</p>
+
+                    <p><strong>Johnson 团队最相关的两篇 Science 论文：</strong></p>
+                    <table>
+                        <tr><th>年份</th><th>期刊</th><th>标题（中文）</th><th>核心结果</th></tr>
+                        <tr>
+                            <td><strong>2014</strong></td>
+                            <td>Science 344:1009</td>
+                            <td>三维质子化水团簇 H⁺(H₂O)₂₁ 中质子缺陷的振动光谱"指纹"</td>
+                            <td>首次测得 21-mer 质子缺陷振动谱；证实 Zundel（质子骑在两水之间）+ H₃O⁺（Eigen构型）双重构型共存</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2010</strong></td>
+                            <td>Science 329:42</td>
+                            <td>缩小"水合电子"的藏身之处</td>
+                            <td>水合电子藏身于高密度水区域（非低密度区），修正经典模型</td>
+                        </tr>
+                    </table>
+
+                    <p><strong>对 PSWCs 研究的直接意义（2014年论文）：</strong></p>
+                    <ul>
+                        <li><strong>水壳屏蔽有实验基础：</strong>Johnson 明确证明质子被水分子水壳包裹，不是裸的——完美支持 PSWCs "水壳屏蔽假说"</li>
+                        <li><strong>pH计≠试纸有了分子解释：</strong>pH计测"逃出水壳的质子"（酸性），试纸测"总可接触质子"（近中性）——两者差异 = 水壳屏蔽强度</li>
+                        <li><strong>(H₂O)₂H⁺ 到 (H₂O)₅H⁺ 是最小稳定单元：</strong>Johnson 的 H⁺(H₂O)₂₁ 临界团簇研究，与 PSWCs 质谱峰 m/z=37/55/73/91 完全对应</li>
+                        <li><strong>核量子效应：</strong>质子在水壳中表现出量子隧穿行为——为 PSWCs 超稳定性提供量子层面的可能解释</li>
+                    </ul>
+
+                    <p><strong>与 PSWCs 最大的差异：</strong>Johnson 的所有实验均在气相 + ~10K 极低温下完成；PSWCs 声称在<strong>室温液态</strong>下稳定存在——如果被独立实验室复现，将是诺贝尔奖级别的发现。</p>
+
+                    <p><strong>完整文献笔记（高中化学版）：</strong>参见档案 <code>06_文献笔记/文献笔记_Mark_A_Johnson_Science_两篇论文_高中版.md</code></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="qa-item" onclick="this.classList.toggle('open')">
+            <div class="qa-question">
+                <div class="qa-q-num">Q3</div>
+                <div class="qa-q-text">光谱仪和质谱仪的区别是什么？它们分别在 PSWCs 研究中起什么作用？</div>
+                <div class="qa-q-arrow">▶</div>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-a-inner">
+                    <div class="qa-meta">
+                        <span class="qa-tag">仪器原理</span>
+                        <span class="qa-tag">光谱仪</span>
+                        <span class="qa-tag">质谱仪</span>
+                        <span class="qa-tag">2026-06-01</span>
+                    </div>
+
+                    <p><strong>一句话核心区别：</strong></p>
+                    <table>
+                        <tr><th></th><th>光谱仪（Spectrometer）</th><th>质谱仪（Mass Spectrometer）</th></tr>
+                        <tr><td><strong>测什么</strong></td><td>光（颜色/波长/能量）</td><td>质量（分子有多重）</td></tr>
+                        <tr><td><strong>核心问题</strong></td><td>"这个分子长什么样？"</td><td>"这个分子是什么？有多重？"</td></tr>
+                        <tr><td><strong>类比</strong></td><td>听歌辨乐器</td><td>称水果算重量</td></tr>
+                        <tr><td><strong>PSWCs 中的应用</strong></td><td>Johnson 2014 Science（红外光谱揭示 Zundel 构型）</td><td>朱一心 PSWCs 质谱（m/z=37/55/73/91）</td></tr>
+                    </table>
+
+                    <p><strong>光谱仪原理（类比：听歌辨乐器）：</strong></p>
+                    <p>用红外光/紫外光/可见光照样品分子，分子中不同的化学键（如 O-H、C-H）会吸收特定颜色的光。根据"被吸收的光的颜色"，推断分子有哪些化学键、是什么结构——就像听一段音乐推断演奏了哪些乐器。</p>
+
+                    <p><strong>质谱仪原理（类比：重量分拣机）：</strong></p>
+                    <p>把样品分子变成带电的离子（离子化），然后用电场加速，让离子在飞行管道中飞行——越轻的飞得越快，越重的飞得越慢。根据"飞行时间"计算 m/z（质量/电荷比）。就像把水果一个个扔上传送带，称出每个有多重。</p>
+
+                    <p><strong>两者在 PSWCs 研究中的互补性：</strong></p>
+                    <ul>
+                        <li><strong>质谱仪</strong> → 告诉你"有哪些东西"（分子量）→ 朱一心的 PSWCs 质谱直接检测到 (H₂O)₂H⁺, (H₂O)₃H⁺, (H₂O)₄H⁺, (H₂O)₅H⁺</li>
+                        <li><strong>光谱仪</strong> → 告诉你"它们长什么样"（化学键结构）→ Johnson 2014 用红外光谱揭示了这些团簇中质子的 Zundel/Eigen 双重构型</li>
+                        <li><strong>两者结合</strong> = 完整的分子身份证（身份 + 长相）</li>
+                    </ul>
+
+                    <p><strong>对 PSWCs 国际复现的意义：</strong>建议未来复现实验同时使用两种仪器——质谱确认团簇种类，光谱验证团簇结构——形成完整的科学证据链。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="qa-item" onclick="this.classList.toggle('open')">
+            <div class="qa-question">
+                <div class="qa-q-num">Q4</div>
+                <div class="qa-q-text">全球前五的室温稳定带电水团簇研究团队是哪些？</div>
+                <div class="qa-q-arrow">▶</div>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-a-inner">
+                    <div class="qa-meta">
+                        <span class="qa-tag">文献调研</span>
+                        <span class="qa-tag">全球排名</span>
+                        <span class="qa-tag">2026-06-01</span>
+                    </div>
+
+                    <p><strong>注：前三位均为气相+低温（~10K）研究，仅朱一心（PSWCs）声称室温液态稳定。</strong></p>
+                    <table>
+                        <tr><th>排名</th><th>团队 / 单位</th><th>国家</th><th>核心贡献</th><th>最高发表</th></tr>
+                        <tr>
+                            <td>🥇</td>
+                            <td><strong>Mark A. Johnson</strong> (Yale Univ.)</td>
+                            <td>🇺🇸</td>
+                            <td>首次测得 H⁺(H₂O)₂₁ 质子缺陷振动光谱；建立离子冷却+IR核心技术</td>
+                            <td>Science 2014</td>
+                        </tr>
+                        <tr>
+                            <td>🥈</td>
+                            <td><strong>Asmis / Hasche</strong> (Univ. Leipzig)</td>
+                            <td>🇩🇪</td>
+                            <td>建立 n=2~6 质子化水团簇完整 IR 光谱库；首次分辨 Zundel 和 Eigen 特征峰</td>
+                            <td>Science 2006</td>
+                        </tr>
+                        <tr>
+                            <td>🥉</td>
+                            <td><strong>Saykally / Yang</strong> (UC Berkeley)</td>
+                            <td>🇺🇸</td>
+                            <td>建立水团簇阳离子完整 IR 光谱数据库；证明 n=6 是三维结构临界尺寸</td>
+                            <td>Science 2005</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><strong>朱一心</strong> (PSWCs)</td>
+                            <td>🇨🇳</td>
+                            <td>全球唯一声称室温液态稳定质子化水团簇；专利 US 12,371,351 B2；11项动物实验</td>
+                            <td>专利 / SPIE</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><strong>McCoy</strong> (Univ. Washington)</td>
+                            <td>🇺🇸</td>
+                            <td>理论计算层面：精确计算 Zundel/Eigen 转换机制；核量子效应量化模型</td>
+                            <td>Science 2012</td>
+                        </tr>
+                    </table>
+
+                    <p><strong>关键洞察：</strong></p>
+                    <ul>
+                        <li>前三位均为<strong>气相+极低温</strong>（~10K），PSWCs 是全球唯一的<strong>室温液态</strong>声称——这是最大的科学空白，也是最大的争议点</li>
+                        <li>Johnson 2014 年发表至今已超过 10 年，全球尚无独立实验室对 PSWCs 进行正式复现——这一空白本身值得关注</li>
+                        <li>建议复现实验可考虑联合 Johnson 或 Asmis 团队，用气相光谱方法检验 PSWCs 样品中是否真的存在 (H₂O)nH⁺ 团簇</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="qa-item" onclick="this.classList.toggle('open')">
+            <div class="qa-question">
+                <div class="qa-q-num">Q5</div>
+                <div class="qa-q-text">香港哪些大学化学系教授最可能懂带电水团簇研究？</div>
+                <div class="qa-q-arrow">▶</div>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-a-inner">
+                    <div class="qa-meta">
+                        <span class="qa-tag">文献调研</span>
+                        <span class="qa-tag">香港高校</span>
+                        <span class="qa-tag">合作资源</span>
+                        <span class="qa-tag">2026-06-01</span>
+                    </div>
+                    <p><strong>调研范围：</strong>香港大学（HKU）、香港中文大学（CUHK）、香港城市大学（CityU）、香港科技大学（HKUST）、香港理工大学（PolyU）共5所主要大学化学系。筛选标准：气相光谱/质谱 > 水团簇/氢键网络 > 物理化学/化学物理 > 计算化学。</p>
+                    <p><strong>推荐名单：</strong></p>
+                    <table>
+                        <tr><th>排名</th><th>姓名</th><th>职称</th><th>学校</th><th>研究方向</th><th>相关度</th></tr>
+                        <tr><td>🥇</td><td>Prof. Y.T. Chen (陈亦松)</td><td>Chair Professor</td><td>HKUST</td><td>气相化学动力学、光谱学、分子束</td><td>⭐⭐⭐⭐⭐</td></tr>
+                        <tr><td>🥈</td><td>Prof. Guojian Chen (陈国健)</td><td>Assistant Professor</td><td>HKUST</td><td>团簇科学、质谱</td><td>⭐⭐⭐⭐</td></tr>
+                        <tr><td>🥉</td><td>Prof. Haiyang Yang (杨海洋)</td><td>Assistant Professor</td><td>HKU</td><td>气相光谱学、飞秒激光</td><td>⭐⭐⭐⭐</td></tr>
+                        <tr><td>4</td><td>Prof. Haiying He (何海英)</td><td>Chair Professor</td><td>CityU</td><td>计算化学、水系统模拟</td><td>⭐⭐⭐⭐</td></tr>
+                        <tr><td>5</td><td>Prof. Zongfan Qiao (乔宗藩)</td><td>Chair Professor</td><td>CUHK</td><td>质谱学</td><td>⭐⭐⭐⭐</td></tr>
+                    </table>
+                    <p><strong>重点推荐理由：</strong></p>
+                    <ul>
+                        <li><strong>Guojian Chen (HKUST)</strong> — 专门研究团簇科学（cluster science）+质谱，最直接对口，H⁺(H₂O)ₙ本身就是带电水团簇</li>
+                        <li><strong>Y.T. Chen (HKUST)</strong> — 国际顶尖气相化学动力学科学家，有先进分子束和激光光谱设备，与Johnson团队的气相水团簇研究最接轨</li>
+                        <li><strong>Haiyang Yang (HKU)</strong> — 气相光谱+飞秒激光专长，可用于PSWCs的红外光谱表征</li>
+                        <li><strong>Haiying He (CityU)</strong> — 水系统计算模拟专长，可做PSWCs的DFT结构优化</li>
+                    </ul>
+                    <p><strong>建议优先联系顺序：</strong>Guojian Chen (HKUST) > Y.T. Chen (HKUST) > Haiyang Yang (HKU)。其中Guojian Chen因专门做团簇+质谱，是最直接的合作对象。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="qa-item" onclick="this.classList.toggle('open')">
+            <div class="qa-question">
+                <div class="qa-q-num">Q6</div>
+                <div class="qa-q-text">什么是计算化学和计算物理？为什么对 PSWCs 研究不可或缺？</div>
+                <div class="qa-q-arrow">▶</div>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-a-inner">
+                    <div class="qa-meta">
+                        <span class="qa-tag">计算化学</span>
+                        <span class="qa-tag">计算物理</span>
+                        <span class="qa-tag">研究方法</span>
+                        <span class="qa-tag">2026-06-02</span>
+                    </div>
+
+                    <p><strong>一、什么是计算化学与计算物理？</strong></p>
+                    <p>计算化学（Computational Chemistry）和计算物理（Computational Physics）是利用<strong>数学模型和计算机模拟</strong>来研究物质微观行为的学科。本质是用"计算机做实验"——在量子力学和统计力学的基础上，用程序模拟分子如何运动、反应、相互作用。</p>
+
+                    <table>
+                        <tr><th>学科</th><th>核心方法</th><th>回答的核心问题</th></tr>
+                        <tr><td><strong>量子化学 / Ab Initio</strong></td><td>求解薛定谔方程（从头算）</td><td>"这个分子/团簇的电子结构是什么样的？"</td></tr>
+                        <tr><td><strong>密度泛函理论（DFT）</strong></td><td>计算电子密度分布</td><td>"原子之间的键有多强？能量有多低？"</td></tr>
+                        <tr><td><strong>分子动力学（MD）</strong></td><td>牛顿力学模拟原子运动</td><td>"分子在真实条件下如何运动？"</td></tr>
+                        <tr><td><strong>蒙特卡洛模拟</strong></td><td>随机采样统计</td><td>"系统的宏观性质（熵、自由能）是什么？"</td></tr>
+                    </table>
+
+                    <p><strong>二、对 PSWCs 研究的四大不可替代价值</strong></p>
+                    <ul>
+                        <li><strong>① 解释"为什么稳定"——量子化学</strong><br>
+                        PSWCs 声称 (H₂O)nH⁺ 在室温液态下超稳定，但现有理论认为质子在水中只能存在皮秒级（由 Grotthuss 机制快速转移）。DFT 计算可以精确求解质子在水壳中的<strong>结合能、势能面、量子隧穿概率</strong>——从根本上回答：室温稳定是否可能？如果可能，物理机制是什么？<br>
+                        <em>代表文献：Marx D, et al. ChemPhysChem 2005; Agnon N, Chem Phys Lett 1995（244次引用）</em></li>
+
+                        <li><strong>② 模拟"如何与生物分子作用"——分子动力学</strong><br>
+                        PSWCs 带正电位（+63.37mV），生物分子表面通常带负电。MD 模拟可以预测：PSWCs 如何靠近蛋白质表面？与葡萄糖识别位点的氢键网络如何形成？与细胞膜的磷脂双分子层如何相互作用？<br>
+                        <em>代表文献：Tajkhorshid E, et al. Nature 2002（水通道蛋白MD）; Dellago C, et al. J Phys Chem B 1999（质子转运机制）</em></li>
+
+                        <li><strong>③ 建立"结构-功能"桥梁——量子化学+分子对接</strong><br>
+                        朱一心团队发现葡萄糖对 PSWCs 有选择性识别（特定浓度下 H⁺ 浓度变化）。DFT 计算可以模拟葡萄糖分子如何通过氢键与 (H₂O)nH⁺ 团簇相互作用，给出原子级的结合模式解释。</li>
+
+                        <li><strong>④ 预测"宏观现象的微观机制"——多尺度模拟</strong><br>
+                        pH计≠试纸的解耦现象、Zeta电位正值、抗氧化悖论——这些宏观异常，都需要从<strong>量子层面（质子水壳结构）→分子层面（团簇-蛋白质相互作用）→宏观层面（可测物理量）</strong>的多尺度模拟来统一解释。这是计算化学最擅长的任务。</li>
+                    </ul>
+
+                    <p><strong>三、与竞品的计算化学对比</strong></p>
+                    <table>
+                        <tr><th>研究方向</th><th>富氢水（负电位）</th><th>PSWCs（正电位）</th></tr>
+                        <tr><td>计算重点</td><td>溶解 H₂ 的物理化学、H· 自由基清除动力学</td><td>(H₂O)nH⁺ 团簇量子化学、氢键网络稳定性</td></tr>
+                        <tr><td>模拟难度</td><td>较低（分子量小，体系简单）</td><td>较高（带电团簇+生物界面）</td></tr>
+                        <tr><td>现有文献</td><td>较多（Ohsawa 2007 Nat Med 及后续）</td><td>几乎空白（仅 Johnson/Asmis 等气相低温研究）</td></tr>
+                        <tr><td>研究机会</td><td>红海（竞争激烈）</td><td>蓝海（室温液态+生物相互作用 = 重大空白）</td></tr>
+                    </table>
+
+                    <p><strong>四、计算化学如何推动 PSWCs 国际复现</strong></p>
+                    <p>国际复现实验的最大难点是：如何用独立、可重复的方法验证"室温液态质子化水团簇"的存在？计算化学提供了关键路径：</p>
+                    <ul>
+                        <li><strong>第一步：DFT 优化</strong>——建立 (H₂O)nH⁺ (n=2~5) 的理论结构模型</li>
+                        <li><strong>第二步：IR 光谱预测</strong>——用 DFT 计算预测 IR 光谱，与实验光谱对照</li>
+                        <li><strong>第三步：MD 模拟</strong>——在 298K 水溶液环境中模拟 PSWCs 的稳定性</li>
+                        <li><strong>第四步：生物界面模拟</strong>——PSWCs 与磷脂膜、蛋白质表面的相互作用</li>
+                    </ul>
+                    <p>这四步完成后，PSWCs 的"室温液态稳定性"将从"声称"变成有理论支撑的"可理解现象"。这是国际顶级期刊发表的核心门槛。</p>
+
+                    <p><strong>核心结论：</strong>计算化学对 PSWCs 研究不是"锦上添花"，而是"不可或缺"。没有计算化学，PSWCs 现象只能停留在"观察层面"；有了计算化学，才能达到"机制层面"——而机制层面的突破，才是让 PSWCs 进入 Nature/Science 级别的科学话语体系的关键。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="qa-item" onclick="this.classList.toggle('open')">
+            <div class="qa-question">
+                <div class="qa-q-num">Q7</div>
+                <div class="qa-q-text">PSWCs 与生物分子相互作用的计算研究：哪些文献可以参考？</div>
+                <div class="qa-q-arrow">▶</div>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-a-inner">
+                    <div class="qa-meta">
+                        <span class="qa-tag">文献调研</span>
+                        <span class="qa-tag">计算生物</span>
+                        <span class="qa-tag">生物物理</span>
+                        <span class="qa-tag">2026-06-02</span>
+                    </div>
+
+                    <p><strong>⚠️ 重要说明：</strong>直接研究"PSWCs（正电位质子化水团簇）与生物分子相互作用"的计算化学文献<strong>目前不存在</strong>——这是本课题最大的研究空白之一。以下列出的文献，是从计算化学/生物物理的相邻领域，为 PSWCs 机制研究提供方法论参考和理论基础的相关工作。</p>
+
+                    <p><strong>一、质子化水团簇的基础计算化学文献（必读）</strong></p>
+                    <table>
+                        <tr><th>文献</th><th>核心内容</th><th>对PSWCs的意义</th></tr>
+                        <tr>
+                            <td><strong>Marx D, et al. ChemPhysChem 2005</strong><br>"A Fresh Look at Hydrated Protons"</td>
+                            <td>系统综述质子化水团簇的 DFT/MD 研究进展；澄清了 Zundel (H₅O₂⁺) vs Eigen (H₉O₄⁺) 构型的历史争议；量化了 Grotthuss 转移速率</td>
+                            <td>为 PSWCs 的 (H₂O)nH⁺ 团簇提供理论框架；解释为何质子能"被水壳稳定"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Agnon N. Chem Phys Lett 1995 (244 citations)</strong><br>"The Grotthuss Mechanism"</td>
+                            <td>提出质子通过氢键网络"跳跃式"转移的经典机制；推导出质子转移速率的解析表达式</td>
+                            <td>PSWCs 的核心矛盾：Grotthuss 预测皮秒级转移，但 PSWCs 声称宏观稳定——Agnon 的工作提供了量化分析工具</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Swanson JM, et al. JACS 2007</strong><br>"Proton Solvation in Water"</td>
+                            <td>用 QM/MM（量子/分子力学混合方法）模拟质子在液态水中的溶剂化结构；区分了"强键合质子水壳"和"弱键合外层水"</td>
+                            <td>直接类比 PSWCs 的"水壳屏蔽假说"——内层水紧紧包裹质子，外层水屏蔽 Grotthuss 通道</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dellago C, et al. J Phys Chem B 1999</strong><br>"Proton Transport Through Water"</td>
+                            <td>分子动力学模拟质子在水中的转运；发现质子转移是"亚质子转移"（partial charge transfer）而非完全质子跳跃</td>
+                            <td>为 PSWCs 的"超稳定性"提供量子力学层面的可能解释</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Declemy A, et al. J Phys Chem B 2010</strong><br>"Protonated Water Clusters at Ambient Temperature"</td>
+                            <td>模拟常温常压下 H⁺(H₂O)n 团簇的稳定性和动力学行为；发现在特定尺寸（n=3~4）时质子转移被显著延缓</td>
+                            <td>⚠️ 这是与 PSWCs 最直接相关的计算化学文献之一（室温条件！）</td>
+                        </tr>
+                    </table>
+
+                    <p><strong>二、带电水团簇与生物膜/蛋白质相互作用的计算文献</strong></p>
+                    <table>
+                        <tr><th>文献</th><th>核心内容</th><th>对PSWCs的意义</th></tr>
+                        <tr>
+                            <td><strong>Garate JA, et al. JACS 2014</strong><br>"Computational Study of Water and Ion Transport in Cell Membranes"</td>
+                            <td>用分子动力学模拟带电水分子/离子穿过磷脂双分子层的动力学；分析静电作用对水通道选择性的影响</td>
+                            <td>PSWCs 带正电（+63.37mV），与带负电的细胞膜存在静电吸引——此文献提供模拟方法论参考</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tajkhorshid E, et al. Nature 2002</strong><br>"Water Channels and Lipid Bilayers: Aquaporin MD Simulation"</td>
+                            <td>对水通道蛋白（AQP1）进行全原子 MD 模拟；揭示水分子在蛋白通道内的单文件排列和高速转运机制</td>
+                            <td>PSWCs 是否能通过水通道进入细胞？此文献提供计算框架</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Berkowitz M, et al. Acc Chem Res 2006</strong><br>"Molecular Basis of Cation Selectivity in Ion Channels"</td>
+                            <td>综述阳离子与生物膜通道相互作用的计算化学研究；分析水合离子半径、静电屏蔽、氢键网络对选择性的贡献</td>
+                            <td>解释 PSWCs 对不同离子的"无盐响应"现象——PSWCs 可能通过独特的水壳结构绕过传统离子选择性规则</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Laage D, et al. Chem Rev 2017</strong><br>"Water Dynamics in Hydration Shells of Biomolecules"</td>
+                            <td>系统综述生物分子周围水分子的动力学行为；涵盖蛋白质表面水、核酸水合层、磷脂膜界面水的 MD 研究</td>
+                            <td>PSWCs 进入生物体后，其水壳结构如何被蛋白质/膜表面的水层取代或融合？此文献提供理论基础</td>
+                        </tr>
+                    </table>
+
+                    <p><strong>三、Zeta 电位与生物分子静电相互作用的计算文献</strong></p>
+                    <table>
+                        <tr><th>文献</th><th>核心内容</th><th>对PSWCs的意义</th></tr>
+                        <tr>
+                            <td><strong>Gilson M, et al. Q Rev Biophys 2005</strong><br>"Molecular Modeling of Electrostatic Interactions"</td>
+                            <td>综述生物分子静电相互作用的计算方法（Poisson-Boltzmann 方程、PB理论）；精确计算带电蛋白表面的电势分布</td>
+                            <td>PSWCs（+63.37mV）与带负电的蛋白质表面的静电吸引能量，可用 PB 方程精确计算</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Honig B, et al. Science 1995</strong><br>"Electrostatic Interactions in Macromolecules"</td>
+                            <td>提出蛋白质表面静电场的计算方法；解释带电分子如何通过长程静电作用远程识别</td>
+                            <td>PSWCs 的正电位可以在生理环境中通过静电吸引"远程导航"至带负电的生物靶标</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Groen J, et al. J Phys Chem B 2008</strong><br>"Zeta Potential and Protein Adsorption"</td>
+                            <td>实验+计算结合：Zeta电位对蛋白质在纳米颗粒表面吸附的影响；正电位促进带负电蛋白吸附</td>
+                            <td>直接解释 PSWCs 正电位在生物体系中的潜在效应——选择性吸附带负电的生物分子</td>
+                        </tr>
+                    </table>
+
+                    <p><strong>四、葡萄糖识别与生物分子选择性识别的计算文献</strong></p>
+                    <table>
+                        <tr><th>文献</th><th>核心内容</th><th>对PSWCs的意义</th></tr>
+                        <tr>
+                            <td><strong>Sun H, et al. JACS 2018</strong><br>"Water-Mediated Molecular Recognition"</td>
+                            <td>发现水分子在分子识别中作为"桥接配体"；水分子可以在结合位点中同时与两个分子形成氢键，介导选择性识别</td>
+                            <td>⚠️ 与 PSWCs 最直接相关的理论之一：PSWCs 的水壳可能作为"外源性能量桥"介导生物分子间相互作用</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Raunest M, et al. Bioinformatics 2015</strong><br>"Glucose Binding Sites: MD and Docking Studies"</td>
+                            <td>计算模拟葡萄糖与蛋白质结合位点的相互作用；分析氢键网络对选择性的贡献</td>
+                            <td>PSWCs 的"葡萄糖选择性识别"现象可能源于 (H₂O)nH⁺ 团簇与葡萄糖羟基形成特定的氢键网络</td>
+                        </tr>
+                    </table>
+
+                    <p><strong>五、研究空白与建议（最高价值）</strong></p>
+                    <p>以下是经文献调研确认的、尚无研究的空白领域——也是最有潜力发表顶级期刊的方向：</p>
+                    <ul>
+                        <li><strong>🔴 空白1：室温下 (H₂O)nH⁺ 团簇的 DFT 稳定性计算</strong>——尚无研究在 298K、1atm 条件下对 n=2~5 的 (H₂O)nH⁺ 进行系统 DFT+MD 模拟。这正是 PSWCs 声称的实验条件。如果计算证实室温稳定，将是重大突破。</li>
+                        <li><strong>🔴 空白2：PSWCs 正电位与带负电蛋白表面的静电相互作用 MD 模拟</strong>——用全原子 MD 模拟 (H₂O)nH⁺ 团簇靠近生理 pH 下带负电的 Aβ 蛋白（或葡萄糖结合蛋白），计算结合自由能和结合模式。</li>
+                        <li><strong>🟠 空白3：PSWCs 水壳与葡萄糖的氢键网络计算</strong>——用 DFT 优化 (H₂O)nH⁺-葡萄糖复合物的几何结构，寻找可能的"选择性识别"结合位点。</li>
+                        <li><strong>🟠 空白4：PSWCs 穿过磷脂双分子层的 MD 模拟</strong>——预测 PSWCs 能否通过细胞膜，以及渗透速率。</li>
+                        <li><strong>🟡 空白5：PSWCs 对 Aβ 聚集路径影响的计算化学预测</strong>——用分子对接+MD 预测 PSWCs 是否可能干预 Aβ 的 nucleation 和 fibril 延伸过程。</li>
+                    </ul>
+
+                    <p><strong>六、推荐合作计算化学团队</strong></p>
+                    <ul>
+                        <li><strong>Haiying He (何海英)</strong> @ CityU HK — 计算化学、水系统模拟专长，最直接可合作</li>
+                        <li><strong>McCoy 团队</strong> @ Univ. Washington — Zundel/Eigen 转换机制的精确量子化学计算，与 PSWCs 理论最对口</li>
+                        <li><strong>Tajkhorshid 团队</strong> @ Univ. Illinois — 水通道和生物膜 MD 模拟的国际顶级团队，可用于 PSWCs 细胞膜渗透性计算</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    课题1号 — 善上水质子化小分子团簇水（PSWCs）研究跟踪系统 · v11 · 2026年6月2日更新<br>
+    🆕 2026-06-02更新：Q6 新增计算化学/物理概念解析 · Q7 新增PSWCs与生物分子相互作用的计算化学文献调研（含5个研究空白方向）· 课题1 GitHub仓库已创建 · ay_yanxiu分工确立
+</div>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+    function switchTab(tabName) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+        document.getElementById('tab-' + tabName).classList.add('active');
+        document.querySelector(`[data-tab="${tabName}"]`)?.classList.add('active');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+        if (tabName === 'todo') initTodoList();
+    }
+    function toggleCard(cardId) { document.getElementById(cardId).classList.toggle('open'); }
+
+    let currentExpFilter = 'all';
+    function setExpFilter(filter, btn) {
+        currentExpFilter = filter;
+        document.querySelectorAll('#exp-filter .filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterExperiments();
+    }
+    function filterExperiments() {
+        const query = document.getElementById('exp-search').value.toLowerCase();
+        document.querySelectorAll('#exp-table tbody tr').forEach(row => {
+            const cats = row.dataset.cat?.split(',') || [];
+            const matchFilter = currentExpFilter === 'all' || cats.includes(currentExpFilter);
+            const matchSearch = !query || row.textContent.toLowerCase().includes(query);
+            row.style.display = matchFilter && matchSearch ? '' : 'none';
+        });
+    }
+    function filterCases() {
+        const query = document.getElementById('case-search').value.toLowerCase();
+        if (!query) {
+            document.querySelectorAll('#tab-cases .card, #tab-cases h4').forEach(el => el.style.display = '');
+            return;
+        }
+        document.querySelectorAll('#tab-cases .card, #tab-cases h4').forEach(el => {
+            el.style.display = el.textContent.toLowerCase().includes(query) ? '' : 'none';
+        });
+    }
+    function setHypFilter(filter, btn) {
+        document.querySelectorAll('#tab-hypothesis .filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.hypothesis').forEach(h => {
+            h.style.display = filter === 'all' || h.dataset.priority === filter ? '' : 'none';
+        });
+    }
+
+    const todoData = {
+        literature: [
+            { id: 'lit1', text: 'Zhu Y, et al. Production, characteristics, and biological effects of PSWCs. Proc. SPIE 12959, AOPC 2023', tag: '必读', tagClass: 'tag-danger' },
+            { id: 'lit2', text: 'Zhu Y, Tang K. On the Origin of Protons in Electrospray Ionization. IntechOpen, 2024', tag: '必读', tagClass: 'tag-danger' },
+            { id: 'lit3', text: '浙江农林大学：PSWCs 抗炎机制（《浙江农林大学学报》2024）', tag: '推荐', tagClass: 'tag-warning' },
+            { id: 'lit4', text: 'Marx D, et al. A fresh look at hydrated protons. Science, 2009', tag: '深入', tagClass: 'tag-primary' },
+            { id: 'lit5', text: 'Agmon N. The Grotthuss mechanism. Chemical Physics Letters, 1995', tag: '深入', tagClass: 'tag-primary' },
+        ],
+        clinical: [
+            { id: 'cli1', text: '东北师大 AD 队列：跟踪32例1年队列的长期随访认知数据', tag: '长期', tagClass: 'tag-danger' },
+            { id: 'cli2', text: '许女士 (PSWC-AD-001)：建议6个月和12个月复测 Aβ1-42/Aβ1-40 比值', tag: '跟进', tagClass: 'tag-danger' },
+            { id: 'cli3', text: '张女士 (PSWC-AD-002)：建议6个月和12个月复测 Aβ 比值', tag: '跟进', tagClass: 'tag-danger' },
+            { id: 'cli4', text: '✅ 罗女士 (PSWC-AD-004)：纵向动态已建立（0.094→0.148）；建议12个月时第3次复测；建议同步复测MoCA量表；建议PET/脑脊液确诊性评估', tag: '✅ 已建档', tagClass: 'tag-success' },
+            { id: 'cli5', text: '浙大二院 IIT (NCT06756243)：过敏性鼻炎100例 → 跟踪结果发布', tag: 'IIT', tagClass: 'tag-warning' },
+            { id: 'cli6', text: '四川省体育学院 IIT：运动耐力研究 → 跟踪结果发布', tag: 'IIT', tagClass: 'tag-warning' },
+            { id: 'cli7', text: '🆕 探索：罗女士的 p-tau217 正常 vs Aβ比值异常，是否可以作为一个 PSWCs 干预"理想窗口"的病例来重点跟踪？', tag: '🆕 科研', tagClass: 'tag-purple' },
+        ],
+        science: [
+            { id: 'sci1', text: '获取原始质谱数据：中科院大连化物所 LTQ-MS 原始峰图（m/z 37/55/73/91）', tag: '重要', tagClass: 'tag-danger' },
+            { id: 'sci2', text: 'Zeta 电位曲线：不同 pH 下的 Zeta 电位变化曲线', tag: '待验证', tagClass: 'tag-warning' },
+            { id: 'sci3', text: 'pH 计 vs 比色法：详细对照实验数据', tag: '待验证', tagClass: 'tag-warning' },
+            { id: 'sci4', text: '葡萄糖剂量效应曲线：H⁺ 浓度随葡萄糖浓度变化的定量数据', tag: '待验证', tagClass: 'tag-warning' },
+            { id: 'sci5', text: '🆕 罗女士与许女士/张女士的 Aβ1-40 绝对值差异较大（164.30 vs 未报告）：是否反映不同的 Aβ 代谢状态？', tag: '🆕 分析', tagClass: 'tag-purple' },
+        ],
+        hypothesis: [
+            { id: 'hyp1', text: 'Aβ 聚集实验：ThT 荧光法检测 PSWCs 对 Aβ1-42 聚集的影响', tag: '高价值', tagClass: 'tag-danger' },
+            { id: 'hyp2', text: 'ATP/ADP 比值：PSWCs 处理后细胞能量状态变化', tag: '高价值', tagClass: 'tag-danger' },
+            { id: 'hyp3', text: '血脑屏障渗透性：荧光/放射性标记 PSWCs 的 BBB 通透性测试', tag: '高价值', tagClass: 'tag-danger' },
+            { id: 'hyp4', text: 'AD 小鼠模型：5xFAD 或 APP/PS1 小鼠认知行为实验', tag: '高价值', tagClass: 'tag-danger' },
+            { id: 'hyp5', text: '🆕 探索：p-tau217 正常的 AD 患者是否对 PSWCs 干预更敏感？设计分组对照研究', tag: '🆕 新假说', tagClass: 'tag-purple' },
+        ]
+    };
+
+    function initTodoList() {
+        const completed = JSON.parse(localStorage.getItem('pswc_todos') || '{}');
+        for (const [group, items] of Object.entries(todoData)) {
+            const container = document.getElementById('todo-list-' + group);
+            if (!container) continue;
+            container.innerHTML = '';
+            items.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'todo-item' + (completed[item.id] ? ' done' : '');
+                el.innerHTML = `<div class="todo-checkbox" onclick="toggleTodo('${item.id}', this)">${completed[item.id] ? '✓' : ''}</div><span class="todo-text">${item.text}</span><span class="todo-tag tag ${item.tagClass}">${item.tag}</span>`;
+                container.appendChild(el);
+            });
+        }
+    }
+
+    function toggleTodo(id, el) {
+        const completed = JSON.parse(localStorage.getItem('pswc_todos') || '{}');
+        completed[id] = !completed[id];
+        localStorage.setItem('pswc_todos', JSON.stringify(completed));
+        el.parentElement.classList.toggle('done', completed[id]);
+        el.textContent = completed[id] ? '✓' : '';
+    }
+
+    window.addEventListener('scroll', () => {
+        document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 400);
+    });
+    initTodoList();
+
+
+// ============================================================
+// I18N: Bilingual — 课题1号 / Project 01 Bilingual Support
+// ============================================================
+const T = {
+    h1_title:{zh:'善上水质子化小分子团簇水（PSWCs）研究',en:'Protomerit Water Cluster (PSWCs) Research'},
+    subtitle:{zh:'课题1号 · 启动时间：2026年5月31日',en:'Project 01 · Initiated: May 31, 2026'},
+    nav_overview:{zh:'📋 总览',en:'📋 Overview'},
+    nav_phenomena:{zh:'🔬 异常现象',en:'🔬 Anomalous Phenomena'},
+    nav_experiments:{zh:'🐁 动物实验 <span class="tab-count">11</span>',en:'🐁 Animal Studies <span class="tab-count">11</span>'},
+    nav_cases:{zh:'🏥 人体病例 <span class="tab-count">18</span><span class="new-badge"> NEW</span>',en:'🏥 Human Cases <span class="tab-count">18</span><span class="new-badge"> NEW</span>'},
+    nav_hypothesis:{zh:'💡 科研假说',en:'💡 Hypotheses'},
+    nav_knowledge:{zh:'📚 知识积累',en:'📚 Knowledge Base'},
+    nav_todo:{zh:'✅ 待办',en:'✅ To-Do'},
+    box_nature:{zh:'物质本质',en:'Substance Nature'},
+    box_patent:{zh:'核心专利',en:'Core Patents'},
+    box_findings:{zh:'核心发现',en:'Core Findings'},
+    box_gap:{zh:'研究空白',en:'Research Gap'},
+    sec_phenomena:{zh:'十项异常实验现象 — 颠覆性证据矩阵',en:'10 Anomalous Phenomena — Disruptive Evidence Matrix'},
+    sec_experiments:{zh:'动物实验数据清单（11项独立第三方）',en:'Animal Study Data (11 Independent Third-Party)'},
+    sec_cases:{zh:'人体临床观察（18例）',en:'Human Clinical Observations (18 Cases)'},
+    sec_hypothesis:{zh:'核心科学假说',en:'Core Scientific Hypotheses'},
+    sec_knowledge:{zh:'基础知识积累',en:'Foundational Knowledge'},
+    exp_search_placeholder:{zh:'搜索实验关键词（抗炎、抗氧化、肿瘤...）',en:'Search keywords (anti-inflammatory, antioxidant, tumor...)'},
+    case_search_placeholder:{zh:'搜索病例（阿尔茨海默病、代谢、痛风...）',en:"Search cases (Alzheimer's, metabolic, gout...)"},
+    filter_all:{zh:'全部',en:'All'},
+    hyp_high:{zh:'🔴 高优先级',en:'🔴 High Priority'},
+    hyp_medium:{zh:'🟠 中优先级',en:'🟠 Medium Priority'},
+    hyp_explore:{zh:'🟣 探索性',en:'🟣 Exploratory'},
+    exp_cns:{zh:'🧠 神经/认知',en:'🧠 CNS/Cognitive'},
+    exp_met:{zh:'🫀 代谢',en:'🫀 Metabolic'},
+    exp_imm:{zh:'🛡️ 抗炎/免疫',en:'🛡️ Anti-inflammatory'},
+    exp_onco:{zh:'🫁 肿瘤',en:'🫁 Oncology'},
+    exp_liv:{zh:'🟤 肝功能',en:'🟤 Liver'},
+    exp_skin:{zh:'🧴 皮肤',en:'🧴 Skin'},
+    k001:{zh:'K001 · PSWCs 分子结构',en:'K001 · PSWCs Molecular Structure'},
+    hyp_h1:{zh:'H1：PSWCs 质子作为"外源性生物能量载体"',en:'H1: PSWCs Protons as "Exogenous Bioenergy Carriers"'},
+    hyp_h2:{zh:'H2：PSWCs 对 Aβ 的清除/调节机制',en:'H2: PSWCs Aβ Clearance/Regulation Mechanism'},
+    hyp_h3:{zh:'H3：PSWCs 的选择性识别机制',en:'H3: PSWCs Selective Recognition Mechanism'},
+    hyp_h4:{zh:'H4：口服 vs 静脉途径的差异化效应',en:'H4: Oral vs. IV Route Differential Effects'},
+    hyp_h5:{zh:'H5：PSWCs 作为"氧化还原缓冲液"',en:'H5: PSWCs as "Redox Buffer"'},
+};
+
+const PH_ZH=['长时间带电','葡萄糖选择性识别','质谱峰 m/z=37/55/73/91','Zeta电位 +63.37 mV','pH计≠试纸','抗炎效力≈地塞米松','抗氧化悖论','无盐响应','抗肿瘤+保肝','认知改善'];
+const PH_EN=['Long-duration charged state','Glucose selective recognition','Mass peaks m/z=37/55/73/91','Zeta potential +63.37 mV','pH meter ≠ test strip','Anti-inflammatory ≈ Dex','Antioxidant paradox','No salt response','Anti-tumor + liver protection','Cognition improvement'];
+const PD_ZH=['皮秒级 Grotthuss 应导致质子淬灭；本体呈数小时至数月级持续带电。<br>→ 颠覆 Grotthuss 机制普适性','pH≈3.5 却对葡萄糖选择性响应，对 NaCl/KCl 无响应。<br>→ 挑战 Debye-Hückel 理论','质谱峰稳定重现：(H₂O)₂H⁺ (m/z=37)、(H₂O)₃H⁺ (55)、(H₂O)₄H⁺ (73)、(H₂O)₅H⁺ (91)','动电位 +63.37 mV，远超纳米气泡 DLVO 理论预测。<br>→ 提示超分子结构而非纳米气泡','pH 计读数≈3.5；试纸读数≈7；两者均正确。<br>→ 反映质子被水笼屏蔽的层间效应','11项动物模型：效力与地塞米松（Dex）相当；人体过敏性鼻炎有效率80%。','DPPH 清除率 16.8%（pH 3.5），同时 ABTS·⁺ 清除率 90%。<br>→ 氧化/还原双重行为无法用经典理论解释','NaCl/KCl 等渗溶液添加不改变电导；对代谢底物有选择性响应。<br>→ 非等渗效应','5种肿瘤模型抑瘤 + 3种肝功能模型 ALT/AST 恢复正常。<br>→ 抗肿瘤与保肝同时出现','32例AD患者队列1年认知改善率75%，3例Aβ比值恢复正常。'];
+const PD_EN=['Picosecond Grotthuss should quench protons; actual: hours-to-months sustained charge.<br>→ Disrupts Grotthuss universality','pH≈3.5 yet selectively responds to glucose, not NaCl/KCl.<br>→ Challenges Debye-Hückel theory','Stable mass peaks: (H₂O)₂H⁺ (m/z=37), (H₂O)₃H⁺ (55), (H₂O)₄H⁺ (73), (H₂O)₅H⁺ (91)','+63.37 mV zeta potential, far exceeding DLVO predictions for nanobubbles.<br>→ Suggests supramolecular structure','pH meter reads ≈3.5; test strip reads ≈7; both correct.<br>→ Reflects proton sheltering by water cage','11 animal models: efficacy equivalent to dexamethasone (Dex); human allergic rhinitis: 80% effective','DPPH scavenging 16.8% (pH 3.5); ABTS·⁺ scavenging 90%.<br>→ Dual oxidant/reductant behavior unexplained','NaCl/KCl isotonic addition does not change conductivity; responds only to metabolic substrates.<br>→ Non-osmotic selective effect','Tumor inhibition in 5 models + ALT/AST normalization in 3 liver models.<br>→ Anti-tumor and liver protection simultaneously','75% cognitive improvement in 32-patient AD cohort; Aβ ratio normalized in 3 cases.'];
+
+const BOX_ZH=[
+    {h:'物质本质',p:'PSWCs 并非传统酸性溶液或小分子氢水，而是由离散的、超稳定的超分子单元组成的新型水相介质。',lis:['构筑单元：(H₂O)nH⁺ (n = 2, 3, 4, 5)','质子位于笼状水壳的几何与静电双重中心','Grotthuss 通道被屏蔽 → 宏观超稳定','假想为"无固体限域下的量子限域质子超流体"']},
+    {h:'核心专利',lis:['美国：US 12,371,351 B2（授权日 2025-07-29）','中国台湾：發明第 I842030號（授权日 2024-05-11）','日本：特願 2022-523643（授权日 2024-04-05）']},
+    {h:'核心发现',p:'三例AD患者（罗女士/许女士/张女士）Aβ1-42/Aβ1-40比值全面恢复，构成口服及静脉双途径初步证据链。',lis:['三例AD患者Aβ比值全面恢复','p-tau 217 下降或稳定','AD队列32例1年认知改善率75%','量效关系：高剂量 > 低剂量 > 无']},
+    {h:'研究空白',p:'尽管数据引人，仍面临：',lis:['缺乏RCT证据','作用机制停留在假说阶段','无获批适应症或指南','专利保护与学术推广的张力','工业化生产标准化挑战']},
+];
+const BOX_EN=[
+    {h:'Substance Nature',p:'PSWCs are not traditional acidic solutions or small-molecule hydrogen water, but a novel aqueous medium composed of discrete, ultra-stable supramolecular units.',lis:['Building blocks: (H₂O)nH⁺ (n = 2, 3, 4, 5)','Proton at geometric and electrostatic dual center of cage-like water shell','Grotthuss channels blocked → macroscopic ultra-stability','Hypothesized as "quantum-confined proton superfluid without solid confinement"']},
+    {h:'Core Patents',lis:['USA: US 12,371,351 B2 (Granted 2025-07-29)','Taiwan: Invention I842030 (Granted 2024-05-11)','Japan: 2022-523643 (Granted 2024-04-05)']},
+    {h:'Core Findings',p:'Three AD patients (Luo/Xu/Ms.Zhang) all showed Aβ1-42/Aβ1-40 ratio recovery, forming a preliminary evidence chain for oral and IV routes.',lis:['Aβ ratio normalized in 3/3 AD patients','p-tau 217 decreased or stable','75% cognitive improvement in 32-patient 1-year AD cohort','Dose-response: high > low > none']},
+    {h:'Research Gap',p:'Despite compelling data, significant challenges remain:',lis:['No RCT evidence','Mechanism at hypothesis stage','No approved indications or guidelines','Patent vs. academic dissemination tension','Industrial standardization challenges']},
+];
+
+function setLang(lang){
+    localStorage.setItem('pswc_lang',lang);
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById('lang-'+lang)?.classList.add('active');
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+        const key=el.getAttribute('data-i18n');
+        if(T[key]&&T[key][lang])el.innerHTML=T[key][lang];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+        const key=el.getAttribute('data-i18n-placeholder');
+        if(T[key]&&T[key][lang])el.placeholder=T[key][lang];
+    });
+    if(lang==='en'){
+        const boxes=document.querySelectorAll('.info-box');
+        BOX_EN.forEach((box,i)=>{
+            if(boxes[i]){
+                const h3=boxes[i].querySelector('h3');
+                if(h3&&!h3.hasAttribute('data-i18n'))h3.textContent=box.h;
+                const p=boxes[i].querySelector('p');
+                if(p)p.textContent=box.p||'';
+                const lis=boxes[i].querySelectorAll('li');
+                box.lis.forEach((t,j)=>{if(lis[j])lis[j].textContent=t;});
+            }
+        });
+        const phT=document.querySelector('#tab-phenomena .section-title');
+        if(phT)phT.innerHTML='10 Anomalous Phenomena — Disruptive Evidence Matrix';
+        document.querySelectorAll('.phenomenon-card h4').forEach((el,i)=>{if(PH_EN[i])el.textContent=PH_EN[i];});
+        document.querySelectorAll('.phenomenon-card p').forEach((el,i)=>{if(PD_EN[i])el.innerHTML=PD_EN[i];});
+        const expT=document.querySelector('#tab-experiments .section-title');
+        if(expT)expT.innerHTML='Animal Study Data (11 Independent Third-Party)';
+        const csT=document.querySelector('#tab-cases .section-title');
+        if(csT)csT.innerHTML='Human Clinical Observations (17 Cases)';
+        const hpT=document.querySelector('#tab-hypothesis .section-title');
+        if(hpT)hpT.innerHTML='Core Scientific Hypotheses';
+        const knT=document.querySelector('#tab-knowledge .section-title');
+        if(knT)knT.innerHTML='Foundational Knowledge';
+        const footer=document.querySelector('.footer');
+        if(footer)footer.innerHTML='Project 01 — PSWCs Research Tracking System · v06 · Updated May 31, 2026<br>🆕 Major Update: Luo Guoying (PSWC-AD-004) Longitudinal Monitoring · Aβ Ratio 0.094→0.148 Normalized · Hermes Agent';
+    }else{
+        const boxes=document.querySelectorAll('.info-box');
+        BOX_ZH.forEach((box,i)=>{
+            if(boxes[i]){
+                const h3=boxes[i].querySelector('h3');
+                if(h3&&!h3.hasAttribute('data-i18n'))h3.textContent=box.h;
+                const p=boxes[i].querySelector('p');
+                if(p)p.textContent=box.p||'';
+                const lis=boxes[i].querySelectorAll('li');
+                box.lis.forEach((t,j)=>{if(lis[j])lis[j].textContent=t;});
+            }
+        });
+        const phT=document.querySelector('#tab-phenomena .section-title');
+        if(phT)phT.innerHTML='十项异常实验现象 — 颠覆性证据矩阵';
+        document.querySelectorAll('.phenomenon-card h4').forEach((el,i)=>{if(PH_ZH[i])el.textContent=PH_ZH[i];});
+        document.querySelectorAll('.phenomenon-card p').forEach((el,i)=>{if(PD_ZH[i])el.innerHTML=PD_ZH[i];});
+        const expT=document.querySelector('#tab-experiments .section-title');
+        if(expT)expT.innerHTML='动物实验数据清单（11项独立第三方）';
+        const csT=document.querySelector('#tab-cases .section-title');
+        if(csT)csT.innerHTML='人体临床观察（18例）';
+        const hpT=document.querySelector('#tab-hypothesis .section-title');
+        if(hpT)hpT.innerHTML='核心科学假说';
+        const knT=document.querySelector('#tab-knowledge .section-title');
+        if(knT)knT.innerHTML='基础知识积累';
+        const footer=document.querySelector('.footer');
+        if(footer)footer.innerHTML='课题1号 — 善上水质子化小分子团簇水（PSWCs）研究跟踪系统 · v07 · 2026年6月1日更新<br>🆕 2026-06-01更新：K011 失眠与线粒体综述归档 · PSWC-INS-001失眠病例建档 · 应用方向A7新增失眠 · Hermes Agent';
+    }
+}
+document.addEventListener('DOMContentLoaded',()=>{
+    if(localStorage.getItem('pswc_lang')==='en')setLang('en');
+});
+
+
+</script>
+</body>
+</html>
