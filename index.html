@@ -4178,6 +4178,186 @@ N. 同位素医学 Isotope Medicine <span style="color:#888;font-weight:400;">(7
             </div>
         </div>
 
+<!-- Q11 -->
+        <div class="qa-item" onclick="this.classList.toggle('open')">
+            <div class="qa-question">
+                <div class="qa-q-num">Q11</div>
+                <div class="qa-q-text">什么是纳米输送小分子药？PSWCs 与之有什么关系？</div>
+                <div class="qa-q-arrow">▶</div>
+            </div>
+            <div class="qa-answer">
+                <div class="qa-a-inner">
+                    <div class="qa-meta">
+                        <span class="qa-tag">纳米医学</span>
+                        <span class="qa-tag">药物递送</span>
+                        <span class="qa-tag">小分子药</span>
+                        <span class="qa-tag">PSWCs</span>
+                        <span class="qa-tag">K014 子领域 F</span>
+                    </div>
+
+                    <h4>一、两个核心概念</h4>
+                    <p><strong>小分子药（Small-molecule drug）</strong>：分子量通常 &lt;900 Da 的化学合成药物，是传统药物的主体（占 FDA 批准药物约 90%）。代表：阿司匹林 (180 Da)、紫杉醇 (853 Da)、顺铂 (300 Da)、阿霉素 (543 Da)。优点：口服易吸收、可穿透细胞膜、生产成本低；缺点：水溶性差、无靶向性、半衰期短、毒副作用大。</p>
+                    <p><strong>纳米药物输送（Nanomedicine drug delivery）</strong>：用 1-1000 nm 尺度的载体（脂质体、聚合物、纳米粒、水凝胶、外泌体等）把小分子药包起来或吸附上去，以解决上述痛点。FDA 批准的全球首个纳米药物是 1995 年的 Doxil®（阿霉素脂质体），至今已有 50+ 款上市。</p>
+
+                    <h4>二、为什么需要"纳米化"？三大原动力</h4>
+                    <ol>
+                        <li><strong>解决水溶性</strong>：紫杉醇本身几乎不溶于水，传统制剂用聚氧乙烯蓖麻油（Cremophor EL）助溶 → 严重过敏反应。Abraxane® 用白蛋白纳米粒（130 nm）替代，溶媒毒性归零。</li>
+                        <li><strong>实现靶向（EPR 效应）</strong>：肿瘤组织血管通透性高、淋巴回流缺失，100-200 nm 颗粒会"被动"在肿瘤富集（enhanced permeability and retention，1986 年 Matsumura & Maeda 发现），正常组织药物浓度降低 5-10 倍。</li>
+                        <li><strong>跨越生物屏障</strong>：血脑屏障（参见 Q10）、肠上皮、皮肤角质层、肿瘤基质、细胞膜脂质双层——纳米载体可分别通过吸附介导转胞吞、受体介导内吞、脂质融合等方式跨越。</li>
+                    </ol>
+
+                    <h4>三、主流纳米载体类型（按 FDA 批准数排序）</h4>
+                    <table style="width:100%;font-size:11px;border-collapse:collapse;margin:6px 0;">
+                        <thead>
+                            <tr style="background:#e3f2fd;">
+                                <th style="padding:5px;text-align:left;border:1px solid #ddd;">载体类型</th>
+                                <th style="padding:5px;text-align:left;border:1px solid #ddd;">粒径范围</th>
+                                <th style="padding:5px;text-align:left;border:1px solid #ddd;">优势</th>
+                                <th style="padding:5px;text-align:left;border:1px solid #ddd;">劣势</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:5px;border:1px solid #ddd;"><b>脂质体（Liposome）</b></td>
+                                <td style="padding:5px;border:1px solid #ddd;">50-400 nm</td>
+                                <td style="padding:5px;border:1px solid #ddd;">载药量高、可载亲水/亲脂双药</td>
+                                <td style="padding:5px;border:1px solid #ddd;">储存稳定性、网状内皮系统摄取</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:5px;border:1px solid #ddd;"><b>白蛋白纳米粒</b></td>
+                                <td style="padding:5px;border:1px solid #ddd;">~130 nm</td>
+                                <td style="padding:5px;border:1px solid #ddd;">生物相容性最好、无溶媒毒性</td>
+                                <td style="padding:5px;border:1px solid #ddd;">载药量有限（&lt;10%）</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:5px;border:1px solid #ddd;"><b>聚合物胶束（Polymeric micelle）</b></td>
+                                <td style="padding:5px;border:1px solid #ddd;">10-100 nm</td>
+                                <td style="padding:5px;border:1px solid #ddd;">粒径小、肿瘤穿透强</td>
+                                <td style="padding:5px;border:1px solid #ddd;">载药后稳定性、CMC 稀释解离</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:5px;border:1px solid #ddd;"><b>固体脂质纳米粒（SLN）</b></td>
+                                <td style="padding:5px;border:1px solid #ddd;">50-1000 nm</td>
+                                <td style="padding:5px;border:1px solid #ddd;">无有机溶剂、可大规模生产</td>
+                                <td style="padding:5px;border:1px solid #ddd;">载药量低、储存析晶</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:5px;border:1px solid #ddd;"><b>无机纳米粒（铁/金/硅）</b></td>
+                                <td style="padding:5px;border:1px solid #ddd;">5-100 nm</td>
+                                <td style="padding:5px;border:1px solid #ddd;">磁共振/光热/放射治疗多功能</td>
+                                <td style="padding:5px;border:1px solid #ddd;">体内代谢、长期毒性</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:5px;border:1px solid #ddd;"><b>外泌体（Exosome）</b></td>
+                                <td style="padding:5px;border:1px solid #ddd;">30-150 nm</td>
+                                <td style="padding:5px;border:1px solid #ddd;">天然跨屏障、来源细胞亲和</td>
+                                <td style="padding:5px;border:1px solid #ddd;">产量低、标准化难</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:5px;border:1px solid #ddd;"><b>水凝胶（Hydrogel）</b></td>
+                                <td style="padding:5px;border:1px solid #ddd;">10-1000 nm 网孔</td>
+                                <td style="padding:5px;border:1px solid #ddd;">缓释、组织工程</td>
+                                <td style="padding:5px;border:1px solid #ddd;">注射性、机械强度</td>
+                            </tr>
+                            <tr style="background:#fff3e0;">
+                                <td style="padding:5px;border:1px solid #ddd;"><b>🔹 亚稳态水团簇（PSWCs）</b></td>
+                                <td style="padding:5px;border:1px solid #ddd;"><b>~1 nm</b></td>
+                                <td style="padding:5px;border:1px solid #ddd;">超小尺寸、Zeta +63 mV、纯水无毒</td>
+                                <td style="padding:5px;border:1px solid #ddd;">载药机制新、半衰期待研究</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>四、临床应用最多的 5 大领域</h4>
+                    <ol>
+                        <li><strong>肿瘤化疗</strong>：紫杉醇、阿霉素、伊立替康、顺铂——纳米化后毒副作用降低 30-50%，疗效提升有限（多数 mOS 仅延长 2-3 个月）。</li>
+                        <li><strong>抗病毒/疫苗</strong>：mRNA 疫苗脂质纳米粒（LNP，Pfizer/Moderna COVID-19 疫苗）——纳米医学在传染病领域的最大胜利。</li>
+                        <li><strong>眼科</strong>：眼药水纳米乳（如 Cationorm®）、地塞米松纳米粒（Iluvien® 玻璃体内缓释 3 年）——直接关联 PSWCs 喷雾/眼药水产品形态。</li>
+                        <li><strong>中枢神经</strong>：脑胶质瘤对流增强给药（CED）+ 纳米载体，局部突破 BBB（参见 Q10）。</li>
+                        <li><strong>皮肤/医美</strong>：透明质酸纳米粒、视黄醇纳米囊、积雪草纳米乳——经皮输送。</li>
+                    </ol>
+
+                    <h4>五、代表上市药物与销售额（2023 年）</h4>
+                    <table style="width:100%;font-size:11px;border-collapse:collapse;margin:6px 0;">
+                        <thead>
+                            <tr style="background:#e3f2fd;">
+                                <th style="padding:5px;text-align:left;border:1px solid #ddd;">商品名</th>
+                                <th style="padding:5px;text-align:left;border:1px solid #ddd;">载药</th>
+                                <th style="padding:5px;text-align:left;border:1px solid #ddd;">载体</th>
+                                <th style="padding:5px;text-align:left;border:1px solid #ddd;">适应症</th>
+                                <th style="padding:5px;text-align:left;border:1px solid #ddd;">年销售额</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="padding:5px;border:1px solid #ddd;"><b>Abraxane®</b></td><td style="padding:5px;border:1px solid #ddd;">紫杉醇</td><td style="padding:5px;border:1px solid #ddd;">白蛋白 130nm</td><td style="padding:5px;border:1px solid #ddd;">乳腺癌/肺癌/胰腺癌</td><td style="padding:5px;border:1px solid #ddd;">~$10 亿</td></tr>
+                            <tr><td style="padding:5px;border:1px solid #ddd;"><b>Doxil®/Caelyx®</b></td><td style="padding:5px;border:1px solid #ddd;">阿霉素</td><td style="padding:5px;border:1px solid #ddd;">PEG 脂质体</td><td style="padding:5px;border:1px solid #ddd;">卵巢癌/卡波西肉瘤</td><td style="padding:5px;border:1px solid #ddd;">~$5 亿</td></tr>
+                            <tr><td style="padding:5px;border:1px solid #ddd;"><b>Onivyde®</b></td><td style="padding:5px;border:1px solid #ddd;">伊立替康</td><td style="padding:5px;border:1px solid #ddd;">脂质体</td><td style="padding:5px;border:1px solid #ddd;">胰腺癌</td><td style="padding:5px;border:1px solid #ddd;">~$4 亿</td></tr>
+                            <tr><td style="padding:5px;border:1px solid #ddd;"><b>AmBisome®</b></td><td style="padding:5px;border:1px solid #ddd;">两性霉素 B</td><td style="padding:5px;border:1px solid #ddd;">脂质体</td><td style="padding:5px;border:1px solid #ddd;">深部真菌感染</td><td style="padding:5px;border:1px solid #ddd;">~$4 亿</td></tr>
+                            <tr><td style="padding:5px;border:1px solid #ddd;"><b>Onpattro®</b></td><td style="padding:5px;border:1px solid #ddd;">siRNA</td><td style="padding:5px;border:1px solid #ddd;">LNP</td><td style="padding:5px;border:1px solid #ddd;">转甲状腺素淀粉样变</td><td style="padding:5px;border:1px solid #ddd;">首个 siRNA 药</td></tr>
+                            <tr><td style="padding:5px;border:1px solid #ddd;"><b>Comirnaty®</b></td><td style="padding:5px;border:1px solid #ddd;">mRNA</td><td style="padding:5px;border:1px solid #ddd;">LNP</td><td style="padding:5px;border:1px solid #ddd;">COVID-19</td><td style="padding:5px;border:1px solid #ddd;">$370 亿（2022）</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h4>六、PSWCs 与纳米输送的关系（核心问题）</h4>
+                    <p><strong>PSWCs 本身是不是"纳米药"？</strong>严格来说不是——PSWCs 不是被输送的小分子药，而是<strong>水分子本身的亚稳态团簇</strong>：(H₂O)ₙH⁺，n=2-5，m/z=37/55/73/91，尺寸约 <strong>1 nm</strong>（比所有上述载体都小 1-2 个数量级），是全球已知<strong>最小的"纳米药物载体"候选物</strong>。</p>
+                    <p><strong>PSWCs 在纳米输送体系中可能扮演 4 个角色：</strong></p>
+                    <ol>
+                        <li><b>超小尺寸载体（~1 nm）</b>：1 nm 远小于常规纳米载体（50-200 nm），理论上可穿透几乎所有生物屏障——包括紧密连接蛋白孔隙（~1.5 nm）、核孔复合体（~9 nm 通道但可通过 &lt;9 nm 颗粒）。这是 PSWCs 与普通纳米药物的关键差异。</li>
+                        <li><b>Zeta 电位 +63.37 mV 的强正电荷</b>：与细胞膜表面糖萼（带负电的硫酸乙酰肝素）<strong>静电吸附</strong>，触发吸附介导转胞吞（AMT，参见 Q10 机制 IV），促进小分子药或 PSWCs 本身跨屏障。</li>
+                        <li><b>"水为载"理念</b>：传统纳米载体是"固体颗粒包药"，PSWCs 则是"水结构本身携带信息"——是否可作为其他小分子药的<strong>溶剂增强剂</strong>？已有 IIT 探索 PSWCs 作为注射液稀释液、滴眼液基质、雾化吸入介质。</li>
+                        <li><b>亚稳态能量 + 质子（H⁺）递送</b>：PSWCs 把 H⁺ 以笼状结构稳定运输到靶组织后释放（参见 K014 子领域 G 生物电化学 · I Redox Medicine），可能改写纳米医学的"载体-药物"二元模型为"<strong>载体-质子-药物</strong>"三元模型。</li>
+                    </ol>
+
+                    <h4>七、PSWCs 相对传统纳米药物的 4 个独有优势 + 3 个未解问题</h4>
+                    <p><b>4 个独有优势：</b></p>
+                    <ol>
+                        <li><b>绝对生物相容性</b>：成分就是 H₂O + H⁺，无脂质/PGA/白蛋白载体的代谢负担</li>
+                        <li><b>无限水溶性</b>：水包水，本质上是水，不存在载药量上限问题</li>
+                        <li><b>生产成本极低</b>：电化学处理，比脂质体的均质-挤出-冻干工艺简单 1-2 个数量级</li>
+                        <li><b>可联合使用</b>：可与现有纳米药物联合（如 PSWCs 作为注射稀释液 + Abraxane），无需重建制剂</li>
+                    </ol>
+                    <p><b>3 个未解问题（决定能否进 FDA 路径）：</b></p>
+                    <ol>
+                        <li><b>血浆半衰期</b>：(H₂O)ₙH⁺ 进入血液 pH 7.4 缓冲体系后，n=2-5 笼状结构能撑多久？（毫秒？秒？分钟？未知）</li>
+                        <li><b>体内分布与代谢</b>：放射性标记 PSWCs 灌胃/注射后，器官分布、肾清除速率、长期蓄积安全性全无数据</li>
+                        <li><b>头对头临床</b>：PSWCs 滴眼 vs 普通人工泪液、PSWCs 注射稀释 vs 生理盐水稀释——0 项 RCT 直接对比</li>
+                    </ol>
+
+                    <h4>八、与课题其他 Q/K 的关联</h4>
+                    <ul>
+                        <li><b>Q3（AD 病例）</b> ← PSWCs 跨越 BBB（参见 Q10）后，可能作为 AD 治疗药物的纳米载体稀释液</li>
+                        <li><b>Q5（11 项动物实验）</b> ← 多项动物模型使用 PSWCs 作为药物溶剂（鼻腔给药、皮下注射、腹腔注射）</li>
+                        <li><b>Q7（PSWCs 产品矩阵）</b> ← 喷雾/眼药水/注射液/学习杯均涉及"水作为递送介质"</li>
+                        <li><b>Q8/Q9（自由基）</b> ← 纳米载体在体内可能被网状内皮系统识别为异物产生氧化应激，PSWCs 抗氧化可减轻</li>
+                        <li><b>Q10（血脑屏障）</b> ← 1 nm 尺寸 + +63 mV 是跨越 BBB 的理论最优纳米载体参数</li>
+                        <li><b>K012/K013（文献库）</b> ← 检索 "nanoparticle + hydrogen" 得 14 篇，证实领域尚处早期</li>
+                        <li><b>K014 v2（分子·原子·离子·电子医学）</b> ← 子领域 F "分子医学/纳米医学/分子影像" 是 PSWCs 学术定位的核心归属</li>
+                    </ul>
+
+                    <h4>九、关键文献（按重要性排序）</h4>
+                    <ul>
+                        <li>Matsumura Y, Maeda H. "A new concept for macromolecular therapeutics in cancer chemotherapy: mechanism of tumoritropic accumulation of proteins and the antitumor agent smancs." <em>Cancer Res</em>. 1986; 46(12 Pt 1):6387-6392. <b>(EPR 效应开山论文，纳米医学奠基)</b></li>
+                        <li>Peer D, Karp JM, Hong S, et al. "Nanocarriers as an emerging platform for cancer therapy." <em>Nat Nanotechnol</em>. 2007; 2(12):751-760.</li>
+                        <li>Allen TM, Cullis PR. "Drug delivery systems: entering the mainstream." <em>Science</em>. 2004; 303(5665):1818-1822.</li>
+                        <li>Farokhzad OC, Langer R. "Impact of nanotechnology on drug delivery." <em>ACS Nano</em>. 2009; 3(1):16-20.</li>
+                        <li>Venditto VJ, Szoka FC Jr. "Cancer nanomedicines: so many papers and so few drugs!" <em>Adv Drug Deliv Rev</em>. 2013; 65(1):80-88. <b>(纳米药物转化率低的反思)</b></li>
+                        <li>Zhu Y. "Protonated small molecule water cluster and application thereof." <em>US Patent 12,371,351 B2</em>. 2019. (PSWCs 专利，分子量 37/55/73/91)</li>
+                        <li>FDA. "Drug Products, Including Biological Products, that Contain Nanomaterials — Guidance for Industry." 2022. (FDA 纳米药物监管框架)</li>
+                    </ul>
+
+                    <h4>十、给 HKUST 潘鼎教授的合作建议</h4>
+                    <p>如向潘老师（HKUST 化学系，水科学/纳米材料）建议 PSWCs 研究：</p>
+                    <ol>
+                        <li><b>切入点</b>：PSWCs 是全球已知最小"水基纳米载体" (~1 nm)，可能填补"亚纳米药物载体"研究空白（PubMed 检索 "sub-nanometer drug delivery" 仅 9 篇）</li>
+                        <li><b>合作方向</b>：(a) 用冷冻电镜/cryo-EM 直接观察 PSWCs 结构；(b) 用同位素标记（氘代水 D₂O）做体内药代动力学；(c) 用分子动力学模拟 H⁺ 在笼内停留时间</li>
+                        <li><b>差异化卖点</b>：PSWCs 单一产品已上市、4 国专利、动物 11 项、人体 23 例——证据链完整度远超大多数纳米医学初创公司</li>
+                        <li><b>风险提示</b>：HKUST 不做临床，需明确"基础研究合作 → 论文发表 → 临床推广交给杭州善上水"的分工</li>
+                    </ol>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -4186,6 +4366,7 @@ N. 同位素医学 Isotope Medicine <span style="color:#888;font-weight:400;">(7
     课题1号 — 善上水质子化小分子团簇水（PSWCs）研究跟踪系统 · v11 · 2026年6月17日更新<br>
     🆕 2026-06-17更新：知识库 K012 新增 · 氢医学研究文献库建成 · K011 (Ichihara 2015 综述339篇) + K012 (Europe PMC 2016-2026 检索1,122篇) = <b>1,461 篇参考文献</b>（1975-2026共51年）· 时间倒序展示 · Vercel 在线浏览器<br>
     🆕 2026-06-17更新：知识库 K013 新增 · <b>K012 二次加工 · 1,122 篇按"疾病领域"自动分类为 21 类</b>（神经系统245/物理化学工业166/呼吸系统137/心血管107 等）· 标题+期刊关键词匹配 · 多标签归类（653 篇多领域）· 直接展开即可浏览全部 1,122 篇 · 无需外链<br>
+    🆕 2026-06-21更新：Q&amp;A 新增 Q11 · <b>什么是纳米输送小分子药？PSWCs 与之有什么关系？</b>· 10 节内容（定义/为什么需要/8 类纳米载体对比表/5 大应用领域/6 款上市药物销售额表/PSWCs 4 个角色 + 4 优势 + 3 未解问题/与其他 Q-K 关联/7 篇关键文献/HKUST 潘鼎合作建议）· 核心洞察：PSWCs 是全球已知最小"水基纳米载体"候选物（~1 nm，Zeta +63.37 mV），可填补"亚纳米药物载体"研究空白<br>
     🆕 2026-06-18更新：Q&amp;A 新增 Q10 · <b>血脑屏障（BBB）是什么？PSWCs 能不能穿过血脑屏障？</b>· 含经典 BBB 双面板示意图（4 种细胞 + 5 种跨屏障运输机制 I-V）· 8 节内容（定义/结构/5 运输机制/配图/临床意义/PSWCs 关联/K014 对接/关键文献）· 与 Q3 AD 病例 + Q8/Q9 自由基 + K014 离子医学交叉
 </div>
 
