@@ -1,4 +1,4 @@
 .DS_Store
 *.log
 *.backup.*
-*-preview.png
+*-preview*.png
