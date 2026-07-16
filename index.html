@@ -748,7 +748,7 @@ ul.k016-content .checklist.k016-content .li:.k016-content .before {.k016-content
             研究團隊：朱一心 / 杭州善上水科技有限公司 · 發明專利：US 12,371,351 B2
         </div>
         <div class="header-stats">
-            <div class="stat-item"><span class="stat-number">18</span><span class="stat-label">人體病例</span></div>
+            <div class="stat-item"><span class="stat-number">19</span><span class="stat-label">人體病例</span></div>
             <div class="stat-item"><span class="stat-number">11</span><span class="stat-label">動物實驗</span></div>
             <div class="stat-item"><span class="stat-number">9</span><span class="stat-label">科研假説</span></div>
             <div class="stat-item"><span class="stat-number">2</span><span class="stat-label">IIT進行中</span></div>
@@ -1431,7 +1431,7 @@ ul.k016-content .checklist.k016-content .li:.k016-content .before {.k016-content
 
     <!-- HYPOTHESIS -->
     <div class="section" id="tab-hypothesis">
-        <h3 class="section-title"> data-i18n="sec_hypothesis">核心科學假説</h3>
+        <h3 class="section-title" data-i18n="sec_hypothesis">核心科學假説</h3>
         <div class="filter-bar">
             <button class="filter-btn active" onclick="setHypFilter('all', this)" data-i18n="filter_all">全部</button>
             <button class="filter-btn" onclick="setHypFilter('high', this)" data-i18n="hyp_high">🔴 高優先級</button>
@@ -1498,7 +1498,7 @@ ul.k016-content .checklist.k016-content .li:.k016-content .before {.k016-content
 
     <!-- KNOWLEDGE -->
     <div class="section" id="tab-knowledge">
-        <h3 class="section-title"> data-i18n="sec_knowledge">基礎知識積累</h3>
+        <h3 class="section-title" data-i18n="sec_knowledge">基礎知識積累</h3>
         <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K001</div><div class="knowledge-title">PSWCs 分子結構</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K001 · PSWCs 分子結構</h3><p>基本構築單元：(H₂O)nH⁺ (n = 2, 3, 4, 5)。質子 H⁺ 位於籠狀水殼的幾何與靜電雙重中心。</p><h4>關鍵：Grotthuss 屏蔽效應</h4><p>傳統：質子在水中通過 Grotthuss 機制（質子跳躍）在皮秒內重新分佈。<br>PSWCs：外層水殼屏蔽 Grotthuss 跳躍通道 → 質子擺脱皮秒級淬滅 → 宏觀超穩定。</p><h4>待深入</h4><ul><li>量子化學計算：籠狀結構如何實現對 Grotthuss 的屏蔽？</li><li>與固體材料中"量子限域離子超流體"(QISF)的關係？</li><li>關鍵詞：Grotthuss mechanism, Zundel cation H₅O₂⁺, Eigen cation H₉O₄⁺</li></ul></div></div>
         <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K002</div><div class="knowledge-title">質譜證據 m/z 37/55/73/91</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K002 · 質譜證據 m/z 37/55/73/91</h3><p>特徵 m/z 峯：<strong>37 / 55 / 73 / 91</strong>（分別對應 (H₂O)₂H⁺ / (H₂O)₃H⁺ / (H₂O)₄H⁺ / (H₂O)₅H⁺）</p><h4>H₃O⁺ 缺失的意義</h4><p>Eigen 模型（H₃O⁺ + 3H₂O → H₉O₄⁺）是水合質子最經典的理論模型。PSWCs 質譜中 <strong>m/z 19（H₃O⁺）顯著缺失</strong>，支持"籠狀結構"假説。</p><h4>待深入</h4><ul><li>中科院大連化物所 LTQ-MS 原始數據是否可獲取？</li><li>m/z 37/55/73/91 的相對丰度比是多少？</li><li>Marx D, et al. A fresh look at hydrated protons. Science, 2009</li></ul></div></div>
         <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K003</div><div class="knowledge-title">ESI 製備機理（顛覆諾獎假設）</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K003 · ESI 製備機理（顛覆諾獎假設）</h3><p>2002年諾貝爾化學獎（Fenn 電噴霧）：假設 ESI 過程中質子來自溶液中的酸添加劑或電化學反應。</p><h4>PSWCs 的顛覆</h4><p>質子來自<strong>氣相水分子自身的高場異裂</strong>：</p><pre>氣相 H₂O →（~2.1×10⁹ V/m）→ H⁺ + OH⁻
@@ -5672,9 +5672,9 @@ const T = {
     nav_overview:{zh:'📋 總覽',en:'📋 Overview'},
     nav_phenomena:{zh:'🔬 異常現象',en:'🔬 Anomalous Phenomena'},
     nav_experiments:{zh:'🐁 動物實驗 <span class="tab-count">11</span>',en:'🐁 Animal Studies <span class="tab-count">11</span>'},
-    nav_cases:{zh:'🏥 人體病例 <span class="tab-count">19</span><span class="new-badge"> NEW</span>',en:'🏥 Human Cases <span class="tab-count">18</span><span class="new-badge"> NEW</span>'},
+    nav_cases:{zh:'🏥 人體病例 <span class="tab-count">19</span><span class="new-badge"> NEW</span>',en:'🏥 Human Cases <span class="tab-count">19</span><span class="new-badge"> NEW</span>'},
     nav_hypothesis:{zh:'💡 科研假説',en:'💡 Hypotheses'},
-    nav_knowledge:{zh:'📚 知識積累',en:'📚 Knowledge Base'},
+    nav_knowledge:{zh:'📚 知識積累 <span class="tab-count">16</span>',en:'📚 Knowledge Base <span class="tab-count">16</span>'},
     nav_todo:{zh:'✅ 待辦',en:'✅ To-Do'},
     box_nature:{zh:'物質本質',en:'Substance Nature'},
     box_findings:{zh:'核心發現',en:'Core Findings'},
@@ -5751,13 +5751,13 @@ function setLang(lang){
         const expT=document.querySelector('#tab-experiments .section-title');
         if(expT)expT.innerHTML='Animal Study Data (11 Independent Third-Party)';
         const csT=document.querySelector('#tab-cases .section-title');
-        if(csT)csT.innerHTML='Human Clinical Observations (17 Cases)';
+        if(csT)csT.innerHTML='Human Clinical Observations (19 Cases)';
         const hpT=document.querySelector('#tab-hypothesis .section-title');
         if(hpT)hpT.innerHTML='Core Scientific Hypotheses';
         const knT=document.querySelector('#tab-knowledge .section-title');
         if(knT)knT.innerHTML='Foundational Knowledge';
         const footer=document.querySelector('.footer');
-        if(footer)footer.innerHTML='Project 01 — PSWCs Research Tracking System · v06 · Updated May 31, 2026<br>🆕 Major Update: Luo Guoying (PSWC-AD-004) Longitudinal Monitoring · Aβ Ratio 0.094→0.148 Normalized · Hermes Agent';
+        if(footer)footer.innerHTML='Project 01 — PSWCs Research Tracking System · v11 · Updated July 15, 2026<br>🌿 2026-07-15: K016 hydrated-proton intermediate-state configuration added to the main site; latest molecular evidence for the 1750 cm⁻¹ mass-spectrometry assignment puzzle, with updated knowledge-base count 14→16.<br>🔥 2026-07-06: Human case AD-003 upgraded to a formal case report; human cases count 18→19 and formal AD case reports 2→3.';
     }else{
         const boxes=document.querySelectorAll('.info-box');
         BOX_ZH.forEach((box,i)=>{
@@ -5783,7 +5783,7 @@ function setLang(lang){
         const knT=document.querySelector('#tab-knowledge .section-title');
         if(knT)knT.innerHTML='基礎知識積累';
         const footer=document.querySelector('.footer');
-        if(footer)footer.innerHTML='課題1號 — 善上水質子化小分子團簇水（PSWCs）研究跟蹤系統 · v07 · 2026年6月1日更新<br>🆕 2026-06-01更新：K011 失眠與線粒體綜述歸檔 · PSWC-INS-001失眠病例建檔 · 應用方向A7新增失眠 · Hermes Agent';
+        if(footer)footer.innerHTML='課題1號 — 質子化小分子團簇水（PSWCs）研究跟蹤系統 · v11 · 2026年7月15日更新<br>🌿 2026-07-15更新：水合質子中間態構型 K016 首入主站 · 30 年未解 1750 cm⁻¹ 質譜峰歸屬謎題最新分子證據 · 知識積累 tab-count 14→16<br>🔥 2026-07-06更新：人體病例 AD-003 正式升級為正式病例報告 · 人體病例 tab-count 18→19 · 正式病例報告 2例→3例';
     }
 }
 document.addEventListener('DOMContentLoaded',()=>{
