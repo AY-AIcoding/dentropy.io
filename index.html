@@ -6,32 +6,63 @@
     <title>課題1號 v11 — 善上水質子水PSWCs研究跟蹤系統</title>
     <style>
         :root {
-            --primary: #1a5276;
-            --primary-light: #2980b9;
-            --accent: #27ae60;
-            --accent-light: #2ecc71;
-            --warning: #e67e22;
-            --danger: #e74c3c;
-            --bg: #f4f6f9;
-            --card-bg: #ffffff;
-            --text: #2c3e50;
-            --text-light: #7f8c8d;
-            --border: #dce1e8;
-            --shadow: 0 2px 12px rgba(0,0,0,0.08);
-            --radius: 12px;
+            --primary: #0b4f6c;
+            --primary-light: #0786a6;
+            --accent: #12a88f;
+            --accent-light: #5eead4;
+            --warning: #d97706;
+            --danger: #dc3f45;
+            --bg: #edf7f8;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text: #173244;
+            --text-light: #60727b;
+            --border: #c8e1e5;
+            --shadow: 0 16px 36px rgba(8, 47, 73, 0.08);
+            --shadow-soft: 0 8px 22px rgba(8, 47, 73, 0.06);
+            --molecule-line: rgba(7, 134, 166, 0.16);
+            --molecule-node: rgba(18, 168, 143, 0.22);
+            --radius: 10px;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { overflow-x: hidden; }
         body {
             font-family: -apple-system, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-            background: var(--bg);
+            background:
+                radial-gradient(circle at 8% 12%, rgba(18,168,143,0.12) 0 2px, transparent 3px),
+                radial-gradient(circle at 92% 18%, rgba(7,134,166,0.10) 0 2px, transparent 3px),
+                linear-gradient(90deg, rgba(7,134,166,0.045) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(7,134,166,0.045) 1px, transparent 1px),
+                linear-gradient(135deg, #f3fbfb 0%, var(--bg) 48%, #f8fbff 100%);
+            background-size: 120px 120px, 150px 150px, 34px 34px, 34px 34px, auto;
+            background-attachment: fixed;
             color: var(--text);
             line-height: 1.7;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(32deg, transparent 0 47%, var(--molecule-line) 48% 52%, transparent 53% 100%),
+                radial-gradient(circle at 22% 30%, var(--molecule-node) 0 4px, transparent 5px),
+                radial-gradient(circle at 34% 42%, rgba(7,134,166,0.18) 0 3px, transparent 4px),
+                radial-gradient(circle at 76% 22%, var(--molecule-node) 0 4px, transparent 5px),
+                radial-gradient(circle at 84% 34%, rgba(7,134,166,0.16) 0 3px, transparent 4px);
+            background-size: 360px 220px;
+            opacity: 0.45;
+            z-index: -1;
         }
 
         /* Header */
         .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            background:
+                radial-gradient(circle at 16% 28%, rgba(125,211,252,0.2) 0 3px, transparent 4px),
+                radial-gradient(circle at 24% 42%, rgba(255,255,255,0.18) 0 2px, transparent 3px),
+                radial-gradient(circle at 70% 24%, rgba(56,189,248,0.22) 0 4px, transparent 5px),
+                linear-gradient(118deg, #063348 0%, #075985 48%, #0284c7 100%);
             color: white;
             padding: 40px 20px 50px;
             position: relative;
@@ -40,24 +71,92 @@
         .header::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 50%;
+            inset: 0;
+            background:
+                linear-gradient(28deg, transparent 0 48%, rgba(125,211,252,0.2) 49% 51%, transparent 52% 100%),
+                linear-gradient(152deg, transparent 0 48%, rgba(255,255,255,0.12) 49% 51%, transparent 52% 100%),
+                radial-gradient(circle, rgba(255,255,255,0.38) 0 2px, transparent 3px);
+            background-size: 160px 92px, 160px 92px, 80px 80px;
+            opacity: 0.55;
         }
         .header::after {
             content: '';
             position: absolute;
-            bottom: -30%;
-            left: 5%;
-            width: 300px;
-            height: 300px;
-            background: rgba(255,255,255,0.03);
+            right: -120px;
+            top: -80px;
+            width: 420px;
+            height: 420px;
             border-radius: 50%;
+            border: 1px solid rgba(125,211,252,0.28);
+            box-shadow: inset 0 0 90px rgba(56,189,248,0.14);
         }
         .header-content { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+        .header-main {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            align-items: start;
+            min-height: 238px;
+            margin-bottom: 12px;
+            padding-right: min(38vw, 410px);
+            position: relative;
+        }
+        .header-copy { min-width: 0; position: relative; z-index: 2; }
+        .banner-molecule {
+            position: absolute;
+            right: -18px;
+            top: 4px;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: min(40vw, 440px);
+            height: 300px;
+            min-height: 0;
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+            background:
+                radial-gradient(ellipse at 55% 48%, rgba(186,230,253,0.32), transparent 58%),
+                radial-gradient(circle at 78% 18%, rgba(125,211,252,0.16), transparent 24%);
+            box-shadow: none;
+            backdrop-filter: none;
+            transform: rotate(-2deg);
+            overflow: visible;
+            opacity: 0.84;
+            pointer-events: none;
+        }
+        .banner-molecule::before,
+        .banner-molecule::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .banner-molecule::before {
+            inset: 12px 0 0 0;
+            background:
+                radial-gradient(ellipse at 52% 52%, rgba(255,255,255,0.16), transparent 54%),
+                linear-gradient(115deg, transparent 0 47%, rgba(125,211,252,0.12) 48% 52%, transparent 53% 100%);
+        }
+        .banner-molecule::after {
+            width: 150px;
+            height: 150px;
+            right: -20px;
+            top: 6px;
+            border: 1px solid rgba(186,230,253,0.18);
+            box-shadow: -260px 135px 0 -70px rgba(186,230,253,0.1);
+        }
+        .banner-molecule img {
+            position: relative;
+            z-index: 1;
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            mix-blend-mode: normal;
+            filter: saturate(0.95) contrast(1.04) drop-shadow(0 18px 28px rgba(2, 29, 46, 0.22));
+        }
+        .header-stats { position: relative; z-index: 2; }
         .header-lang {
             position: absolute;
             top: 20px;
@@ -89,16 +188,16 @@
         .header-content { position: relative; }
     .header-badge {
             display: inline-block;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.13);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(94,234,212,0.35);
             padding: 4px 16px;
             border-radius: 20px;
             font-size: 13px;
             margin-bottom: 16px;
             letter-spacing: 1px;
         }
-        .header h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+        .header h1 { font-size: 32px; font-weight: 750; margin-bottom: 8px; letter-spacing: -0.2px; }
         .header .subtitle { opacity: 0.8; font-size: 15px; margin-bottom: 24px; }
         .header-stats {
             display: flex;
@@ -107,24 +206,26 @@
         }
         .stat-item {
             text-align: center;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(148, 233, 222, 0.26);
             border-radius: var(--radius);
             padding: 16px 28px;
             backdrop-filter: blur(10px);
             min-width: 120px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
         }
         .stat-number { font-size: 28px; font-weight: 800; display: block; line-height: 1.2; }
         .stat-label { font-size: 12px; opacity: 0.75; margin-top: 4px; letter-spacing: 0.5px; }
 
         /* Nav tabs */
         .nav-tabs {
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(18px);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 24px rgba(8,47,73,0.08);
         }
         .nav-tabs-inner {
             max-width: 1100px;
@@ -133,12 +234,14 @@
             gap: 4px;
             padding: 0 20px;
             overflow-x: auto;
+            scrollbar-width: none;
         }
+        .nav-tabs-inner::-webkit-scrollbar { display: none; }
         .nav-tab {
-            padding: 16px 20px;
+            padding: 14px 16px;
             cursor: pointer;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 650;
             color: var(--text-light);
             border-bottom: 3px solid transparent;
             white-space: nowrap;
@@ -146,11 +249,28 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            position: relative;
         }
-        .nav-tab:hover { color: var(--primary); }
-        .nav-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .nav-tab:hover { color: var(--primary); background: rgba(18,168,143,0.06); }
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--accent);
+            background: linear-gradient(180deg, rgba(18,168,143,0.12), rgba(18,168,143,0.03));
+        }
+        .nav-tab.active::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -5px;
+            width: 8px;
+            height: 8px;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(18,168,143,0.12);
+        }
         .nav-tab .tab-count {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
             border-radius: 10px;
             padding: 1px 8px;
@@ -172,19 +292,26 @@
         }
 
         /* Main */
-        .main { max-width: 1100px; margin: 0 auto; padding: 28px 20px; }
+        .main { max-width: 1100px; margin: 0 auto; padding: 28px 20px; position: relative; }
         .section { display: none; }
-        .section.active { display: block; }
+        .section.active { display: block; animation: sectionIn 0.22s ease-out; }
+        @keyframes sectionIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* Cards */
         .card {
             background: var(--card-bg);
+            backdrop-filter: blur(16px);
             border-radius: var(--radius);
             border: 1px solid var(--border);
             box-shadow: var(--shadow);
             margin-bottom: 16px;
             overflow: hidden;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
         }
+        .card:hover { transform: translateY(-1px); box-shadow: 0 18px 42px rgba(8,47,73,0.11); border-color: rgba(18,168,143,0.42); }
         .card.new-case {
             border: 2px solid var(--danger);
             box-shadow: 0 4px 20px rgba(231,76,60,0.15);
@@ -199,7 +326,7 @@
             transition: background 0.15s;
             user-select: none;
         }
-        .card-header:hover { background: #f8fafc; }
+        .card-header:hover { background: rgba(18,168,143,0.055); }
         .card-header-left { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; }
         .card-icon {
             width: 44px;
@@ -210,6 +337,7 @@
             justify-content: center;
             font-size: 20px;
             flex-shrink: 0;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.55), 0 8px 18px rgba(8,47,73,0.08);
         }
         .card-title-group { min-width: 0; flex: 1; }
         .card-title { font-size: 15px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
@@ -232,35 +360,66 @@
 
         /* Overview */
         .overview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px; }
-        .info-box { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 20px 24px; box-shadow: var(--shadow); }
+        .info-box {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 20px 24px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        .info-box::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 18px 18px, rgba(18,168,143,0.16) 0 3px, transparent 4px),
+                linear-gradient(135deg, transparent 0 47%, rgba(7,134,166,0.07) 48% 52%, transparent 53% 100%);
+            background-size: 92px 92px;
+            opacity: 0.45;
+            pointer-events: none;
+        }
+        .info-box > * { position: relative; z-index: 1; }
         .info-box h3 { font-size: 13px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
         .info-box ul { list-style: none; font-size: 14px; }
         .info-box li { padding: 4px 0; display: flex; align-items: flex-start; gap: 8px; }
-        .info-box li::before { content: '•'; color: var(--accent); font-weight: 700; margin-top: 1px; }
+        .info-box li::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(18,168,143,0.09); flex: 0 0 7px; margin-top: 10px; }
         .info-box p { font-size: 14px; }
 
         .section-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; margin-top: 8px; display: flex; align-items: center; gap: 10px; }
-        .section-title::before { content: ''; width: 4px; height: 22px; background: var(--primary); border-radius: 2px; }
+        .section-title::before {
+            content: '';
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle, #fff 0 2px, transparent 3px),
+                linear-gradient(135deg, var(--accent), var(--primary-light));
+            box-shadow: 18px 0 0 -6px rgba(7,134,166,0.52), 0 0 0 5px rgba(18,168,143,0.12);
+        }
 
         /* Phenomenon */
         .phenomenon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
-        .phenomenon-card { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 18px 20px; box-shadow: var(--shadow); }
-        .phenomenon-num { display: inline-block; width: 26px; height: 26px; background: var(--primary); color: white; border-radius: 6px; text-align: center; line-height: 26px; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+        .phenomenon-card { background: var(--card-bg); backdrop-filter: blur(16px); border-radius: var(--radius); border: 1px solid var(--border); padding: 18px 20px; box-shadow: var(--shadow-soft); transition: transform 0.18s ease, border-color 0.18s ease; }
+        .phenomenon-card:hover { transform: translateY(-2px); border-color: rgba(18,168,143,0.42); }
+        .phenomenon-num { display: inline-block; width: 28px; height: 28px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border-radius: 50%; text-align: center; line-height: 28px; font-size: 12px; font-weight: 700; margin-bottom: 8px; box-shadow: 0 0 0 5px rgba(18,168,143,0.10); }
         .phenomenon-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
         .phenomenon-card p { font-size: 12px; color: var(--text-light); line-height: 1.6; }
 
         /* Tables */
         .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .data-table th { background: #f0f4f8; padding: 12px 14px; text-align: left; font-weight: 600; font-size: 12px; color: var(--primary); border-bottom: 2px solid var(--border); position: sticky; top: 60px; }
-        .data-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
-        .data-table tr:hover td { background: #f8fafc; }
+        .data-table th { background: linear-gradient(135deg, rgba(11,79,108,0.12), rgba(18,168,143,0.10)); padding: 12px 14px; text-align: left; font-weight: 700; font-size: 12px; color: var(--primary); border-bottom: 2px solid var(--border); position: sticky; top: 60px; }
+        .data-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; background: rgba(255,255,255,0.68); }
+        .data-table tr:hover td { background: rgba(18,168,143,0.055); }
 
         /* Tags */
         .tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
-        .tag-primary { background: #e8f4fd; color: var(--primary-light); }
-        .tag-success { background: #e8f8f0; color: var(--accent); }
-        .tag-warning { background: #fef5e7; color: var(--warning); }
-        .tag-danger { background: #fdf2f2; color: var(--danger); }
+        .tag-primary { background: #e4f5fb; color: var(--primary-light); }
+        .tag-success { background: #e1f7f2; color: var(--accent); }
+        .tag-warning { background: #fff3d6; color: var(--warning); }
+        .tag-danger { background: #fff0f1; color: var(--danger); }
         .tag-purple { background: #f3e8ff; color: #7c3aed; }
         .tag-teal { background: #e0f7fa; color: #00838f; }
         .tag-new { background: #e74c3c; color: white; animation: pulse 2s infinite; }
@@ -276,15 +435,15 @@
         .metric-normal { background: #e8f8f0; color: var(--accent); }
         .metric-borderline { background: #fef9e7; color: var(--warning); }
 
-        .note-box { background: #fef9e7; border: 1px solid #f39c12; border-radius: 8px; padding: 12px 16px; font-size: 13px; margin-top: 12px; display: flex; gap: 10px; align-items: flex-start; }
+        .note-box { background: linear-gradient(135deg, rgba(255,248,225,0.95), rgba(235,250,247,0.82)); border: 1px solid rgba(217,119,6,0.35); border-radius: 8px; padding: 12px 16px; font-size: 13px; margin-top: 12px; display: flex; gap: 10px; align-items: flex-start; box-shadow: var(--shadow-soft); }
         .note-box::before { content: '⚠️'; flex-shrink: 0; }
 
-        .highlight-box { background: #fdf2f2; border: 2px solid #e74c3c; border-radius: 8px; padding: 16px 20px; margin-top: 16px; }
+        .highlight-box { background: linear-gradient(135deg, #fff0f1, #fff8f8); border: 2px solid rgba(220,63,69,0.72); border-radius: 8px; padding: 16px 20px; margin-top: 16px; box-shadow: var(--shadow-soft); }
         .highlight-box h4 { color: var(--danger); font-size: 14px; margin-bottom: 8px; }
         .highlight-box p { font-size: 13px; }
 
         /* Hypothesis */
-        .hypothesis { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); border-left: 4px solid var(--primary); padding: 20px 24px; margin-bottom: 14px; box-shadow: var(--shadow); }
+        .hypothesis { background: var(--card-bg); backdrop-filter: blur(16px); border-radius: var(--radius); border: 1px solid var(--border); border-left: 4px solid var(--primary); padding: 20px 24px; margin-bottom: 14px; box-shadow: var(--shadow); }
         .hypothesis.high { border-left-color: var(--danger); }
         .hypothesis.medium { border-left-color: var(--warning); }
         .hypothesis.explore { border-left-color: #7c3aed; }
@@ -295,7 +454,7 @@
         .hypothesis li { padding: 3px 0; }
 
         /* Knowledge */
-        .knowledge-card { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 14px; box-shadow: var(--shadow); }
+        .knowledge-card { background: var(--card-bg); backdrop-filter: blur(16px); border-radius: var(--radius); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 14px; box-shadow: var(--shadow); }
         .knowledge-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: var(--primary); }
         .knowledge-card h4 { font-size: 14px; font-weight: 600; margin: 14px 0 8px; }
         .knowledge-card p { font-size: 13px; color: var(--text); margin-bottom: 8px; }
@@ -304,18 +463,19 @@
         .knowledge-card li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
 
         /* Todo */
-        .todo-item { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 14px 20px; margin-bottom: 10px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.15s; }
-        .todo-item:hover { background: #f8fafc; }
+        .todo-item { background: var(--card-bg); backdrop-filter: blur(16px); border-radius: var(--radius); border: 1px solid var(--border); padding: 14px 20px; margin-bottom: 10px; box-shadow: var(--shadow-soft); display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all 0.15s; }
+        .todo-item:hover { background: rgba(18,168,143,0.055); border-color: rgba(18,168,143,0.38); }
         .todo-item.done { opacity: 0.5; }
         .todo-item.done .todo-text { text-decoration: line-through; }
 
         /* Knowledge Card (Collapsible) */
-        .knowledge-card.collapsible { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 12px; box-shadow: var(--shadow); overflow: hidden; transition: border-color 0.2s; cursor: pointer; }
+        .knowledge-card.collapsible { background: var(--card-bg); backdrop-filter: blur(16px); border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 12px; box-shadow: var(--shadow); overflow: hidden; transition: border-color 0.2s, transform 0.18s ease, box-shadow 0.18s ease; cursor: pointer; }
+        .knowledge-card.collapsible:hover { transform: translateY(-1px); }
         .knowledge-card.collapsible:hover { border-color: var(--primary-light); }
-        .knowledge-card.collapsible.open { border-color: var(--primary); box-shadow: 0 4px 20px rgba(26,82,118,0.15); }
+        .knowledge-card.collapsible.open { border-color: var(--primary); box-shadow: 0 16px 36px rgba(8,47,73,0.12); }
         .knowledge-header { padding: 16px 22px; display: flex; align-items: center; gap: 12px; user-select: none; transition: background 0.15s; }
-        .knowledge-header:hover { background: #f8fafc; }
-        .knowledge-num { background: var(--primary); color: #fff; min-width: 48px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; }
+        .knowledge-header:hover { background: rgba(18,168,143,0.055); }
+        .knowledge-num { background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; min-width: 48px; height: 30px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; box-shadow: 0 0 0 5px rgba(18,168,143,0.10); }
         .knowledge-title { flex: 1; font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.4; }
         .knowledge-arrow { color: var(--text-light); font-size: 15px; transition: transform 0.25s; flex-shrink: 0; }
         .knowledge-card.collapsible.open .knowledge-arrow { transform: rotate(90deg); }
@@ -327,18 +487,19 @@
         .knowledge-body ul { margin: 6px 0 10px 20px; }
         .knowledge-body li { font-size: 12.5px; color: var(--text); margin-bottom: 4px; line-height: 1.6; }
         .knowledge-body table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12px; }
-        .knowledge-body th { background: #f0f4f8; padding: 8px 12px; text-align: left; font-weight: 600; color: var(--primary); border: 1px solid var(--border); }
+        .knowledge-body th { background: linear-gradient(135deg, rgba(11,79,108,0.12), rgba(18,168,143,0.10)); padding: 8px 12px; text-align: left; font-weight: 600; color: var(--primary); border: 1px solid var(--border); }
         .knowledge-body td { padding: 8px 12px; border: 1px solid var(--border); vertical-align: top; font-size: 12px; }
-        .knowledge-body pre { background: #f0f4f8; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 11px; line-height: 1.5; margin: 10px 0; overflow-x: auto; }
+        .knowledge-body pre { background: #e9f5f7; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 11px; line-height: 1.5; margin: 10px 0; overflow-x: auto; border: 1px solid var(--border); }
         .knowledge-body strong { color: var(--primary); }
 
         /* Q&A */
-        .qa-item { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 14px; box-shadow: var(--shadow); overflow: hidden; transition: border-color 0.2s; }
+        .qa-item { background: var(--card-bg); backdrop-filter: blur(16px); border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 14px; box-shadow: var(--shadow); overflow: hidden; transition: border-color 0.2s, transform 0.18s ease, box-shadow 0.18s ease; }
+        .qa-item:hover { transform: translateY(-1px); }
         .qa-item:hover { border-color: var(--primary-light); }
-        .qa-item.open { border-color: var(--primary); box-shadow: 0 4px 20px rgba(26,82,118,0.15); }
+        .qa-item.open { border-color: var(--primary); box-shadow: 0 16px 36px rgba(8,47,73,0.12); }
         .qa-question { padding: 18px 24px; cursor: pointer; display: flex; align-items: center; gap: 14px; user-select: none; transition: background 0.15s; }
-        .qa-question:hover { background: #f8fafc; }
-        .qa-q-num { background: var(--primary); color: #fff; min-width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+        .qa-question:hover { background: rgba(18,168,143,0.055); }
+        .qa-q-num { background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; min-width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; box-shadow: 0 0 0 5px rgba(18,168,143,0.10); }
         .qa-q-text { flex: 1; font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.5; }
         .qa-q-arrow { color: var(--text-light); font-size: 16px; transition: transform 0.25s; flex-shrink: 0; }
         .qa-item.open .qa-q-arrow { transform: rotate(90deg); }
@@ -352,43 +513,62 @@
         .qa-a-inner strong { color: var(--primary); }
         .qa-a-inner em { color: var(--accent); font-style: normal; font-weight: 600; }
         .qa-a-inner table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12px; }
-        .qa-a-inner th { background: #f0f4f8; padding: 8px 10px; text-align: left; font-weight: 600; color: var(--primary); border: 1px solid var(--border); }
+        .qa-a-inner th { background: linear-gradient(135deg, rgba(11,79,108,0.12), rgba(18,168,143,0.10)); padding: 8px 10px; text-align: left; font-weight: 600; color: var(--primary); border: 1px solid var(--border); }
         .qa-a-inner td { padding: 8px 10px; border: 1px solid var(--border); vertical-align: top; }
         .qa-meta { font-size: 11px; color: var(--text-light); margin-bottom: 8px; }
-        .qa-tag { display: inline-block; background: #eef2fb; color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; margin-right: 6px; }
-        .todo-checkbox { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all 0.15s; }
+        .qa-tag { display: inline-block; background: #e4f5fb; color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11px; margin-right: 6px; }
+        .todo-checkbox { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all 0.15s; }
         .todo-item.done .todo-checkbox { background: var(--accent); border-color: var(--accent); color: white; }
         .todo-text { font-size: 14px; flex: 1; }
         .todo-tag { font-size: 11px; padding: 2px 8px; border-radius: 6px; flex-shrink: 0; }
 
         /* Filter + Search */
         .filter-bar { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-        .filter-btn { padding: 6px 14px; border-radius: 8px; border: 1px solid var(--border); background: var(--card-bg); font-size: 12px; cursor: pointer; transition: all 0.15s; font-weight: 500; }
-        .filter-btn:hover, .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-        .search-box { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 12px 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow); }
-        .search-box input { border: none; outline: none; font-size: 14px; flex: 1; font-family: inherit; color: var(--text); }
+        .filter-btn { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,0.78); font-size: 12px; cursor: pointer; transition: all 0.15s; font-weight: 600; color: var(--text); }
+        .filter-btn:hover, .filter-btn.active { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border-color: transparent; box-shadow: 0 8px 18px rgba(18,168,143,0.18); }
+        .search-box { background: rgba(255,255,255,0.86); backdrop-filter: blur(16px); border-radius: var(--radius); border: 1px solid var(--border); padding: 12px 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow); }
+        .search-box:focus-within { border-color: rgba(18,168,143,0.62); box-shadow: 0 0 0 4px rgba(18,168,143,0.10), var(--shadow); }
+        .search-box input { border: none; outline: none; font-size: 14px; flex: 1; font-family: inherit; color: var(--text); background: transparent; }
         .search-box input::placeholder { color: var(--text-light); }
 
         /* Compare table */
         .compare-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
-        .compare-table th { background: var(--primary); color: white; padding: 12px 14px; text-align: center; font-weight: 600; }
+        .compare-table th { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; padding: 12px 14px; text-align: center; font-weight: 600; }
         .compare-table th:first-child { border-radius: 8px 0 0 0; }
         .compare-table th:last-child { border-radius: 0 8px 0 0; }
-        .compare-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); text-align: center; vertical-align: middle; }
+        .compare-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); text-align: center; vertical-align: middle; background: rgba(255,255,255,0.7); }
         .compare-table td:first-child { text-align: left; font-weight: 600; }
-        .compare-table tr:hover td { background: #f8fafc; }
+        .compare-table tr:hover td { background: rgba(18,168,143,0.055); }
         .compare-table .highlight-row td { background: #fef9e7; font-weight: 600; }
 
         /* Footer */
-        .footer { text-align: center; padding: 30px 20px; color: var(--text-light); font-size: 12px; border-top: 1px solid var(--border); margin-top: 40px; }
-        .scroll-top { position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px; background: var(--primary); color: white; border-radius: 12px; border: none; cursor: pointer; font-size: 18px; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: opacity 0.2s; }
+        .footer { text-align: center; padding: 30px 20px; color: var(--text-light); font-size: 12px; border-top: 1px solid var(--border); margin-top: 40px; background: rgba(255,255,255,0.52); backdrop-filter: blur(12px); }
+        .scroll-top { position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border-radius: 50%; border: none; cursor: pointer; font-size: 18px; display: none; align-items: center; justify-content: center; box-shadow: 0 12px 28px rgba(8,47,73,0.24); transition: opacity 0.2s; }
         .scroll-top.show { display: flex; }
 
         /* ===== RESPONSIVE: iPhone 15+ (430px) and general mobile ===== */
         @media (max-width: 768px) {
             .header { padding: 24px 16px 36px; }
-            .header h1 { font-size: 22px; line-height: 1.3; }
+            .header-content, .nav-tabs-inner, .main { max-width: 100%; width: 100%; }
+            .header-main {
+                grid-template-columns: 1fr;
+                min-height: 190px;
+                margin-bottom: 18px;
+                padding-right: 0;
+            }
+            .banner-molecule {
+                right: -84px;
+                top: 18px;
+                width: 300px;
+                height: 210px;
+                opacity: 0.32;
+                transform: rotate(-5deg);
+            }
+            .banner-molecule img { max-height: none; }
+            .header h1 { font-size: 22px; line-height: 1.3; max-width: 100%; overflow-wrap: anywhere; }
             .header .subtitle { font-size: 12px; line-height: 1.5; }
+            .header-lang { right: 12px; top: 18px; }
+            .lang-btn { padding: 4px 11px; }
             .team-info-toggle {
                 font-size: 11px;
                 opacity: 0.75;
@@ -397,22 +577,25 @@
                 user-select: none;
             }
             .header-stats {
+                display: grid;
+                grid-template-columns: repeat(2, calc(50% - 4px));
                 gap: 8px;
-                flex-wrap: wrap;
-                justify-content: center;
+                width: 100%;
+                overflow: hidden;
             }
             .stat-item {
-                min-width: 80px;
+                min-width: 0;
+                max-width: 100%;
                 padding: 10px 12px;
-                flex: 1 1 calc(33% - 8px);
+                width: 100%;
             }
             .stat-number { font-size: 20px; }
             .stat-label { font-size: 10px; }
             .nav-tabs-inner { padding: 0 12px; gap: 0; }
             .nav-tab { padding: 12px 10px; font-size: 12px; }
             .main { padding: 16px 12px; }
-            .overview-grid { grid-template-columns: 1fr; gap: 12px; }
-            .phenomenon-grid { grid-template-columns: 1fr; }
+            .overview-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+            .phenomenon-grid { grid-template-columns: minmax(0, 1fr); }
             .card-header { padding: 14px 16px; }
             .card-body { padding: 0 16px 16px; }
             .card-title { font-size: 13px; line-height: 1.4; }
@@ -420,6 +603,7 @@
             .case-detail-table, .compare-table { font-size: 11px; }
             .case-detail-table th, .case-detail-table td,
             .compare-table th, .compare-table td { padding: 8px 6px; }
+            .info-box, .phenomenon-card, .card, .knowledge-card, .qa-item { min-width: 0; }
             .info-box { padding: 16px; }
             .info-box h3 { font-size: 12px; }
             .info-box p, .info-box li { font-size: 12px; }
@@ -445,13 +629,26 @@
 
         /* iPhone 15 Pro Max / 15 Plus / 16 series (430px width) */
         @media (max-width: 430px) {
-            .header { padding: 20px 14px 32px; }
+            html, body { max-width: 100%; }
+            .header { width: 100%; max-width: 100%; padding: 20px 14px 32px; }
+            .header-content { width: 100%; max-width: 362px; min-width: 0; overflow: hidden; }
+            .banner-molecule {
+                right: -96px;
+                top: 28px;
+                width: 270px;
+                height: 190px;
+                opacity: 0.26;
+            }
             .header h1 { font-size: 20px; }
+            .header-stats { width: 100%; min-width: 0; }
+            .nav-tabs { width: 100%; max-width: 100%; overflow: hidden; }
+            .nav-tabs-inner { width: 100%; max-width: 390px; min-width: 0; }
+            .main { width: 100%; max-width: 390px; }
             .header .subtitle { font-size: 11px; }
             .stat-item {
-                min-width: 70px;
-                flex: 1 1 calc(33% - 6px);
+                min-width: 0;
                 padding: 8px 8px;
+                overflow: hidden;
             }
             .stat-number { font-size: 18px; }
             .stat-label { font-size: 9px; }
@@ -495,37 +692,42 @@
             margin: 12px 0 20px 0;
         }
         .k013-card {
-            display: block; background: #fff; padding: 10px 8px;
+            display: block; background: rgba(255,255,255,0.86); padding: 10px 8px;
             border-radius: 8px; text-decoration: none; color: var(--text);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 2px solid transparent;
+            box-shadow: var(--shadow-soft); border: 1px solid rgba(200,225,229,0.8);
             text-align: center; transition: all 0.15s;
+            backdrop-filter: blur(12px);
         }
-        .k013-card:hover { transform: translateY(-2px); border-color: var(--c); box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+        .k013-card:hover { transform: translateY(-2px); border-color: var(--c); box-shadow: 0 14px 26px rgba(8,47,73,0.11); }
         .k013-card-icon { font-size: 22px; line-height: 1.2; }
         .k013-card-name { font-size: 11px; font-weight: 600; color: var(--c); line-height: 1.25; min-height: 28px; display: flex; align-items: center; justify-content: center; margin: 2px 0; }
         .k013-card-count { font-size: 18px; font-weight: 700; color: var(--c); }
         .k013-toolbar {
             display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
-            background: #f8f9fa; padding: 10px 14px; border-radius: 8px; margin: 10px 0 16px 0;
-            border: 1px solid #e0e6e9;
+            background: rgba(255,255,255,0.78); padding: 10px 14px; border-radius: 8px; margin: 10px 0 16px 0;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(12px);
         }
         .k013-search {
             flex: 1; min-width: 220px; padding: 7px 12px; border: 1px solid #d0d7de;
             border-radius: 6px; font-size: 13px; outline: none;
+            background: rgba(255,255,255,0.86);
+            color: var(--text);
         }
-        .k013-search:focus { border-color: #1976d2; }
+        .k013-search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(18,168,143,0.10); }
         .k013-filter {
             padding: 5px 12px; border-radius: 14px; font-size: 12px; cursor: pointer;
-            background: #fff; color: #555; border: 1px solid #d0d7de;
+            background: rgba(255,255,255,0.86); color: var(--text); border: 1px solid #d0d7de;
             user-select: none; transition: all 0.15s;
         }
-        .k013-filter:hover { background: #eef2f5; }
-        .k013-filter.active { background: #1976d2; color: white; border-color: #1976d2; font-weight: 600; }
+        .k013-filter:hover { background: rgba(18,168,143,0.08); }
+        .k013-filter.active { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border-color: transparent; font-weight: 600; }
         .k013-result-count { font-size: 11.5px; color: #888; margin-left: auto; }
         .k013-cat-head {
             display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
             margin: 22px 0 8px 0; padding: 8px 12px;
-            background: linear-gradient(90deg, var(--c)10 0%, transparent 80%);
+            background: linear-gradient(90deg, color-mix(in srgb, var(--c) 12%, transparent) 0%, transparent 80%);
             border-left: 4px solid var(--c); border-radius: 0 6px 6px 0;
             scroll-margin-top: 80px;
         }
@@ -537,16 +739,17 @@
         .k013-cat-desc { font-size: 11.5px; color: #777; font-weight: 400; }
         .k013-papers {
             display: flex; flex-direction: column; gap: 4px;
-            background: #fdfdfd; padding: 4px 0;
+            background: rgba(255,255,255,0.45); padding: 4px 0;
         }
         .k013-paper {
             display: grid;
             grid-template-columns: 110px 50px 1fr;
             align-items: baseline; gap: 8px;
-            padding: 6px 10px; border-bottom: 1px solid #f0f3f5;
+            padding: 6px 10px; border-bottom: 1px solid rgba(200,225,229,0.62);
             font-size: 12px; line-height: 1.45;
+            background: rgba(255,255,255,0.62);
         }
-        .k013-paper:hover { background: #f8fafd; }
+        .k013-paper:hover { background: rgba(18,168,143,0.055); }
         .k013-paper.hidden { display: none; }
         .k013-id { font-size: 11px; color: #1976d2; font-weight: 600; white-space: nowrap; }
         .k013-id a { color: inherit; text-decoration: none; }
@@ -740,15 +943,18 @@ ul.k016-content .checklist.k016-content .li:.k016-content .before {.k016-content
             <button class="lang-btn active" id="lang-zh" onclick="setLang('zh')">中文</button>
             <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
         </div>
-        <div class="header-badge">PROJECT-01 / SSW-PSWCs-001</div>
-        <h1 data-i18n="h1_title">質子化小分子團簇水（PSWCs）研究</h1>
-        <div class="subtitle" data-i18n="subtitle">課題1號 · 啓動時間：2026年5月31日</div>
-        <div class="team-info-toggle" onclick="this.classList.toggle('open'); this.nextElementSibling.style.display=this.classList.contains('open')?'block':'none';">👥 團隊信息 ▾</div>
-        <div class="team-info" style="display:none; font-size:13px; opacity:0.75; margin-top:8px;">
-            研究團隊：朱一心 / 杭州善上水科技有限公司 · 發明專利：US 12,371,351 B2
+        <div class="header-main">
+            <div class="header-copy">
+                <div class="header-badge">PROJECT-01 / SSW-PSWCs-001</div>
+                <h1 data-i18n="h1_title">質子化小分子團簇水（PSWCs）研究</h1>
+                <div class="subtitle" data-i18n="subtitle">課題1號 · 啓動時間：2026年5月31日</div>
+            </div>
+            <div class="banner-molecule">
+                <img src="img/pswc-banner-molecule.png" alt="PSWCs molecular structure illustration">
+            </div>
         </div>
         <div class="header-stats">
-            <div class="stat-item"><span class="stat-number">18</span><span class="stat-label">人體病例</span></div>
+            <div class="stat-item"><span class="stat-number">19</span><span class="stat-label">人體病例</span></div>
             <div class="stat-item"><span class="stat-number">11</span><span class="stat-label">動物實驗</span></div>
             <div class="stat-item"><span class="stat-number">9</span><span class="stat-label">科研假説</span></div>
             <div class="stat-item"><span class="stat-number">2</span><span class="stat-label">IIT進行中</span></div>
@@ -1431,7 +1637,7 @@ ul.k016-content .checklist.k016-content .li:.k016-content .before {.k016-content
 
     <!-- HYPOTHESIS -->
     <div class="section" id="tab-hypothesis">
-        <h3 class="section-title"> data-i18n="sec_hypothesis">核心科學假説</h3>
+        <h3 class="section-title" data-i18n="sec_hypothesis">核心科學假説</h3>
         <div class="filter-bar">
             <button class="filter-btn active" onclick="setHypFilter('all', this)" data-i18n="filter_all">全部</button>
             <button class="filter-btn" onclick="setHypFilter('high', this)" data-i18n="hyp_high">🔴 高優先級</button>
@@ -1498,7 +1704,7 @@ ul.k016-content .checklist.k016-content .li:.k016-content .before {.k016-content
 
     <!-- KNOWLEDGE -->
     <div class="section" id="tab-knowledge">
-        <h3 class="section-title"> data-i18n="sec_knowledge">基礎知識積累</h3>
+        <h3 class="section-title" data-i18n="sec_knowledge">基礎知識積累</h3>
         <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K001</div><div class="knowledge-title">PSWCs 分子結構</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K001 · PSWCs 分子結構</h3><p>基本構築單元：(H₂O)nH⁺ (n = 2, 3, 4, 5)。質子 H⁺ 位於籠狀水殼的幾何與靜電雙重中心。</p><h4>關鍵：Grotthuss 屏蔽效應</h4><p>傳統：質子在水中通過 Grotthuss 機制（質子跳躍）在皮秒內重新分佈。<br>PSWCs：外層水殼屏蔽 Grotthuss 跳躍通道 → 質子擺脱皮秒級淬滅 → 宏觀超穩定。</p><h4>待深入</h4><ul><li>量子化學計算：籠狀結構如何實現對 Grotthuss 的屏蔽？</li><li>與固體材料中"量子限域離子超流體"(QISF)的關係？</li><li>關鍵詞：Grotthuss mechanism, Zundel cation H₅O₂⁺, Eigen cation H₉O₄⁺</li></ul></div></div>
         <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K002</div><div class="knowledge-title">質譜證據 m/z 37/55/73/91</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K002 · 質譜證據 m/z 37/55/73/91</h3><p>特徵 m/z 峯：<strong>37 / 55 / 73 / 91</strong>（分別對應 (H₂O)₂H⁺ / (H₂O)₃H⁺ / (H₂O)₄H⁺ / (H₂O)₅H⁺）</p><h4>H₃O⁺ 缺失的意義</h4><p>Eigen 模型（H₃O⁺ + 3H₂O → H₉O₄⁺）是水合質子最經典的理論模型。PSWCs 質譜中 <strong>m/z 19（H₃O⁺）顯著缺失</strong>，支持"籠狀結構"假説。</p><h4>待深入</h4><ul><li>中科院大連化物所 LTQ-MS 原始數據是否可獲取？</li><li>m/z 37/55/73/91 的相對丰度比是多少？</li><li>Marx D, et al. A fresh look at hydrated protons. Science, 2009</li></ul></div></div>
         <div class="knowledge-card collapsible" onclick="this.classList.toggle('open')"><div class="knowledge-header"><div class="knowledge-num">K003</div><div class="knowledge-title">ESI 製備機理（顛覆諾獎假設）</div><div class="knowledge-arrow">▶</div></div><div class="knowledge-body"><h3>K003 · ESI 製備機理（顛覆諾獎假設）</h3><p>2002年諾貝爾化學獎（Fenn 電噴霧）：假設 ESI 過程中質子來自溶液中的酸添加劑或電化學反應。</p><h4>PSWCs 的顛覆</h4><p>質子來自<strong>氣相水分子自身的高場異裂</strong>：</p><pre>氣相 H₂O →（~2.1×10⁹ V/m）→ H⁺ + OH⁻
@@ -5667,15 +5873,16 @@ doi:10.1038/s41467-025-60794-2</pre>
 // I18N: Bilingual — 課題1號 / Project 01 Bilingual Support
 // ============================================================
 const T = {
-    h1_title:{zh:'質子化小分子團簇水（PSWCs）研究',en:'Protomerit Water Cluster (PSWCs) Research'},
+    h1_title:{zh:'質子化小分子團簇水（PSWCs）研究',en:'Protonated Small Water Clusters (PSWCs) Research'},
     subtitle:{zh:'課題1號 · 啓動時間：2026年5月31日',en:'Project 01 · Initiated: May 31, 2026'},
     nav_overview:{zh:'📋 總覽',en:'📋 Overview'},
-    nav_phenomena:{zh:'🔬 異常現象',en:'🔬 Anomalous Phenomena'},
-    nav_experiments:{zh:'🐁 動物實驗 <span class="tab-count">11</span>',en:'🐁 Animal Studies <span class="tab-count">11</span>'},
-    nav_cases:{zh:'🏥 人體病例 <span class="tab-count">19</span><span class="new-badge"> NEW</span>',en:'🏥 Human Cases <span class="tab-count">18</span><span class="new-badge"> NEW</span>'},
+    nav_phenomena:{zh:'🔬 異常現象',en:'🔬 Anomalies'},
+    nav_experiments:{zh:'🐁 動物實驗 <span class="tab-count">11</span>',en:'🐁 Animals <span class="tab-count">11</span>'},
+    nav_cases:{zh:'🏥 人體病例 <span class="tab-count">19</span><span class="new-badge"> NEW</span>',en:'🏥 Cases <span class="tab-count">19</span><span class="new-badge"> NEW</span>'},
     nav_hypothesis:{zh:'💡 科研假説',en:'💡 Hypotheses'},
-    nav_knowledge:{zh:'📚 知識積累',en:'📚 Knowledge Base'},
+    nav_knowledge:{zh:'📚 知識積累 <span class="tab-count">16</span>',en:'📚 Knowledge <span class="tab-count">16</span>'},
     nav_todo:{zh:'✅ 待辦',en:'✅ To-Do'},
+    nav_qa:{zh:'❓ Q&A',en:'❓ Q&A'},
     box_nature:{zh:'物質本質',en:'Substance Nature'},
     box_findings:{zh:'核心發現',en:'Core Findings'},
     box_gap:{zh:'研究空白',en:'Research Gap'},
@@ -5720,10 +5927,295 @@ const BOX_EN=[
     {h:'Research Gap',p:'Despite compelling data, significant challenges remain:',lis:['No RCT evidence','Mechanism at hypothesis stage','No approved indications or guidelines','Patent vs. academic dissemination tension','Industrial standardization challenges']},
 ];
 
+const SECTION_IDS = ['tab-overview','tab-phenomena','tab-experiments','tab-cases','tab-hypothesis','tab-knowledge','tab-todo','tab-qa'];
+const ORIGINAL_SECTION_HTML = {};
+let originalSectionsCached = false;
+
+const HEADER_LABELS = {
+    zh: ['人體病例','動物實驗','科研假説','IIT進行中','應用方向','氫醫學文獻'],
+    en: ['Human Cases','Animal Studies','Hypotheses','Active IITs','Application Areas','Hydrogen-Medicine Papers']
+};
+
+const FOOTER_HTML = {
+    zh: '課題1號 — 質子化小分子團簇水（PSWCs）研究跟蹤系統 · v11 · 2026年7月15日更新<br>🌿 2026-07-15更新：水合質子中間態構型 K016 首入主站 · 30 年未解 1750 cm⁻¹ 質譜峰歸屬謎題最新分子證據 · 知識積累 tab-count 14→16<br>🔥 2026-07-06更新：人體病例 AD-003 正式升級為正式病例報告 · 人體病例 tab-count 18→19 · 正式病例報告 2例→3例',
+    en: 'Project 01 — Protonated Small Water Clusters (PSWCs) Research Tracker · v11 · Updated July 15, 2026<br>🌿 July 15, 2026: K016 added the hydrated-proton intermediate-state configuration to the main site, strengthening the molecular evidence around the long-standing 1750 cm⁻¹ assignment question; knowledge-base count updated from 14 to 16.<br>🔥 July 6, 2026: human case AD-003 was promoted to a formal case report; human-case count updated from 18 to 19 and formal AD case reports from 2 to 3.'
+};
+
+const EN_SECTION_HTML = {
+    'tab-overview': `
+        <div class="overview-grid">
+            <div class="info-box">
+                <h3>Substance Nature</h3>
+                <p>PSWCs are presented as a novel aqueous medium made of discrete protonated small water clusters rather than a conventional acidic solution or ordinary hydrogen-rich water.</p>
+                <ul>
+                    <li>Proposed building blocks: (H₂O)nH⁺, where n = 2, 3, 4, or 5.</li>
+                    <li>The proton is proposed to sit inside a cage-like water shell with geometric and electrostatic shielding.</li>
+                    <li>The central scientific claim is long-lived charge despite normal proton hopping expectations.</li>
+                    <li>Working hypothesis: a quantum-confined proton state in liquid water without a solid confinement matrix.</li>
+                </ul>
+            </div>
+            <div class="info-box">
+                <h3>Key Physical Parameters</h3>
+                <ul>
+                    <li>Reported proton concentration: 6×10¹⁸ to 6×10²² ions/L.</li>
+                    <li>Zeta potential: +63.37 mV, compared with +0.44 mV for purified-water control.</li>
+                    <li>Conductivity: 869 μS/cm, compared with 1.45 μS/cm for purified-water control.</li>
+                    <li>Potentiometric pH range: 0.99 to 4.67.</li>
+                    <li>Colorimetric pH strip reading: about 6 to 7, a major claimed decoupling from electrode pH.</li>
+                    <li>Characteristic mass peaks: m/z 37, 55, 73, and 91.</li>
+                    <li>DPPH scavenging: 16.8%, compared with 0.24% for purified-water control.</li>
+                </ul>
+            </div>
+            <div class="info-box">
+                <h3>Preparation Route</h3>
+                <p>The proposed manufacturing route uses high-field electrospray ionization, framed as heterolytic splitting of gas-phase water under an intense electric field.</p>
+                <ul>
+                    <li>Approximate voltage: 10 kV through a 12.5 μm capillary.</li>
+                    <li>Estimated electric field strength: about 2.1×10⁹ V/m.</li>
+                    <li>Proposed reaction path: gas-phase H₂O → H⁺ + OH⁻.</li>
+                    <li>OH⁻ is oxidized at the counter-electrode; H⁺ becomes wrapped by water molecules.</li>
+                    <li>The resulting water clusters are claimed to remain stable at room temperature.</li>
+                    <li>The product is described as having an SC food production license in China.</li>
+                </ul>
+            </div>
+        </div>
+        <h3 class="section-title">Multi-System Biological Effects: Working Map</h3>
+        <div class="phenomenon-grid">
+            <div class="phenomenon-card"><div class="phenomenon-num">🧠</div><h4>Alzheimer's Disease</h4><p>Five AD-related observations are tracked around plasma Aβ1-42/Aβ1-40 ratio recovery, with three cases re-tested after PSWCs exposure. These are observational signals, not diagnostic or therapeutic proof.</p><span class="tag tag-danger" style="margin-top:8px">Highest Priority</span></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">🔥</div><h4>Inflammation</h4><p>Cell and animal studies report suppression of NF-κB and NLRP3 signaling, cytokine reduction, and mitochondrial recovery in gut/liver inflammation models.</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">🫀</div><h4>Metabolism</h4><p>Reported animal data include bidirectional glucose modulation and reductions in TCHO, TG, and LDL-C in metabolic models.</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">🛡️</div><h4>Allergy / Immunity</h4><p>Mouse food-allergy data report improvement across symptom score, total IgE, specific IgE, and IL-4, with a dexamethasone comparator.</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">🫁</div><h4>Oncology Combination</h4><p>A nude-mouse A549 lung-cancer model reported earlier statistical separation for icotinib plus PSWCs than for icotinib alone.</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">🏋️</div><h4>Exercise / Recovery</h4><p>Two investigator-initiated studies are tracked: allergic rhinitis at the Second Affiliated Hospital of Zhejiang University and an exercise-endurance study at Sichuan Sports College.</p></div>
+        </div>
+    `,
+    'tab-phenomena': `
+        <h3 class="section-title">10 Anomalous Experimental Phenomena — Evidence Matrix</h3>
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:16px;">Each item challenges a familiar assumption in aqueous proton dynamics. Taken together, the observations point to a proposed structural proton species that is long-lived, shielded by an outer water shell, weakly responsive to inert salts, and selectively responsive to metabolic substrates.</p>
+        <div class="phenomenon-grid">
+            <div class="phenomenon-card"><div class="phenomenon-num">1</div><h4>Long-Lived Charged State</h4><p>Classical proton hopping should relax on ultrafast timescales, yet the bulk sample is reported to remain charged for hours to months.</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">2</div><h4>High Positive Zeta Potential</h4><p>A zeta potential near +63 mV is far above the near-neutral behavior expected for ordinary purified water.</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">3</div><h4>Infrared Temperature Anomaly</h4><p>The infrared radiation-temperature response reportedly deviates from ordinary water, suggesting a different hydrogen-bond energy distribution.</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">4</div><h4>No Clear H₃O⁺ Signal</h4><p>The classical Eigen ion H₃O⁺ at m/z 19 is reported as missing or weak, while small protonated clusters dominate.</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">5</div><h4>No Large Clusters Beyond n = 5</h4><p>The detected species are reported as (H₂O)nH⁺ with n = 2 to 5, rather than larger hydrated proton clusters.</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">6</div><h4>Heating Does Not Remove the H⁺ Signature</h4><p>Closed heating reportedly leaves pH nearly unchanged, interpreted as evidence for structural shielding.</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">7</div><h4>NaCl Is Weak, Glucose Is Strong</h4><p>Inert electrolyte addition reportedly has little effect, while glucose can markedly reduce the measured proton signal.</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">8</div><h4>Low Electrode pH Without Typical Corrosivity</h4><p>Samples with very low electrode pH are reported as drinkable and less irritating than ordinary strong acid of the same pH.</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">9</div><h4>Protons Do Not Behave Like Free Acid</h4><p>The working interpretation is that many protons are structurally shielded, so total proton count and free-acid activity diverge.</p></div>
+            <div class="phenomenon-card"><div class="phenomenon-num">10</div><h4>pH Meter and pH Strip Disagree</h4><p>Electrode pH reads acidic, while colorimetric pH strips read near-neutral, suggesting a decoupling between electrochemical activity and dye-accessible acidity.</p></div>
+        </div>
+    `,
+    'tab-experiments': `
+        <h3 class="section-title">Animal Study Data (11 Independent Third-Party Studies)</h3>
+        <div class="search-box"><span>🔍</span><input type="text" id="exp-search" placeholder="Search studies: inflammation, antioxidant, tumor, metabolism..." oninput="filterExperiments()"></div>
+        <div class="filter-bar" id="exp-filter">
+            <button class="filter-btn active" onclick="setExpFilter('all', this)">All</button>
+            <button class="filter-btn" onclick="setExpFilter('CNS', this)">🧠 CNS / Cognition</button>
+            <button class="filter-btn" onclick="setExpFilter('MET', this)">🫀 Metabolic</button>
+            <button class="filter-btn" onclick="setExpFilter('IMM', this)">🛡️ Inflammation / Immunity</button>
+            <button class="filter-btn" onclick="setExpFilter('ONC', this)">🫁 Oncology</button>
+            <button class="filter-btn" onclick="setExpFilter('LIV', this)">🟤 Liver</button>
+            <button class="filter-btn" onclick="setExpFilter('SKIN', this)">🧴 Skin</button>
+        </div>
+        <table class="data-table" id="exp-table">
+            <thead><tr><th>#</th><th>Field</th><th>Model</th><th>Testing Organization</th><th>Core Finding</th></tr></thead>
+            <tbody>
+                <tr data-cat="IMM,LIV"><td>A01</td><td><span class="tag tag-primary">Inflammation + gut/liver mitochondria</span></td><td>60 C57BL/6J mice, 2% DSS colitis, infliximab comparator</td><td>Zhejiang University, Sheng Jinghao group<br><small>Ethics approval ZJU20220219</small></td><td>Improved DAI, colon pathology, and HE staining; IL-6, IL-1β, TNF-α, and ROS decreased; mitochondrial membrane potential and PGC-1α recovered; non-inferior trend versus infliximab.</td></tr>
+                <tr data-cat="IMM"><td>A02</td><td><span class="tag tag-primary">Cellular anti-inflammatory mechanism</span></td><td>Raw264.7, Vero, and RIMVEC cells; LPS induction; Western blot</td><td>Zhejiang A&amp;F University<br><small>Journal of Zhejiang A&amp;F University, 2024</small></td><td>Reported suppression of NF-κB and NLRP3 signaling, with stronger effect than aspirin in the tested setup.</td></tr>
+                <tr data-cat="IMM"><td>A03</td><td><span class="tag tag-success">In-vitro antioxidant assay</span></td><td>DPPH and ORAC assays</td><td>National Institutes for Food and Drug Control<br><small>Reports OH202205828 and related</small></td><td>DPPH scavenging of 16.8% at pH 3.5, about 70-fold higher than purified-water control.</td></tr>
+                <tr data-cat="LIV"><td>A04</td><td><span class="tag tag-warning">Liver protection</span></td><td>Zebrafish liver fat-staining model</td><td>Hangzhou Hunter Biotechnology<br><small>Report HZ11625</small></td><td>50% PSWCs sample reported 86% liver-protection efficacy, above the RU-21 positive control in this model.</td></tr>
+                <tr data-cat="CNS"><td>A05</td><td><span class="tag tag-purple">Sobering / alertness</span></td><td>Zebrafish total-movement-distance assessment</td><td>Hangzhou Hunter Biotechnology<br><small>Report HZ11625</small></td><td>50% PSWCs sample reported 80% anti-intoxication efficacy, close to RU-21 positive control.</td></tr>
+                <tr data-cat="SKIN"><td>A06</td><td><span class="tag tag-teal">Skin soothing / hydration</span></td><td>Zebrafish model plus 30-subject split-face comparison</td><td>Hangzhou Hunter Biotechnology<br><small>Report HZ7255-2-1R1</small></td><td>Reported improvement in inflammation prevention/relief and increased skin-cell water content.</td></tr>
+                <tr data-cat="ONC"><td>A07</td><td><span class="tag tag-danger">Oncology combination</span></td><td>BALB/c nude mice, A549 human non-small-cell lung cancer, 21 days</td><td>Beijing Borui Shian, CMA certified<br><small>Study S21205064</small></td><td>Icotinib plus PSWCs reached a reported tumor-inhibition rate of 47.81% versus 45.48% for icotinib alone, with earlier statistical separation.</td></tr>
+                <tr data-cat="MET"><td>A08</td><td><span class="tag tag-warning">Blood lipid regulation</span></td><td>SD rat hyperlipidemia model, 14 consecutive days, n=12/group</td><td>Beijing Borui Shian, CMA certified<br><small>Study BL20194</small></td><td>Reported reductions in TCHO, TG, and LDL-C; the report concluded a positive effect on maintaining healthy blood lipid/cholesterol levels.</td></tr>
+                <tr data-cat="MET"><td>A09</td><td><span class="tag tag-success">Bidirectional glucose regulation</span></td><td>Mouse diabetes induction and treatment model</td><td>Animal Center, College of Pharmaceutical Sciences, Zhejiang University<br><small>2018</small></td><td>Prevention phase: glucose +0.8 versus +5.8 in control; treatment phase: -4.5 versus +0.2 in control.</td></tr>
+                <tr data-cat="LIV,MET"><td>A10</td><td><span class="tag tag-warning">Liver, heart, and skeletal-muscle protection</span></td><td>Mouse controlled study with clinical pathology and biochemistry</td><td>Animal Center, College of Pharmaceutical Sciences, Zhejiang University<br><small>2019</small></td><td>Reported decreases: ALT 68.5%, AST 54.3%, ALP 36.2%, and CK 82.5%.</td></tr>
+                <tr data-cat="IMM"><td>A11</td><td><span class="tag tag-primary">Anti-allergy immune modulation</span></td><td>Mouse food-allergy model, four groups plus dexamethasone, 32 days</td><td>Zhejiang Gongshang University, Prof. Zhang Hong team</td><td>Four immunology indicators improved: symptom score, IgE, specific IgE, and IL-4; effect reported as comparable to dexamethasone.</td></tr>
+            </tbody>
+        </table>
+    `,
+    'tab-cases': `
+        <h3 class="section-title">Human Clinical Observations (19 Cases)</h3>
+        <div class="search-box"><span>🔍</span><input type="text" id="case-search" placeholder="Search cases: Alzheimer's, metabolic, gout, allergy..." oninput="filterCases()"></div>
+        <div class="note-box"><strong>Evidence status:</strong> these are observational case records and follow-up signals. They are useful for hypothesis generation and study design, but they do not establish efficacy, diagnosis, or approved medical claims.</div>
+        <h3 style="font-size:18px;font-weight:800;margin:24px 0 16px;padding:14px 18px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;border-radius:10px;box-shadow:0 4px 12px rgba(102,126,234,0.3);">AD Plasma Biomarker Comparison · 5 Aβ Ratio Recovery Signals</h3>
+        <div style="background:white;border:2px solid #667eea;border-radius:12px;padding:18px 22px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+            <p style="font-size:12.5px;color:var(--text-light);margin:0 0 14px;line-height:1.6;"><strong>Summary:</strong> five AD-related records are tracked using the same laboratory platform, LC-MS/MS at Nanjing Xinpu Medical Laboratory. In the tracked records, Aβ1-42/Aβ1-40 ratios moved from abnormal to normal range. Three of the five were re-tested after PSWCs exposure.</p>
+            <table class="compare-table">
+                <thead><tr><th>Subject</th><th>Exposure Duration</th><th>Aβ Ratio Change</th><th>p-tau217 Change</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr style="background:#e8f8f0;"><td>Ms. Luo (AD-004)<br><small>Oral, female, 75</small></td><td>About 7 months</td><td>0.094 → <strong>0.148</strong><br><span class="tag tag-success">+57.4%, normal</span></td><td>0.381 → <strong>0.208</strong><br><span class="tag tag-success">-45.4%</span></td><td><span class="tag tag-success">Recovered to normal range</span></td></tr>
+                    <tr><td>Ms. Xu (AD-001)<br><small>IV, female, 77</small></td><td>46 days</td><td>0.092 → <strong>0.148</strong><br><span class="tag tag-success">+60.9%</span></td><td>Not reported</td><td><span class="tag tag-success">Recovered to normal range</span></td></tr>
+                    <tr><td>Ms. Zhang (AD-002)<br><small>Oral, female, 78</small></td><td>2.5 months</td><td>0.093 → <strong>0.239</strong><br><span class="tag tag-success">+157%</span></td><td>Not reported</td><td><span class="tag tag-success">Recovered to normal range</span></td></tr>
+                    <tr><td><strong>Mr. Mo (AD-003)</strong><br><small>Oral, male, 77</small></td><td><strong>1.5 months to 4-5 months</strong></td><td><strong>0.081 → 0.148</strong><br><span class="tag tag-success">+82.7%, normal</span></td><td>0.298 → 0.426<br><span class="tag tag-warning">Near upper reference limit</span></td><td><span class="tag tag-success">Recovered to normal range</span></td></tr>
+                    <tr style="background:#fff3e0;"><td><strong>Mr. Luo (AD-009)</strong><br><small>Oral, male, 85</small></td><td><strong>33 days</strong></td><td><strong>0.081 → 0.118</strong><br><span class="tag tag-success">+45.7%, normal</span></td><td>0.119 → 0.164<br><span class="tag tag-success">Normal</span></td><td><span class="tag tag-success">Recovered to normal range</span></td></tr>
+                </tbody>
+            </table>
+            <div class="note-box"><strong>Interpretation guardrail:</strong> a single Aβ blood test cannot diagnose Alzheimer's disease. Repeated tests, cognitive scales, imaging, CSF markers, and clinical review are required for medical interpretation.</div>
+        </div>
+        <div class="card open" id="case-ad003-en">
+            <div class="card-header" onclick="toggleCard('case-ad003-en')"><div class="card-header-left"><div class="card-icon" style="background:#fdf2f2;color:#e74c3c;">🧠</div><div class="card-title-group"><div class="card-title">PSWC-AD-003 · Mr. Mo</div><div class="card-subtitle">Male, 77 · oral PSWCs 400 mL/day · two LC-MS/MS reports from the same lab</div></div></div><span class="card-badge tag-success">Aβ ratio 0.081 → 0.148</span><span class="chevron">▼</span></div>
+            <div class="card-body"><p>The case was promoted to a formal case report on July 6, 2026 because it adds a short-term oral-intervention signal to the AD evidence chain. The strongest readout is the Aβ ratio recovery; p-tau217 rose toward the upper reference range and should be monitored closely.</p></div>
+        </div>
+        <div class="card open" id="case-ad004-en">
+            <div class="card-header" onclick="toggleCard('case-ad004-en')"><div class="card-header-left"><div class="card-icon" style="background:#eef7ff;color:#1976d2;">🧠</div><div class="card-title-group"><div class="card-title">PSWC-AD-004 · Ms. Luo</div><div class="card-subtitle">Female, 75 · oral PSWCs · longitudinal biomarker tracking</div></div></div><span class="card-badge tag-success">Aβ ratio 0.094 → 0.148</span><span class="chevron">▼</span></div>
+            <div class="card-body"><p>Ms. Luo is treated as a key longitudinal record because the same subject has repeated blood biomarker reports over several months. The case is useful for designing future sampling intervals and confirming whether the ratio change persists.</p></div>
+        </div>
+        <div class="card open" id="case-registry-en">
+            <div class="card-header" onclick="toggleCard('case-registry-en')"><div class="card-header-left"><div class="card-icon" style="background:#f3e5f5;color:#7b1fa2;">📋</div><div class="card-title-group"><div class="card-title">Registry Map Across 19 Human Observations</div><div class="card-subtitle">AD biomarkers, allergic rhinitis, metabolism, gout, skin, and recovery-related observations</div></div></div><span class="card-badge tag-primary">Case Registry</span><span class="chevron">▼</span></div>
+            <div class="card-body">
+                <table class="data-table">
+                    <thead><tr><th>Domain</th><th>Signal Being Tracked</th><th>Near-Term Follow-Up</th></tr></thead>
+                    <tbody>
+                        <tr><td>Alzheimer's biomarkers</td><td>Aβ ratio normalization, p-tau217 movement, cognitive-scale follow-up</td><td>Repeat Aβ ratio, MoCA, PET or CSF confirmation where feasible.</td></tr>
+                        <tr><td>Allergic rhinitis</td><td>Investigator-initiated trial NCT06756243, target n=100</td><td>Track publication of results and endpoints.</td></tr>
+                        <tr><td>Metabolism</td><td>Glucose and lipid regulation signals from animal models and human anecdotes</td><td>Design controlled fasting-glucose, HbA1c, lipid-panel follow-up.</td></tr>
+                        <tr><td>Gout / uric acid</td><td>Inflammatory and metabolic pathway hypotheses</td><td>Separate uric-acid chemistry from symptom-relief observations.</td></tr>
+                        <tr><td>Skin / topical use</td><td>Hydration, soothing, and barrier-repair hypotheses</td><td>Use Corneometer, TEWL, and split-site controls.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `,
+    'tab-hypothesis': `
+        <h3 class="section-title">Core Scientific Hypotheses</h3>
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="setHypFilter('all', this)">All</button>
+            <button class="filter-btn" onclick="setHypFilter('high', this)">🔴 High Priority</button>
+            <button class="filter-btn" onclick="setHypFilter('medium', this)">🟠 Medium Priority</button>
+            <button class="filter-btn" onclick="setHypFilter('explore', this)">🟣 Exploratory</button>
+        </div>
+        <div class="card hypothesis open" data-priority="high"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><div class="card-title-group"><div class="card-title">H1 · PSWCs protons as exogenous bioenergy carriers</div><div class="card-subtitle">Test whether structural protons can influence mitochondrial proton motive force, ATP/ADP ratio, and redox balance.</div></div><span class="tag tag-danger">High</span><span class="chevron">▼</span></div><div class="card-body"><p>Priority experiments: ATP/ADP ratio, mitochondrial membrane potential, oxygen-consumption rate, lactate shift, and dose-response under blinded controls.</p></div></div>
+        <div class="card hypothesis open" data-priority="high"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><div class="card-title-group"><div class="card-title">H2 · Aβ clearance or regulation mechanism</div><div class="card-subtitle">Explain the observed Aβ1-42/Aβ1-40 ratio changes in tracked AD cases.</div></div><span class="tag tag-danger">High</span><span class="chevron">▼</span></div><div class="card-body"><p>Priority experiments: ThT aggregation assay, microglial uptake assay, plasma protease controls, and repeated longitudinal biomarker sampling.</p></div></div>
+        <div class="card hypothesis open" data-priority="high"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><div class="card-title-group"><div class="card-title">H3 · Selective recognition of metabolic substrates</div><div class="card-subtitle">Test why glucose changes the proton signal while NaCl and KCl are weak responders.</div></div><span class="tag tag-danger">High</span><span class="chevron">▼</span></div><div class="card-body"><p>Priority experiments: glucose, fructose, sucrose, amino acid, and salt titration curves with simultaneous pH electrode, conductivity, zeta potential, and mass spectrometry.</p></div></div>
+        <div class="card hypothesis open" data-priority="medium"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><div class="card-title-group"><div class="card-title">H4 · Oral versus intravenous route effects</div><div class="card-subtitle">Separate gastrointestinal, systemic, and direct-blood exposure mechanisms.</div></div><span class="tag tag-warning">Medium</span><span class="chevron">▼</span></div><div class="card-body"><p>Compare pharmacokinetic signatures, buffering stability, safety signals, and biomarkers under route-specific protocols.</p></div></div>
+        <div class="card hypothesis open" data-priority="medium"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><div class="card-title-group"><div class="card-title">H5 · PSWCs as a redox buffer</div><div class="card-subtitle">Reconcile the DPPH/ABTS antioxidant behavior with the low electrode pH.</div></div><span class="tag tag-warning">Medium</span><span class="chevron">▼</span></div><div class="card-body"><p>Use orthogonal radical assays, dissolved oxygen controls, isotope labeling, and metal-contamination exclusion.</p></div></div>
+        <div class="card hypothesis open" data-priority="medium"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><div class="card-title-group"><div class="card-title">H6 · Blood-brain barrier permeability</div><div class="card-subtitle">Test whether ~1 nm charged water clusters can cross or influence the BBB.</div></div><span class="tag tag-warning">Medium</span><span class="chevron">▼</span></div><div class="card-body"><p>Use labeled-water-cluster tracers, in-vitro BBB models, and animal biodistribution before making any CNS claims.</p></div></div>
+        <div class="card hypothesis open" data-priority="explore"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><div class="card-title-group"><div class="card-title">H7 · Ideal intervention window in p-tau217-normal AD-like cases</div><div class="card-subtitle">Explore whether biomarker stage affects response sensitivity.</div></div><span class="tag tag-purple">Explore</span><span class="chevron">▼</span></div><div class="card-body"><p>Prospective grouping by Aβ ratio, p-tau217, cognition, and disease stage is required.</p></div></div>
+        <div class="card hypothesis open" data-priority="explore"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><div class="card-title-group"><div class="card-title">H8 · Water-structure carrier for topical and mucosal delivery</div><div class="card-subtitle">Test whether PSWCs can act as an ultra-small aqueous nanocarrier.</div></div><span class="tag tag-purple">Explore</span><span class="chevron">▼</span></div><div class="card-body"><p>Use skin tape stripping, TOF-SIMS, corneometry, and TEWL to distinguish hydration from deeper penetration.</p></div></div>
+        <div class="card hypothesis open" data-priority="explore"><div class="card-header" onclick="this.parentElement.classList.toggle('open')"><div class="card-title-group"><div class="card-title">H9 · Industrial stability and batch reproducibility</div><div class="card-subtitle">Move from anecdotal potency to measurable, reproducible specifications.</div></div><span class="tag tag-purple">Explore</span><span class="chevron">▼</span></div><div class="card-body"><p>Define release criteria for pH electrode, pH strip, conductivity, zeta potential, mass peaks, storage stability, and contaminant testing.</p></div></div>
+    `,
+    'tab-knowledge': `
+        <h3 class="section-title">Foundational Knowledge Base</h3>
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:16px;">This English view summarizes the current K001-K016 knowledge map and the literature library used for study design.</p>
+        <div class="overview-grid">
+            <div class="info-box"><h3>K001 · Molecular Structure</h3><p>PSWCs are modeled as small protonated water clusters, (H₂O)nH⁺, with n = 2 to 5.</p></div>
+            <div class="info-box"><h3>K002 · Mass-Spectrometry Evidence</h3><p>Characteristic reported peaks are m/z 37, 55, 73, and 91, corresponding to the proposed n = 2 to 5 cluster series.</p></div>
+            <div class="info-box"><h3>K003 · pH Meter vs pH Strip</h3><p>Electrode pH and colorimetric pH are treated as different readouts: electrochemical activity versus dye-accessible acidity.</p></div>
+            <div class="info-box"><h3>K004 · Grotthuss Mechanism</h3><p>Classical proton hopping provides the null model; the reported long-lived charge is the anomaly that must be independently reproduced.</p></div>
+            <div class="info-box"><h3>K005 · Zeta Potential and DLVO</h3><p>High positive zeta potential is interpreted as a colloid-like electrokinetic signature, not ordinary pure-water behavior.</p></div>
+            <div class="info-box"><h3>K006 · QISF Hypothesis</h3><p>The quantum-confined ion superfluid framing is a hypothesis for why structural protons might persist in liquid water.</p></div>
+            <div class="info-box"><h3>K007 · Redox Paradox</h3><p>DPPH, ABTS, ORAC, and related assays are used to probe whether PSWCs behave as a redox buffer.</p></div>
+            <div class="info-box"><h3>K008 · Inflammation Pathways</h3><p>NF-κB, NLRP3, IL-6, IL-1β, TNF-α, and ROS are the main inflammatory endpoints in current notes.</p></div>
+            <div class="info-box"><h3>K009 · Mitochondrial Bioenergy</h3><p>Membrane potential, PGC-1α, ATP/ADP, and oxygen-consumption rate are priority endpoints.</p></div>
+            <div class="info-box"><h3>K010 · Blood-Brain Barrier</h3><p>The BBB note maps transport mechanisms and the evidence needed before claiming CNS delivery.</p></div>
+            <div class="info-box"><h3>K011 · Ichihara 2015 Review</h3><p>339 hydrogen-medicine papers are used as the historical base library.</p></div>
+            <div class="info-box"><h3>K012 · Europe PMC Library</h3><p>1,122 papers from 2016-2026 were collected for modern hydrogen-medicine landscape tracking.</p></div>
+            <div class="info-box"><h3>K013 · Disease-Area Classification</h3><p>The 1,122-paper library is grouped into 21 disease and mechanism areas for navigation.</p></div>
+            <div class="info-box"><h3>K014 · Ion / Molecular Medicine Map</h3><p>This map positions PSWCs across molecular, atomic, ionic, electronic, redox, and nano-medicine concepts.</p></div>
+            <div class="info-box"><h3>K015 · The Proton Engine of Life</h3><p>Protons are treated as central biological information and energy carriers, linking chemiosmosis, pKa shifts, and enzyme dynamics.</p></div>
+            <div class="info-box"><h3>K016 · Hydrated-Proton Intermediate State</h3><p>The newest note focuses on intermediate hydrated-proton configurations and their relevance to the 1750 cm⁻¹ assignment puzzle.</p></div>
+        </div>
+        <h3 class="section-title">Literature Library Snapshot</h3>
+        <table class="data-table">
+            <thead><tr><th>Area</th><th>Count</th><th>Use in This Project</th></tr></thead>
+            <tbody>
+                <tr><td>Nervous system</td><td>245</td><td>AD, cognition, neuroinflammation, pain, and neuroprotection benchmarking.</td></tr>
+                <tr><td>Physical chemistry / industry</td><td>166</td><td>Water clusters, hydrogen generation, electrochemistry, and analytical chemistry controls.</td></tr>
+                <tr><td>Respiratory system</td><td>137</td><td>Hydrogen inhalation, airway inflammation, and allergic-rhinitis study context.</td></tr>
+                <tr><td>Cardiovascular system</td><td>107</td><td>Oxidative stress, ischemia-reperfusion, vascular biology, and autonomic endpoints.</td></tr>
+                <tr><td>Metabolism</td><td>67</td><td>Glucose, lipid, mitochondrial, and obesity-related hypotheses.</td></tr>
+                <tr><td>Other categories</td><td>400+</td><td>Exercise, inflammation, oncology, liver, skin, kidney, reproduction, aging, and dialysis topics.</td></tr>
+            </tbody>
+        </table>
+    `,
+    'tab-todo': `
+        <h3 class="section-title">To-Do and Follow-Up Items</h3>
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:16px;">This English checklist mirrors the current research priorities. Completion state for the original Chinese checklist is stored locally in the browser.</p>
+        <div class="overview-grid">
+            <div class="info-box"><h3>Literature Reading</h3><ul><li>Zhu Y. Production, characteristics, and biological effects of PSWCs.</li><li>Zhu Y and Tang K. Origin of protons in electrospray ionization.</li><li>Marx et al. A fresh look at hydrated protons.</li><li>Agmon. The Grotthuss mechanism.</li></ul></div>
+            <div class="info-box"><h3>Clinical Follow-Up</h3><ul><li>Repeat Aβ1-42/Aβ1-40 ratios at 6 and 12 months for key AD cases.</li><li>Add MoCA or equivalent cognitive scales wherever possible.</li><li>Track the allergic-rhinitis IIT and exercise-endurance IIT until results are public.</li><li>Record adverse events and tolerability in a structured format.</li></ul></div>
+            <div class="info-box"><h3>Basic Science</h3><ul><li>Obtain raw LTQ-MS spectra for m/z 37, 55, 73, and 91.</li><li>Run zeta-potential curves across pH and storage time.</li><li>Compare pH electrode versus colorimetric strip under blinded controls.</li><li>Quantify glucose-response dose curves.</li></ul></div>
+            <div class="info-box"><h3>Hypothesis Tests</h3><ul><li>Aβ1-42 aggregation assay using ThT fluorescence.</li><li>ATP/ADP and mitochondrial membrane-potential assays.</li><li>BBB permeability tests using labeled samples.</li><li>5xFAD or APP/PS1 mouse cognition study design.</li></ul></div>
+        </div>
+    `,
+    'tab-qa': `
+        <h3 class="section-title">Research Q&A</h3>
+        <p style="font-size:13px;color:var(--text-light);margin-bottom:20px;">Click each question to expand. The English version condenses the project notebook into study-design ready explanations.</p>
+        <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><div class="qa-q-num">Q1</div><div class="qa-q-text">How should the pH-strip validation workflow be designed?</div><div class="qa-q-arrow">▶</div></div><div class="qa-answer"><div class="qa-a-inner"><p>Use at least three pH-strip types, run purified water and standard buffers as controls, record triplicates, photograph each strip, and quantify the gap between electrode pH and strip pH.</p></div></div></div>
+        <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><div class="qa-q-num">Q2</div><div class="qa-q-text">Which Mark A. Johnson papers matter for hydrated proton clusters?</div><div class="qa-q-arrow">▶</div></div><div class="qa-answer"><div class="qa-a-inner"><p>The key context is Johnson's work on protonated water clusters and vibrational fingerprints. The important distinction is that most reference experiments are gas-phase and cryogenic, while PSWCs claim room-temperature liquid stability.</p></div></div></div>
+        <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><div class="qa-q-num">Q3</div><div class="qa-q-text">What is the difference between spectroscopy and mass spectrometry?</div><div class="qa-q-arrow">▶</div></div><div class="qa-answer"><div class="qa-a-inner"><p>Mass spectrometry identifies ions by mass-to-charge ratio, while spectroscopy identifies molecular structure through light absorption or emission. PSWCs need both: mass peaks for identity and spectra for structure.</p></div></div></div>
+        <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><div class="qa-q-num">Q4</div><div class="qa-q-text">Who are the leading teams in charged water-cluster research?</div><div class="qa-q-arrow">▶</div></div><div class="qa-answer"><div class="qa-a-inner"><p>The notebook tracks Johnson at Yale, Asmis/Hasche in Leipzig, Saykally/Yang at Berkeley, McCoy at Washington, and Zhu Yixin's PSWCs work. The key gap is independent reproduction under room-temperature liquid conditions.</p></div></div></div>
+        <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><div class="qa-q-num">Q5</div><div class="qa-q-text">Which Hong Kong researchers are relevant for water-cluster validation?</div><div class="qa-q-arrow">▶</div></div><div class="qa-answer"><div class="qa-a-inner"><p>The strongest fit is physical chemistry, gas-phase spectroscopy, mass spectrometry, cluster science, and computational water modeling. HKUST and HKU chemistry groups are priority targets for independent review.</p></div></div></div>
+        <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><div class="qa-q-num">Q6</div><div class="qa-q-text">Why are computational chemistry and physics essential?</div><div class="qa-q-arrow">▶</div></div><div class="qa-answer"><div class="qa-a-inner"><p>DFT, ab-initio methods, and molecular dynamics can estimate cluster stability, proton residence time, energy barriers, and hydrogen-bond network behavior before expensive experiments are run.</p></div></div></div>
+        <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><div class="qa-q-num">Q7</div><div class="qa-q-text">How should the product matrix be framed scientifically?</div><div class="qa-q-arrow">▶</div></div><div class="qa-answer"><div class="qa-a-inner"><p>Frame each format by route of exposure, physical specification, safety profile, and testable endpoint. Avoid disease claims until controlled evidence exists.</p></div></div></div>
+        <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><div class="qa-q-num">Q8</div><div class="qa-q-text">What does DPPH measure?</div><div class="qa-q-arrow">▶</div></div><div class="qa-answer"><div class="qa-a-inner"><p>DPPH is a stable free-radical assay. A decrease in purple absorbance indicates radical-scavenging capacity, but it is an in-vitro chemical assay and cannot by itself prove biological antioxidant efficacy.</p></div></div></div>
+        <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><div class="qa-q-num">Q9</div><div class="qa-q-text">How should free-radical and redox claims be tested?</div><div class="qa-q-arrow">▶</div></div><div class="qa-answer"><div class="qa-a-inner"><p>Use multiple assays such as DPPH, ABTS, ORAC, cellular ROS, oxygen controls, and metal-contamination controls. A single assay is not enough.</p></div></div></div>
+        <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><div class="qa-q-num">Q10</div><div class="qa-q-text">What is the blood-brain barrier and can PSWCs cross it?</div><div class="qa-q-arrow">▶</div></div><div class="qa-answer"><div class="qa-a-inner"><p>The BBB is a tightly regulated endothelial barrier protecting the brain. Whether PSWCs cross it is unknown; labeled biodistribution and validated BBB models are required.</p></div></div></div>
+        <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><div class="qa-q-num">Q11</div><div class="qa-q-text">How are PSWCs related to nano-drug delivery?</div><div class="qa-q-arrow">▶</div></div><div class="qa-answer"><div class="qa-a-inner"><p>PSWCs are framed as a possible ultra-small water-based nanocarrier, but carrier behavior, circulation half-life, tissue distribution, and safety remain unproven.</p></div></div></div>
+        <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><div class="qa-q-num">Q12</div><div class="qa-q-text">How might PSWCs differ from ordinary hydrating masks or sprays?</div><div class="qa-q-arrow">▶</div></div><div class="qa-answer"><div class="qa-a-inner"><p>The working hypothesis is that small charged water clusters could add electrostatic adhesion, redox buffering, or deeper hydration. The correct tests are Corneometer, TEWL, split-site controls, and tape stripping.</p></div></div></div>
+    `
+};
+
+function cacheOriginalSections() {
+    if (originalSectionsCached) return;
+    SECTION_IDS.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) ORIGINAL_SECTION_HTML[id] = el.innerHTML;
+    });
+    originalSectionsCached = true;
+}
+
+function restoreOriginalSections() {
+    cacheOriginalSections();
+    Object.entries(ORIGINAL_SECTION_HTML).forEach(([id, html]) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+    });
+    currentExpFilter = 'all';
+    initTodoList();
+    initK013Search('zh');
+}
+
+function applyEnglishSections() {
+    cacheOriginalSections();
+    Object.entries(EN_SECTION_HTML).forEach(([id, html]) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+    });
+    currentExpFilter = 'all';
+}
+
+function updateChromeLanguage(lang) {
+    document.documentElement.lang = lang === 'en' ? 'en' : 'zh-HK';
+    document.title = lang === 'en'
+        ? 'Project 01 v11 — Shanshangshui PSWCs Research Tracker'
+        : '課題1號 v11 — 善上水質子水PSWCs研究跟蹤系統';
+    const zhButton = document.getElementById('lang-zh');
+    const enButton = document.getElementById('lang-en');
+    if (zhButton) zhButton.textContent = lang === 'en' ? 'ZH' : '中文';
+    if (enButton) enButton.textContent = 'EN';
+    document.querySelector('.team-info-toggle') && (document.querySelector('.team-info-toggle').textContent = lang === 'en' ? '👥 Team Info ▾' : '👥 團隊信息 ▾');
+    const teamInfo = document.querySelector('.team-info');
+    if (teamInfo) {
+        teamInfo.textContent = lang === 'en'
+            ? 'Research team: Zhu Yixin / Hangzhou Shanshangshui Technology Co., Ltd. · Invention patent: US 12,371,351 B2'
+            : '研究團隊：朱一心 / 杭州善上水科技有限公司 · 發明專利：US 12,371,351 B2';
+    }
+    document.querySelectorAll('.stat-label').forEach((el, i) => {
+        if (HEADER_LABELS[lang]?.[i]) el.textContent = HEADER_LABELS[lang][i];
+    });
+    const footer = document.querySelector('.footer');
+    if (footer) footer.innerHTML = FOOTER_HTML[lang];
+}
+
 function setLang(lang){
+    lang = lang === 'en' ? 'en' : 'zh';
     localStorage.setItem('pswc_lang',lang);
     document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
     document.getElementById('lang-'+lang)?.classList.add('active');
+    if(lang==='en') applyEnglishSections();
+    else restoreOriginalSections();
     document.querySelectorAll('[data-i18n]').forEach(el=>{
         const key=el.getAttribute('data-i18n');
         if(T[key]&&T[key][lang])el.innerHTML=T[key][lang];
@@ -5732,66 +6224,16 @@ function setLang(lang){
         const key=el.getAttribute('data-i18n-placeholder');
         if(T[key]&&T[key][lang])el.placeholder=T[key][lang];
     });
-    if(lang==='en'){
-        const boxes=document.querySelectorAll('.info-box');
-        BOX_EN.forEach((box,i)=>{
-            if(boxes[i]){
-                const h3=boxes[i].querySelector('h3');
-                if(h3&&!h3.hasAttribute('data-i18n'))h3.textContent=box.h;
-                const p=boxes[i].querySelector('p');
-                if(p)p.textContent=box.p||'';
-                const lis=boxes[i].querySelectorAll('li');
-                box.lis.forEach((t,j)=>{if(lis[j])lis[j].textContent=t;});
-            }
-        });
-        const phT=document.querySelector('#tab-phenomena .section-title');
-        if(phT)phT.innerHTML='10 Anomalous Phenomena — Disruptive Evidence Matrix';
-        document.querySelectorAll('.phenomenon-card h4').forEach((el,i)=>{if(PH_EN[i])el.textContent=PH_EN[i];});
-        document.querySelectorAll('.phenomenon-card p').forEach((el,i)=>{if(PD_EN[i])el.innerHTML=PD_EN[i];});
-        const expT=document.querySelector('#tab-experiments .section-title');
-        if(expT)expT.innerHTML='Animal Study Data (11 Independent Third-Party)';
-        const csT=document.querySelector('#tab-cases .section-title');
-        if(csT)csT.innerHTML='Human Clinical Observations (17 Cases)';
-        const hpT=document.querySelector('#tab-hypothesis .section-title');
-        if(hpT)hpT.innerHTML='Core Scientific Hypotheses';
-        const knT=document.querySelector('#tab-knowledge .section-title');
-        if(knT)knT.innerHTML='Foundational Knowledge';
-        const footer=document.querySelector('.footer');
-        if(footer)footer.innerHTML='Project 01 — PSWCs Research Tracking System · v06 · Updated May 31, 2026<br>🆕 Major Update: Luo Guoying (PSWC-AD-004) Longitudinal Monitoring · Aβ Ratio 0.094→0.148 Normalized · Hermes Agent';
-    }else{
-        const boxes=document.querySelectorAll('.info-box');
-        BOX_ZH.forEach((box,i)=>{
-            if(boxes[i]){
-                const h3=boxes[i].querySelector('h3');
-                if(h3&&!h3.hasAttribute('data-i18n'))h3.textContent=box.h;
-                const p=boxes[i].querySelector('p');
-                if(p)p.textContent=box.p||'';
-                const lis=boxes[i].querySelectorAll('li');
-                box.lis.forEach((t,j)=>{if(lis[j])lis[j].textContent=t;});
-            }
-        });
-        const phT=document.querySelector('#tab-phenomena .section-title');
-        if(phT)phT.innerHTML='十項異常實驗現象 — 顛覆性證據矩陣';
-        document.querySelectorAll('.phenomenon-card h4').forEach((el,i)=>{if(PH_ZH[i])el.textContent=PH_ZH[i];});
-        document.querySelectorAll('.phenomenon-card p').forEach((el,i)=>{if(PD_ZH[i])el.innerHTML=PD_ZH[i];});
-        const expT=document.querySelector('#tab-experiments .section-title');
-        if(expT)expT.innerHTML='動物實驗數據清單（11項獨立第三方）';
-        const csT=document.querySelector('#tab-cases .section-title');
-        if(csT)csT.innerHTML='人體臨牀觀察（19例）';
-        const hpT=document.querySelector('#tab-hypothesis .section-title');
-        if(hpT)hpT.innerHTML='核心科學假説';
-        const knT=document.querySelector('#tab-knowledge .section-title');
-        if(knT)knT.innerHTML='基礎知識積累';
-        const footer=document.querySelector('.footer');
-        if(footer)footer.innerHTML='課題1號 — 善上水質子化小分子團簇水（PSWCs）研究跟蹤系統 · v07 · 2026年6月1日更新<br>🆕 2026-06-01更新：K011 失眠與線粒體綜述歸檔 · PSWC-INS-001失眠病例建檔 · 應用方向A7新增失眠 · Hermes Agent';
-    }
+    updateChromeLanguage(lang);
 }
 document.addEventListener('DOMContentLoaded',()=>{
-    if(localStorage.getItem('pswc_lang')==='en')setLang('en');
+    cacheOriginalSections();
+    const requestedLang = new URLSearchParams(window.location.search).get('lang');
+    if(requestedLang==='en'||localStorage.getItem('pswc_lang')==='en')setLang('en');
 });
 
 // K013 搜索與篩選
-(function(){
+function initK013Search(lang='zh'){
     const search = document.getElementById('k013-search');
     const chips = document.querySelectorAll('.k013-filter');
     const counter = document.getElementById('k013-result-count');
@@ -5801,15 +6243,15 @@ document.addEventListener('DOMContentLoaded',()=>{
     if (!search) return;
 
     chips.forEach(chip => {
-        chip.addEventListener('click', () => {
+        chip.onclick = () => {
             const f = chip.dataset.filter;
             if (active.has(f)) { active.delete(f); chip.classList.remove('active'); }
             else { active.add(f); chip.classList.add('active'); }
             apply();
-        });
+        };
     });
 
-    search.addEventListener('input', apply);
+    search.oninput = apply;
 
     function apply() {
         const q = search.value.toLowerCase().trim();
@@ -5833,11 +6275,12 @@ document.addEventListener('DOMContentLoaded',()=>{
         });
         if (counter) {
             counter.textContent = (q || active.size > 0)
-                ? `顯示 ${visible.toLocaleString()} / ${total.toLocaleString()} 篇`
-                : `共 ${total.toLocaleString()} 篇`;
+                ? (lang === 'en' ? `Showing ${visible.toLocaleString()} / ${total.toLocaleString()} papers` : `顯示 ${visible.toLocaleString()} / ${total.toLocaleString()} 篇`)
+                : (lang === 'en' ? `${total.toLocaleString()} papers total` : `共 ${total.toLocaleString()} 篇`);
         }
     }
-})();
+}
+initK013Search('zh');
 </script>
 </body>
 </html>
